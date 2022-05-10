@@ -6,4 +6,15 @@ export const types = `
     email: String
     password: String
   }
+
+  input CreateUserInput {
+    firstName: String
+    lastName: String
+    email: String
+    password: String
+  }
+
+  type CreateUserOutput {
+    token: String
+  }
 `;

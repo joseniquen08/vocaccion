@@ -1,27 +1,26 @@
+import { passwordManager } from '../../src/auth/utils/passwordManager';
+import { tokenService } from '../../src/auth/utils/tokenManager';
+import { UserModel } from '../../src/user/entity/models/userModel';
+import { CreateUser, IUser } from '../../src/user/entity/types/userTypes';
+
 const queries = {
-  user: (root: any, args: any) => {
-    return {
-      id: "12345",
-      email: "some.user@email.com",
-      password: "Pa$$w0rd!",
-      // loggedIn: false,
-      firstName: "Some",
-      lastName: "User",
-    };
+  getAllUsers: async () => {
+    return await UserModel.find({});
   },
 };
 
 const mutations = {
-  createUser: (root: any, args: any) => {
-    const newUser = {
-      id: "54321",
-      email: args.email,
-      password: args.password,
-      // loggedIn: false,
-      firstName: args.firstName,
-      lastName: args.lastName,
-    };
-    return newUser;
+  createUser: async (_: any, { userRequest }: CreateUser) => {
+    userRequest.password = await passwordManager.encryptText(userRequest.password);
+    const user = new UserModel(userRequest);
+    const newUser: IUser = await user.save();
+    if (newUser) {
+      const { _id, email, firstName, lastName } = newUser;
+      return {
+        token: tokenService.createToken({ id: _id, email , firstName, lastName })
+      }
+    }
+    return null;
   },
 };
 

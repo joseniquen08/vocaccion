@@ -1,3 +1,3 @@
 export const queries = `
-  user(id: String!): User
+  getAllUsers(id: Int!): [User]
 `;
