@@ -1,7 +1,8 @@
+import { CreateUser } from '../../src/auth/entity/types/authTypes';
 import { passwordManager } from '../../src/auth/utils/passwordManager';
 import { tokenService } from '../../src/auth/utils/tokenManager';
 import { UserModel } from '../../src/user/entity/models/userModel';
-import { CreateUser, IUser } from '../../src/user/entity/types/userTypes';
+import { IUser } from '../../src/user/entity/types/userTypes';
 
 const queries = {
   getAllUsers: async () => {
