@@ -1,3 +1,4 @@
+import { getSession } from 'next-auth/react';
 import Head from 'next/head';
 import { SignIn } from "../../components/Auth/SignIn";
 
@@ -12,6 +13,23 @@ const Login = () => {
       <SignIn/>
     </>
   )
+}
+
+export const getServerSideProps = async (context) => {
+  const session = await getSession(context);
+
+  if (session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      }
+    }
+  }
+
+  return {
+    props: {}
+  }
 }
 
 export default Login;

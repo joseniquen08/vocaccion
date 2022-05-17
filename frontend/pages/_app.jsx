@@ -1,8 +1,11 @@
+import { ApolloProvider } from '@apollo/client';
 import { ChakraProvider } from '@chakra-ui/react';
+import { SessionProvider } from 'next-auth/react';
 import Head from 'next/head';
+import client from '../apollo-client';
 import { theme } from '../styles/theme.chakra';
 
-function App({ Component, pageProps }) {
+function App({ Component, pageProps: { session, ...pageProps } }) {
   return (
     <>
       <Head>
@@ -10,9 +13,13 @@ function App({ Component, pageProps }) {
         <meta name="description" content="Vocacción web." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <ChakraProvider theme={theme}>
-        <Component {...pageProps} />
-      </ChakraProvider>
+      <SessionProvider session={session}>
+        <ApolloProvider client={client}>
+          <ChakraProvider theme={theme}>
+            <Component {...pageProps} />
+          </ChakraProvider>
+        </ApolloProvider>
+      </SessionProvider>
     </>
   );
 };

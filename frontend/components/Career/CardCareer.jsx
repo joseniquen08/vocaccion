@@ -22,7 +22,7 @@ export const CardCareer = ({ career }) => {
           <Text w='full' fontWeight={500} fontSize='sm' color='gray.500'>{career && career.duracion}</Text>
           <Badge variant='subtle' cursor='default' fontSize='0.8rem' paddingX={2} paddingY={0.5} colorScheme='cyan' borderRadius='md'>{career && career.act}</Badge>
         </Flex>
-        <Text w='full' fontWeight={600} fontSize='xl' textAlign='left' color='gray.700'>
+        <Text w='full' noOfLines={2} fontWeight={600} fontSize='xl' textAlign='left' color='gray.700'>
           <NextLink href="/" passHref>
             <LinkOverlay>{career && career.nombre}</LinkOverlay>
           </NextLink>

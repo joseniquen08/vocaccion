@@ -1,12 +1,14 @@
 import { SearchIcon } from "@chakra-ui/icons";
 import { Input, InputGroup, InputLeftElement, SimpleGrid, Text } from "@chakra-ui/react";
 import { useMemo, useState } from "react";
+import useSWR from 'swr';
+import fetcher from "../../lib/fetcher";
 import { CardUniversity } from "./CardUniversity";
 import { UniversitySkeleton } from "./UniversitySkeleton";
 
 export const ListUniversities = ({ name }) => {
 
-  name = name.split('').filter((letter, i) => i !== typeUniversity.length - 1).join('');
+  name = name.split('').filter((letter, i) => i !== name.length - 1).join('');
 
   const { data } = useSWR(`/api/universities/${name}`, fetcher);
 

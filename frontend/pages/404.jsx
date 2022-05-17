@@ -63,7 +63,7 @@ const Error404 = () => {
             </Box>
           </Box>
           <Box width={{ base: 'full', md: '40%' }} display='flex' alignItems='center' justifyContent='center'>
-            <Image width='auto' height='96' src="/images/404.png" priority alt="Error" layout="fill"/>
+            <Image width='auto' height='96' src="/images/404.png" priority="true" alt="Error" layout="fill"/>
           </Box>
         </Stack>
       </Stack>

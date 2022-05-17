@@ -2,7 +2,6 @@ import { ApolloServer } from 'apollo-server-express';
 import dotenv from 'dotenv';
 import express, { Application, NextFunction, Request, Response } from 'express';
 import { resolvers, typeDefs } from '../graphql';
-import { tokenService } from './auth/utils/tokenManager';
 
 dotenv.config();
 
@@ -12,14 +11,15 @@ export async function start () {
   const apolloServer = new ApolloServer({
     typeDefs,
     resolvers,
+    csrfPrevention: true,
     introspection: true,
-    context: ({ req }: { req: Request }) => {
-      const token = req.headers.authorization || '';
-      // console.log(token);
-      const validate = tokenService.validateToken(token);
-      if (!validate) return false;
-      return true;
-    }
+    // context: ({ req }: { req: Request }) => {
+    //   const token = req.headers.authorization || '';
+    //   // console.log(token);
+    //   const validate = tokenService.validateToken(token);
+    //   if (!validate) return false;
+    //   return true;
+    // }
   });
 
   await apolloServer.start();

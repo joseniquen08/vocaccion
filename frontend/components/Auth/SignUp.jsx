@@ -1,9 +1,10 @@
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { Box, Button, Divider, Flex, FormControl, FormLabel, Heading, HStack, Input, InputGroup, InputLeftElement, InputRightAddon, Link, Text, VStack } from "@chakra-ui/react";
 import { motion } from "framer-motion";
+import { signIn } from "next-auth/react";
 import NextLink from "next/link";
 import { useRef, useState } from "react";
-import { FcGoogle } from 'react-icons/fc';
+import { FaGithub, FaGoogle } from 'react-icons/fa';
 import { HiOutlineIdentification, HiOutlineLockClosed, HiOutlineMail } from "react-icons/hi";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 import Logo from "../Navbar/Logo";
@@ -77,14 +78,27 @@ export const SignUp = () => {
               <VStack width='full'>
                 <Button
                   type='button'
-                  leftIcon={<FcGoogle />}
+                  onClick={() => signIn('google')}
+                  leftIcon={<FaGoogle size={16}/>}
                   variant='outline'
                   fontWeight={400}
                   color='gray.500'
                   colorScheme='gray'
                   width='full'
                 >
-                  Continúa con Google
+                  Continua con Google
+                </Button>
+                <Button
+                  type='button'
+                  onClick={() => signIn('github')}
+                  leftIcon={<FaGithub size={17}/>}
+                  variant='outline'
+                  fontWeight={400}
+                  color='gray.500'
+                  colorScheme='gray'
+                  width='full'
+                >
+                  Continúa con Github
                 </Button>
               </VStack>
               <HStack width='full' alignItems='center' justifyContent='center'>

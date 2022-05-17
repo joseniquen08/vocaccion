@@ -1,8 +1,9 @@
+import { getSession } from "next-auth/react";
 import Head from "next/head";
-import { ListCareersContainer } from "../../components/Career/ListCareersContainer";
 import { Navbar } from '../../components/Navbar';
+import { ListUniversityContainer } from "../../components/University/ListUniversityContainer";
 
-const University = ({ name }) => {
+const University = ({ name, isLogged, user }) => {
   return (
     <>
       <Head>
@@ -10,15 +11,21 @@ const University = ({ name }) => {
         <meta name="description" content="Universidades." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Navbar/>
-      <ListCareersContainer name={name}/>
+      <Navbar isLogged={isLogged} user={user}/>
+      <ListUniversityContainer name={name}/>
     </>
   )
 }
 
-export const getServerSideProps = async ({ params }) => {
+export const getServerSideProps = async (context) => {
 
-  const { university } = params;
+  let user = null;
+  const session = await getSession(context);
+  console.log(session);
+  if (session) {
+    user = session.user;
+  }
+  const { university } = context.params;
 
   let name = university.split('-').map(word => word.split('').map((letter, i) => i === 0 ? letter.toUpperCase() : letter).join('')).join(' ');
 
@@ -26,7 +33,9 @@ export const getServerSideProps = async ({ params }) => {
 
   return {
     props: {
-      name
+      name,
+      isLogged: session ? true : false,
+      user
     }
   }
 }

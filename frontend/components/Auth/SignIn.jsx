@@ -1,16 +1,32 @@
+import { gql, useMutation } from "@apollo/client";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { Box, Button, Divider, Flex, FormControl, FormLabel, Heading, HStack, Input, InputGroup, InputLeftElement, InputRightAddon, Link, Text, VStack } from "@chakra-ui/react";
 import { motion } from "framer-motion";
+import { signIn } from 'next-auth/react';
 import NextLink from "next/link";
-import { useRef, useState } from "react";
-import { FcGoogle } from 'react-icons/fc';
+import Router from 'next/router';
+import { useEffect, useRef, useState } from "react";
+import { FaGithub, FaGoogle } from 'react-icons/fa';
 import { HiOutlineLockClosed, HiOutlineMail } from 'react-icons/hi';
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md';
+import Cookies from 'universal-cookie';
 import Logo from "../Navbar/Logo";
 
 const MotionButton = motion(Button);
 
+const SIGN_IN_MUTATION = gql`
+  mutation SignIn($loginRequest: LoginInput) {
+    login(loginRequest: $loginRequest) {
+      token
+    }
+  }
+`;
+
 export const SignIn = () => {
+
+  const cookies = new Cookies();
+
+  const [loginUser, { data, loading }] = useMutation(SIGN_IN_MUTATION);
 
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -22,9 +38,24 @@ export const SignIn = () => {
 
   const login = (e) => {
     e.preventDefault();
-    console.log(emailRef.current.value);
-    console.log(passwordRef.current.value);
+    if (emailRef.current.value && passwordRef.current.value) {
+      loginUser({
+        variables: {
+          loginRequest: {
+            email: emailRef.current.value,
+            password: passwordRef.current.value
+          }
+        }
+      });
+    }
   }
+
+  useEffect(() => {
+    if (data) {
+      cookies.set("token", data.login.token, { path: '/' });
+      Router.push("/");
+    }
+  }, [data]);
 
   return (
     <Flex
@@ -73,7 +104,8 @@ export const SignIn = () => {
               <VStack width='full'>
                 <Button
                   type='button'
-                  leftIcon={<FcGoogle />}
+                  onClick={() => signIn('google')}
+                  leftIcon={<FaGoogle size={16}/>}
                   variant='outline'
                   fontWeight={400}
                   color='gray.500'
@@ -81,6 +113,18 @@ export const SignIn = () => {
                   width='full'
                 >
                   Ingresa con Google
+                </Button>
+                <Button
+                  type='button'
+                  onClick={() => signIn('github')}
+                  leftIcon={<FaGithub size={17}/>}
+                  variant='outline'
+                  fontWeight={400}
+                  color='gray.500'
+                  colorScheme='gray'
+                  width='full'
+                >
+                  Ingresa con Github
                 </Button>
               </VStack>
               <HStack width='full' alignItems='center' justifyContent='center'>

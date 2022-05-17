@@ -10,7 +10,7 @@ import { CareerSkeleton } from "./CareerSkeleton";
 
 export const ListCareers = ({ name }) => {
 
-  const { data } = useSWR(`/api/universities/${name}`, fetcher);
+  const { data } = useSWR(`/api/careers/${name}`, fetcher);
 
   const [search, setSearch] = useState('');
   const { isOpen, onOpen, onClose } = useDisclosure();

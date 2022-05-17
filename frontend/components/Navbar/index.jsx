@@ -4,8 +4,9 @@ import Logo from "./Logo";
 import { MenuMdButton } from "./MenuMdButton";
 import { SignButton } from "./SignButton";
 import { UniversityButton } from "./UniversityButton";
+import { UserButton } from "./UserButton";
 
-export const Navbar = () => {
+export const Navbar = ({ isLogged, user }) => {
   return (
     <>
       <chakra.nav
@@ -38,7 +39,13 @@ export const Navbar = () => {
                   <Button variant="ghost" colorScheme='gray' color='gray.700' fontWeight="500">Ayuda</Button>
                 </HStack>
               </HStack>
-              <SignButton/>
+              {
+                isLogged ? (
+                  <UserButton name={user.name} image={user.image}/>
+                ) : (
+                  <SignButton/>
+                )
+              }
               <MenuMdButton/>
             </HStack>
           </Flex>
