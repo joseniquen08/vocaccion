@@ -6,7 +6,7 @@ import { signIn } from 'next-auth/react';
 import NextLink from "next/link";
 import Router from 'next/router';
 import { useEffect, useRef, useState } from "react";
-import { FaGithub, FaGoogle } from 'react-icons/fa';
+import { FaFacebook, FaGoogle } from 'react-icons/fa';
 import { HiOutlineLockClosed, HiOutlineMail } from 'react-icons/hi';
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md';
 import Cookies from 'universal-cookie';
@@ -50,12 +50,14 @@ export const SignIn = () => {
     }
   }
 
+  // TODO: arreglar errores customizados en el formulario
+
   useEffect(() => {
-    if (data) {
+    if (!loading && data) {
       cookies.set("token", data.login.token, { path: '/' });
       Router.push("/");
     }
-  }, [data]);
+  }, [data, loading]);
 
   return (
     <Flex
@@ -116,15 +118,15 @@ export const SignIn = () => {
                 </Button>
                 <Button
                   type='button'
-                  onClick={() => signIn('github')}
-                  leftIcon={<FaGithub size={17}/>}
+                  onClick={() => signIn('facebook')}
+                  leftIcon={<FaFacebook size={18}/>}
                   variant='outline'
                   fontWeight={400}
                   color='gray.500'
                   colorScheme='gray'
                   width='full'
                 >
-                  Ingresa con Github
+                  Ingresa con Facebook
                 </Button>
               </VStack>
               <HStack width='full' alignItems='center' justifyContent='center'>
@@ -197,6 +199,7 @@ export const SignIn = () => {
               </VStack>
               <VStack width='full' paddingY='0.5rem' spacing='0.6rem'>
                 <MotionButton
+                  isLoading={loading}
                   type='submit'
                   variant='solid'
                   bg='cyan.500'

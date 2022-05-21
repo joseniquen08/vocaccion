@@ -2,11 +2,7 @@ import { Schema } from 'mongoose';
 import { IUser } from '../types/userTypes';
 
 export const UserSchema = new Schema<IUser>({
-  firstName: {
-    type: String,
-    required: true,
-  },
-  lastName: {
+  name: {
     type: String,
     required: true,
   },
@@ -18,11 +14,17 @@ export const UserSchema = new Schema<IUser>({
   password: {
     type: String,
     required: true,
-    length: [8, 16],
+  },
+  role: {
+    type: String,
+    required: true,
+    default: 'user',
+    enum: ['user', 'admin', 'super'],
+  },
+  image: {
+    type: String,
+    default: '',
   },
 }, {
-  timestamps: {
-    createdAt: 'created_at',
-    updatedAt: 'updated_at',
-  },
+  timestamps: true,
 });

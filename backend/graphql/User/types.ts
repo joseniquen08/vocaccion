@@ -1,9 +1,10 @@
 export const types = `
   type User {
     id: ID
-    firstName: String
-    lastName: String
+    name: String
     email: String
     password: String
+    role: String
+    image: String
   }
 `;

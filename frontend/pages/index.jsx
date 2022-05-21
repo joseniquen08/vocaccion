@@ -29,8 +29,8 @@ export const getServerSideProps = async (context) => {
     isLogged = true;
     const decryptedToken = decodeToken(context.req.cookies.token);
     user = {
-      name: `${decryptedToken.firstName} ${decryptedToken.lastName}`,
-      image: ''
+      name: `${decryptedToken.name}`,
+      image: `${decryptedToken.image}`,
     };
   }
 

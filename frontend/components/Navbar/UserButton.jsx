@@ -1,12 +1,27 @@
 import { Button, HStack, Link, Menu, MenuButton, MenuItem, MenuList, Text, VStack } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import NextLink from 'next/link';
+import Router from 'next/router';
+import Cookies from 'universal-cookie';
 
 const MotionMenuButton = motion(MenuButton);
 
 export const UserButton = ({ name, image }) => {
+
+  const cookies = new Cookies();
+  const { data: session } = useSession();
+
+  const logout = () => {
+    if (session) {
+      signOut();
+    } else {
+      cookies.remove('token', { path: '/' });
+      Router.reload();
+    }
+  }
+
   return (
     <Menu>
       <MotionMenuButton
@@ -51,8 +66,8 @@ export const UserButton = ({ name, image }) => {
           _focus={{ backgroundColor: 'transparent' }}
         >
           <Button
-            onClick={() => signOut()}
-            w="full"
+            onClick={() => logout()}
+            w='full'
             textColor='white'
             colorScheme='cyan'
           >

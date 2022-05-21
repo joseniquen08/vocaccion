@@ -1,23 +1,30 @@
+import { MongoDBAdapter } from '@next-auth/mongodb-adapter';
 import NextAuth from 'next-auth';
-import DiscordProvider from 'next-auth/providers/discord';
-import GitHubProvider from 'next-auth/providers/github';
+import FacebookProvider from 'next-auth/providers/facebook';
 import GoogleProvider from 'next-auth/providers/google';
+import clientPromise from '../../../lib/mongodb';
 
 export default NextAuth({
+  adapter: MongoDBAdapter(clientPromise),
+  session: {
+    jwt: true,
+  },
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
-    GitHubProvider({
-      clientId: process.env.GITHUB_CLIENT_ID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    }),
-    DiscordProvider({
-      clientId: process.env.DISCORD_CLIENT_ID,
-      clientSecret: process.env.DISCORD_CLIENT_SECRET,
+    FacebookProvider({
+      clientId: process.env.FACEBOOK_CLIENT_ID,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
     }),
   ],
+  callbacks: {
+    async session ({ session, token, user }) {
+      session.user.role = user.role;
+      return session;
+    }
+  },
   theme: {
     colorScheme: 'light',
   },

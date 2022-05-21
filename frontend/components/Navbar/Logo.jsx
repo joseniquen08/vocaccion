@@ -1,7 +1,7 @@
 import { Flex, Heading } from '@chakra-ui/react';
 import Link from 'next/link';
 
-const Logo = ({ size }) => {
+const Logo = () => {
     return (
       <Flex
         justifyContent="start"
@@ -11,7 +11,7 @@ const Logo = ({ size }) => {
           <a>
             <Heading
               as='h2'
-              fontSize={{ base: size ? size : '2rem' }}
+              fontSize={{ base: '2rem' }}
               fontWeight={700}
               color='cyan.500'
             >

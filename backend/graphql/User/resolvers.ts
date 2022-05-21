@@ -6,8 +6,6 @@ const queries = {
   },
 };
 
-const mutations = {
-  
-};
+const mutations = {};
 
 export const resolvers = { queries, mutations };

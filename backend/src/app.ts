@@ -13,13 +13,9 @@ export async function start () {
     resolvers,
     csrfPrevention: true,
     introspection: true,
-    // context: ({ req }: { req: Request }) => {
-    //   const token = req.headers.authorization || '';
-    //   // console.log(token);
-    //   const validate = tokenService.validateToken(token);
-    //   if (!validate) return false;
-    //   return true;
-    // }
+    context: ({ req }: { req: Request }) => {
+      // console.log(req);
+    }
   });
 
   await apolloServer.start();

@@ -18,7 +18,7 @@ const Login = () => {
 export const getServerSideProps = async (context) => {
   const session = await getSession(context);
 
-  if (session) {
+  if (session || context.req.cookies.token) {
     return {
       redirect: {
         destination: '/',

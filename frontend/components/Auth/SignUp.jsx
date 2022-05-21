@@ -1,22 +1,40 @@
+import { gql, useMutation } from "@apollo/client";
 import { ArrowBackIcon } from "@chakra-ui/icons";
-import { Box, Button, Divider, Flex, FormControl, FormLabel, Heading, HStack, Input, InputGroup, InputLeftElement, InputRightAddon, Link, Text, VStack } from "@chakra-ui/react";
+import { Box, Button, Divider, Flex, FormControl, FormErrorMessage, FormLabel, Heading, HStack, Input, InputGroup, InputLeftElement, InputRightAddon, Link, Text, VStack } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { signIn } from "next-auth/react";
 import NextLink from "next/link";
-import { useRef, useState } from "react";
-import { FaGithub, FaGoogle } from 'react-icons/fa';
+import Router from "next/router";
+import { useEffect, useRef, useState } from "react";
+import { FaFacebook, FaGoogle } from 'react-icons/fa';
 import { HiOutlineIdentification, HiOutlineLockClosed, HiOutlineMail } from "react-icons/hi";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
+import Cookies from "universal-cookie";
 import Logo from "../Navbar/Logo";
 
 const MotionButton = motion(Button);
 
+const SIGN_UP_MUTATION = gql`
+  mutation SignUp($userRequest: CreateUserInput) {
+    createUser(userRequest: $userRequest) {
+      token
+    }
+  }
+`;
+
 export const SignUp = () => {
 
+  const cookies = new Cookies();
+
+  const [createUser, { data, loading, error }] = useMutation(SIGN_UP_MUTATION);
+
+  const nameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
+  const passwordConfirmRef = useRef();
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
+  const [lengthPasswordError, setLengthPasswordError] = useState(false);
 
   const handleShowPassword = () => {
     setShowPassword(showPassword => !showPassword);
@@ -26,11 +44,36 @@ export const SignUp = () => {
     setShowPasswordConfirmation(showPasswordConfirmation => !showPasswordConfirmation);
   }
 
-  const login = (e) => {
+  const register = (e) => {
     e.preventDefault();
-    console.log(emailRef.current.value);
-    console.log(passwordRef.current.value);
+    if (nameRef.current.value && emailRef.current.value && passwordRef.current.value) {
+      if (passwordRef.current.value === passwordConfirmRef.current.value) {
+        createUser({
+          variables: {
+            userRequest: {
+              name: nameRef.current.value,
+              email: emailRef.current.value,
+              password: passwordRef.current.value,
+            }
+          }
+        });
+      }
+    }
   }
+
+  // TODO: arreglar errores customizados en el formulario
+
+  useEffect(() => {
+    if (!loading && data) {
+      cookies.set("token", data.createUser.token, { path: '/' });
+      Router.push("/");
+    }
+    if (error) {
+      if (error.message === 'length') {
+        setLengthPasswordError(true);
+      }
+    }
+  }, [data, loading, error]);
 
   return (
     <Flex
@@ -73,7 +116,7 @@ export const SignUp = () => {
               width='full'
               marginTop='2rem'
               spacing='0.4rem'
-              onSubmit={login}
+              onSubmit={register}
             >
               <VStack width='full'>
                 <Button
@@ -90,15 +133,15 @@ export const SignUp = () => {
                 </Button>
                 <Button
                   type='button'
-                  onClick={() => signIn('github')}
-                  leftIcon={<FaGithub size={17}/>}
+                  onClick={() => signIn('facebook')}
+                  leftIcon={<FaFacebook size={18}/>}
                   variant='outline'
                   fontWeight={400}
                   color='gray.500'
                   colorScheme='gray'
                   width='full'
                 >
-                  Continúa con Github
+                  Continúa con Facebook
                 </Button>
               </VStack>
               <HStack width='full' alignItems='center' justifyContent='center'>
@@ -111,7 +154,7 @@ export const SignUp = () => {
                 spacing='0.5rem'
               >
                 <FormControl isRequired>
-                  <FormLabel color='gray.600' fontSize='0.875rem' htmlFor='first_name'>Nombres</FormLabel>
+                  <FormLabel color='gray.600' fontSize='0.875rem' htmlFor='first_name'>Nombres Completos</FormLabel>
                   <InputGroup>
                     <InputLeftElement
                       pointerEvents='none'
@@ -120,6 +163,7 @@ export const SignUp = () => {
                       children={<HiOutlineIdentification size={18}/>}
                     />
                     <Input
+                      ref={nameRef}
                       name="first_name"
                       id="first_name"
                       type='text'
@@ -134,28 +178,6 @@ export const SignUp = () => {
                   </InputGroup>
                 </FormControl>
                 <FormControl isRequired>
-                  <FormLabel color='gray.600' fontSize='0.875rem' htmlFor='last_name'>Apellidos</FormLabel>
-                  <InputGroup>
-                    <InputLeftElement
-                      pointerEvents='none'
-                      paddingLeft='0.3rem'
-                      color='gray.600'
-                      children={<HiOutlineIdentification size={18}/>}
-                    />
-                    <Input
-                      name="last_name"
-                      id="last_name"
-                      type='text'
-                      fontSize='0.95rem'
-                      fontWeight='500'
-                      color='gray.600'
-                      _focus={{
-                        boxShadow: 'none',
-                      }}
-                    />
-                  </InputGroup>
-                </FormControl>
-                <FormControl isRequired>
                   <FormLabel color='gray.600' fontSize='0.875rem' htmlFor='email'>Correo Electrónico</FormLabel>
                   <InputGroup>
                     <InputLeftElement
@@ -165,6 +187,7 @@ export const SignUp = () => {
                       children={<HiOutlineMail size={18}/>}
                     />
                     <Input
+                      ref={emailRef}
                       name="email"
                       id="email"
                       type='email'
@@ -177,7 +200,7 @@ export const SignUp = () => {
                     />
                   </InputGroup>
                 </FormControl>
-                <FormControl isRequired>
+                <FormControl isRequired isInvalid={lengthPasswordError}>
                   <FormLabel color='gray.600' fontSize='0.875rem' htmlFor='password'>Contraseña</FormLabel>
                   <InputGroup>
                     <InputLeftElement
@@ -187,6 +210,7 @@ export const SignUp = () => {
                       children={<HiOutlineLockClosed size={18}/>}
                     />
                     <Input
+                      ref={passwordRef}
                       name="password"
                       id="password"
                       type={showPassword ? 'text' : 'password'}
@@ -210,6 +234,11 @@ export const SignUp = () => {
                       </Button>
                     </InputRightAddon>
                   </InputGroup>
+                  {
+                    lengthPasswordError && (
+                      <FormErrorMessage>Ingresa por lo menos 8 caracteres.</FormErrorMessage>
+                    )
+                  }
                 </FormControl>
                 <FormControl isRequired>
                   <FormLabel color='gray.600' fontSize='0.875rem' htmlFor='password_confirmation'>Confirmar contraseña</FormLabel>
@@ -221,6 +250,7 @@ export const SignUp = () => {
                       children={<HiOutlineLockClosed size={18}/>}
                     />
                     <Input
+                      ref={passwordConfirmRef}
                       name="password_confirmation"
                       id="password_confirmation"
                       type={showPasswordConfirmation ? 'text' : 'password'}

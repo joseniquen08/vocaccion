@@ -5,10 +5,10 @@ export const types = `
   }
 
   input CreateUserInput {
-    firstName: String
-    lastName: String
-    email: String
-    password: String
+    name: String!
+    email: String!
+    password: String!
+    role: String
   }
 
   type LoginOutput {
