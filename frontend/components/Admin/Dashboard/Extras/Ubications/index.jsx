@@ -72,7 +72,7 @@ export const Ubications = () => {
                 dataRegions.getAllRegions.map(({ idReference, name }) => (
                   <Button
                     key={idReference}
-                    bg={idReferenceRegion === idReference ? 'blackAlpha.700' : 'blackAlpha.400'}
+                    bg={idReferenceRegion === idReference ? 'blackAlpha.800' : 'blackAlpha.400'}
                     color={idReferenceRegion === idReference ? 'white' : 'gray.400'}
                     width='full'
                     onClick={() => {

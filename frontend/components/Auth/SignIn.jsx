@@ -1,10 +1,10 @@
 import { gql, useMutation } from "@apollo/client";
 import { ArrowBackIcon } from "@chakra-ui/icons";
-import { Box, Button, Divider, Flex, FormControl, FormLabel, Heading, HStack, Input, InputGroup, InputLeftElement, InputRightAddon, Link, Text, VStack } from "@chakra-ui/react";
+import { Badge, Box, Button, Divider, Flex, FormControl, FormLabel, Heading, HStack, Input, InputGroup, InputLeftElement, InputRightAddon, Link, Text, VStack } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { signIn } from 'next-auth/react';
 import NextLink from "next/link";
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from "react";
 import { FaFacebook, FaGoogle } from 'react-icons/fa';
 import { HiOutlineLockClosed, HiOutlineMail } from 'react-icons/hi';
@@ -32,6 +32,8 @@ export const SignIn = () => {
   const passwordRef = useRef();
   const [showPassword, setShowPassword] = useState(false);
 
+  const router = useRouter();
+
   const handleShowPassword = () => {
     setShowPassword(showPassword => !showPassword);
   }
@@ -55,7 +57,7 @@ export const SignIn = () => {
   useEffect(() => {
     if (!loading && data) {
       cookies.set("token", data.login.token, { path: '/' });
-      Router.push("/");
+      router.push("/");
     }
   }, [data, loading]);
 
@@ -242,6 +244,7 @@ export const SignIn = () => {
         </Box>
       </Flex>
       <Flex
+        position='relative'
         display={{ base: 'none', md: 'flex' }}
         width='50%'
         paddingX={{ base: '1rem', sm: '1.5rem', lg: '2rem' }}
@@ -263,6 +266,11 @@ export const SignIn = () => {
             color='white'
             cursor='default'
           >Ready to build your next app?</Heading>
+        </Box>
+        <Box position='absolute' bottom={5} right={6}>
+          <Button onClick={() => router.push('/admin/login')} variant='solid' colorScheme='blackAlpha'>
+            Ingresar como <Badge marginLeft={1.5} fontSize='0.8rem' paddingY={0.5} paddingX={1.5}>Admin</Badge>
+          </Button>
         </Box>
       </Flex>
     </Flex>

@@ -6,7 +6,7 @@ const queries = {
   getAllUniversities: async () => {
     const universities: IUniversity[] = await UniversityModel.find({});
     const universitiesResponse = await Promise.all(universities.map(async (university) => {
-      const { name, idReferencesRegion, idReferencesProvince, type, license, campuses, image } = university;
+      const { _id, name, idReferencesRegion, idReferencesProvince, type, license, campuses, image } = university;
       const regions = await Promise.all(idReferencesRegion.map(async (idReferenceRegion) => {
         return await RegionModel.findOne({ idReference: idReferenceRegion });
       }));
@@ -14,6 +14,7 @@ const queries = {
         return await ProvinceModel.findOne({ idReference: idReferenceProvince });
       }));
       return {
+        _id,
         name,
         regions,
         provinces,

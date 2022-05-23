@@ -6,6 +6,13 @@ export const UserSchema = new Schema<IUser>({
     type: String,
     required: true,
   },
+  username: {
+    type: String,
+    required: true,
+  },
+  edad: {
+    type: Number,
+  },
   email: {
     type: String,
     required: true,
@@ -17,13 +24,20 @@ export const UserSchema = new Schema<IUser>({
   },
   role: {
     type: String,
-    required: true,
     default: 'user',
     enum: ['user', 'admin', 'super'],
   },
   image: {
     type: String,
     default: '',
+  },
+  provider: {
+    type: Boolean,
+    default: false,
+  },
+  emailVerified: {
+    type: Boolean,
+    default: false,
   },
 }, {
   timestamps: true,

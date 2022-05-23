@@ -1,33 +1,27 @@
-import { Badge, Box, Button, ChakraProvider, DarkMode, Flex, FormControl, FormLabel, Heading, HStack, Image, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Select, Table, TableCaption, Tbody, Td, Text, Th, Thead, Tr, useDisclosure, VStack } from "@chakra-ui/react";
-import { useMemo, useRef, useState } from "react";
+import { gql, useQuery } from "@apollo/client";
+import { Badge, Box, Button, Flex, Heading, HStack, Image, Table, TableCaption, Tbody, Td, Text, Th, Thead, Tr, useDisclosure, VStack } from "@chakra-ui/react";
+import { useEffect, useMemo, useState } from "react";
 import { FaPlusCircle } from 'react-icons/fa';
-import { modalAddTheme } from "../../../../styles/theme.chakra";
-import { regiones } from "../../../../utils/data";
+import { ModalCareers } from "./ModalCareers";
+
+const GET_UNIVERSITIES = gql`
+  query GetAllUniversities {
+    getAllUniversities {
+      _id
+      name
+    }
+  }
+`;
 
 export const Careers = () => {
 
   const [carrers, setCarrers] = useState([]);
+  const [universities, setUniversities] = useState([]);
   const [search, setSearch] = useState('');
-  const [inputNumber, setInputNumber] = useState(6);
-  const [typeDurationCareer, setTypeDurationCareer] = useState('semestres');
 
-  const nameCareerRef = useRef();
-  const facultyCareerRef = useRef();
-  const durationCareerRef = useRef();
+  const { loading: loadingUniversities, data: dataUniversities, refetch: refetchUniversities } = useQuery(GET_UNIVERSITIES);
 
   const { isOpen: isOpenAddCareer, onOpen: onOpenAddCareer, onClose: onCloseAddCareer } = useDisclosure();
-
-  // useEffect(() => {
-  //   const getCarrers = async() => {
-  //     const { docs } = await getDocs(query(collection(db, 'totalCarreras')));
-  //     const data = docs.map( carrera => ({id: carrera.id, ...carrera.data()}));
-  //     setCarrers(data);
-  //     console.log(data);
-  //   }
-  //   getCarrers();
-  // }, []);
-
-  const format = (value) => `${value} ${typeDurationCareer}`;
 
   const handleSearch = (event) => {
     setSearch(event.target.value)
@@ -38,6 +32,12 @@ export const Careers = () => {
   const filteredCarrers = useMemo(() => {
     return carrers.filter(({ nombre }) => removeAccents(nombre.toLowerCase()).includes(removeAccents(search.toLowerCase())));
   }, [carrers, search]);
+
+  useEffect(() => {
+    if (!loadingUniversities && dataUniversities) {
+      setUniversities(dataUniversities.getAllUniversities);
+    }
+  }, [dataUniversities, loadingUniversities]);
 
   return (
     <Box>
@@ -53,126 +53,12 @@ export const Careers = () => {
             <Button leftIcon={<FaPlusCircle />} onClick={onOpenAddCareer} color='white' colorScheme='whiteAlpha' variant='ghost' size='sm'>
               Agregar
             </Button>
-            <Modal
+            <ModalCareers
               isOpen={isOpenAddCareer}
               onClose={onCloseAddCareer}
-              motionPreset="slideInBottom"
-              size='xl'
-              isCentered
-            >
-              <ModalOverlay backdropFilter='blur(3px)' />
-              <ModalContent bg='gray.800' color='white' px={3} py={1}>
-                <ModalHeader>Agregar Carrera</ModalHeader>
-                <ModalCloseButton />
-                <ModalBody>
-                  <ChakraProvider theme={modalAddTheme}>
-                    <VStack as='form' spacing={5}>
-                      <FormControl isRequired variant="floating">
-                        <Input
-                          ref={nameCareerRef}
-                          id='name_career'
-                          type='text'
-                          _focus={{
-                            boxShadow: 'none',
-                          }}
-                          placeholder=' '
-                          fontSize='0.95rem'
-                          fontWeight='500'
-                          autoFocus
-                        />
-                        <FormLabel color='gray.400' htmlFor='name_career'>Nombre</FormLabel>
-                      </FormControl>
-                      <DarkMode>
-                        <FormControl isRequired>
-                          <Select
-                            variant='outline'
-                            placeholder='Universidad'
-                            color='gray.400'
-                            fontWeight='500'
-                            borderRadius='lg'
-                            width='full'
-                            flex='none'
-                            _focus={{
-                              boxShadow: 'none',
-                            }}
-                            _hover={{
-                              borderColor: 'inherit',
-                            }}
-                          >
-                            {
-                              regiones.map(({ id, nombre }) => (
-                                <option key={id} value={id}>{nombre}</option>
-                              ))
-                            }
-                          </Select>
-                        </FormControl>
-                      </DarkMode>
-                      <FormControl isRequired variant="floating">
-                        <Input
-                          ref={facultyCareerRef}
-                          id='faculty_career'
-                          type='text'
-                          _focus={{
-                            boxShadow: 'none',
-                          }}
-                          placeholder=' '
-                          fontSize='0.95rem'
-                          fontWeight='500'
-                        />
-                        <FormLabel color='gray.400' htmlFor='faculty_career'>Facultad</FormLabel>
-                      </FormControl>
-                      <HStack width='full' spacing={3}>
-                        <FormControl isRequired variant="floating" width='50%'>
-                          <NumberInput min={6} max={12} onChange={(value) => setInputNumber(value)} value={format(inputNumber)}>
-                            <NumberInputField
-                              ref={durationCareerRef}
-                              id='duration_career'
-                              _focus={{
-                                boxShadow: 'none',
-                              }}
-                              placeholder=' '
-                              fontSize='0.95rem'
-                              fontWeight='500'
-                              onKeyDown={(e) => {e.preventDefault()}}
-                            />
-                            <FormLabel color='gray.400' htmlFor='duration_career'>Duración</FormLabel>
-                            <NumberInputStepper>
-                              <NumberIncrementStepper />
-                              <NumberDecrementStepper />
-                            </NumberInputStepper>
-                          </NumberInput>
-                        </FormControl>
-                        <DarkMode>
-                          <FormControl isRequired width='50%'>
-                            <Select
-                              variant='outline'
-                              color='gray.400'
-                              fontWeight='500'
-                              borderRadius='lg'
-                              width='full'
-                              flex='none'
-                              _focus={{
-                                boxShadow: 'none',
-                              }}
-                              _hover={{
-                                borderColor: 'inherit',
-                              }}
-                              onChange={(e) => setTypeDurationCareer(e.target.value)}
-                            >
-                              <option value="semestres" defaultChecked>semestres</option>
-                              <option value="ciclos">ciclos</option>
-                            </Select>
-                          </FormControl>
-                        </DarkMode>
-                      </HStack>
-                    </VStack>
-                  </ChakraProvider>
-                </ModalBody>
-                <ModalFooter>
-                  <Button colorScheme='blackAlpha'>Agregar</Button>
-                </ModalFooter>
-              </ModalContent>
-            </Modal>
+              refetch={refetchUniversities}
+              data={universities}
+            />
           </Box>
         </HStack>
         {/* <InputGroup marginY='1rem' maxW='md' marginX='auto'>

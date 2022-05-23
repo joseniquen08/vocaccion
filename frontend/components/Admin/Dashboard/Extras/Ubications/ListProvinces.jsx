@@ -15,7 +15,7 @@ export const ListProvinces = ({ loading, data, refetch }) => {
           data && (
             data.length > 0 ? (
               data.map(({ idReference, name }) => (
-                <Button key={idReference} colorScheme='blackAlpha' width='full' pointerEvents='none'>
+                <Button key={idReference} bg='blackAlpha.400' width='full' pointerEvents='none'>
                   <HStack alignItems='center' justifyContent='space-between' width='full'>
                     <Text key={idReference}>{name}</Text>
                   </HStack>

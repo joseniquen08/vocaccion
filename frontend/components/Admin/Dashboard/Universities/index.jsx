@@ -1,7 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
 import { Badge, Box, Button, Flex, Heading, HStack, Image, Table, TableCaption, Tbody, Td, Text, Th, Thead, Tr, useDisclosure, VStack } from "@chakra-ui/react";
 import { useMemo, useState } from "react";
-import { FaPlusCircle } from 'react-icons/fa';
+import { FaPlusCircle, FaSlidersH } from 'react-icons/fa';
 import { ModalUniversities } from "./ModalUniversities";
 
 const GET_UNIVERSITIES = gql`
@@ -53,9 +53,16 @@ export const Universities = () => {
         fontSize='3xl'
         textAlign='center'
         color='white'
-      >Universidades</Heading>
+      >
+        Universidades
+      </Heading>
       <Box paddingX='1rem'>
-        <HStack justifyContent="end" paddingY='3'>
+        <HStack justifyContent="space-between" paddingY='3'>
+          <Box>
+            <Button leftIcon={<FaSlidersH />} color='white' colorScheme='whiteAlpha' variant='ghost' size='sm'>
+              Filtros
+            </Button>
+          </Box>
           <Box>
             <Button leftIcon={<FaPlusCircle />} onClick={onOpenAddUniversity} color='white' colorScheme='whiteAlpha' variant='ghost' size='sm'>
               Agregar

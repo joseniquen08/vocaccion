@@ -21,6 +21,7 @@ export const types = `
   }
 
   type UniversityOutput {
+    _id: ID
     name: String
     regions: [Region]
     provinces: [Province]

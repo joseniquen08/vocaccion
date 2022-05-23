@@ -52,8 +52,8 @@ export const SignInAdmin = () => {
             paddingY='3rem'
             backgroundColor='white'
           >
-            <Stack width='full' paddingY='0.3rem' justifyContent='center' alignItems='center'>
-              <Logo size='2.5rem'/>
+            <Stack width='full' justifyContent='center' alignItems='center'>
+              <Logo size='3rem'/>
             </Stack>
             <VStack
               as='form'
