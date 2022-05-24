@@ -1,4 +1,4 @@
-import { Button, HStack, Link, Menu, MenuButton, MenuItem, MenuList, Text, VStack } from '@chakra-ui/react';
+import { Button, HStack, IconButton, Link, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
@@ -25,30 +25,23 @@ export const UserButton = ({ name, image }) => {
   return (
     <Menu>
       <MotionMenuButton
-        as={Button}
-        colorScheme='cyan'
-        leftIcon={
+        as={IconButton}
+        colorScheme='gray'
+        icon={
           <HStack alignItems='center' justifyContent='center' borderRadius='full' overflow='hidden'>
-            <Image src={image === '' ? '/images/user-default.png' : image} alt={name} width={24} height={24} priority="true"/>
+            <Image src={image === '' ? '/images/user-default.png' : image} alt={name} width={28} height={28} priority="true"/>
           </HStack>
         }
         size='md'
-        width='10rem'
-        variant='solid'
-        color='white'
-        fontWeight={500}
+        variant='ghost'
         whileTap={{ scale: 0.92 }}
-      >
-        <VStack w='full' alignItems='start'>
-          <Text w='full' textAlign='left' noOfLines={1}>{name}</Text>
-        </VStack>
-      </MotionMenuButton>
+      />
       <MenuList>
         <MenuItem
           _hover={{ backgroundColor: 'transparent' }}
           _focus={{ backgroundColor: 'transparent' }}
         >
-          <NextLink href="/login" passHref>
+          <NextLink href="/perfil" passHref>
             <Link
               w="full"
               textAlign='center'

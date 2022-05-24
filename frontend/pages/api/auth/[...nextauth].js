@@ -18,7 +18,7 @@ export default NextAuth({
           id: profile.sub,
           name: profile.name,
           username: profile.email.split('@')[0],
-          edad: null,
+          age: 0,
           email: profile.email,
           password: null,
           role: 'user',
@@ -38,7 +38,7 @@ export default NextAuth({
           id: profile.id,
           name: profile.name,
           username: profile.email.split('@')[0],
-          edad: null,
+          age: 0,
           email: profile.email,
           password: null,
           role: 'user',
@@ -53,7 +53,13 @@ export default NextAuth({
   ],
   callbacks: {
     async session ({ session, token, user }) {
-      session.user.role = user.role;
+      session.user = {
+        ...session.user,
+        username: user.username,
+        role:  user.role,
+        provider: user.provider,
+        age: user.age,
+      };
       return session;
     }
   },

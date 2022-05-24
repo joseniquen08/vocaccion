@@ -8,10 +8,13 @@ export const UserSchema = new Schema<IUser>({
   },
   username: {
     type: String,
-    required: true,
+    default: function () {
+      return this.email.split('@')[0];
+    }
   },
-  edad: {
+  age: {
     type: Number,
+    default: 0,
   },
   email: {
     type: String,

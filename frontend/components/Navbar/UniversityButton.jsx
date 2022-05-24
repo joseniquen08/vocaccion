@@ -8,7 +8,7 @@ export const UniversityButton = () => {
         as={Button}
         variant='ghost'
         colorScheme='gray'
-        color='gray.700'
+        color='gray.600'
         fontWeight="500"
       >
         Universidades

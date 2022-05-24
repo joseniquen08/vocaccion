@@ -14,9 +14,9 @@ const mutations = {
     const user = new UserModel(userRequest);
     const newUser: IUser = await user.save();
     if (newUser) {
-      const { _id, email, name, role, image } = newUser;
+      const { _id, name, email, age, image, username, role, provider } = newUser;
       return {
-        token: tokenService.createToken({ id: _id, email , name, role, image })
+        token: tokenService.createToken({ id: _id, name, email, age, image, username, role, provider })
       }
     }
     return null;
@@ -26,9 +26,9 @@ const mutations = {
     if (user) {
       const isValid = passwordManager.validatePassword(loginRequest.password, user.password);
       if (isValid) {
-        const { _id, email, name, role, image } = user;
+        const { _id, name, email, age, image, username, role, provider } = user;
         return {
-          token: tokenService.createToken({ id: _id, email , name, role, image })
+          token: tokenService.createToken({ id: _id, name, email, age, image, username, role, provider })
         }
       }
     }

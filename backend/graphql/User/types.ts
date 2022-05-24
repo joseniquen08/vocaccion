@@ -3,7 +3,7 @@ export const types = `
     id: ID
     name: String
     username: String
-    edad: Int
+    age: Int
     email: String
     password: String
     image: String

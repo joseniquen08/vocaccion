@@ -26,7 +26,7 @@ export const Navbar = ({ isLogged, user }) => {
             <Flex>
               <Logo/>
             </Flex>
-            <HStack display="flex" alignItems="center" spacing={4}>
+            <HStack display="flex" alignItems="center" spacing={3}>
               <HStack display="flex" alignItems="center" spacing={4}>
                 <HStack
                   spacing={2}
@@ -36,7 +36,7 @@ export const Navbar = ({ isLogged, user }) => {
                 >
                   <CarrerButton/>
                   <UniversityButton/>
-                  <Button variant="ghost" colorScheme='gray' color='gray.700' fontWeight="500">Ayuda</Button>
+                  <Button variant="ghost" colorScheme='gray' color='gray.600' fontWeight="500">Ayuda</Button>
                 </HStack>
               </HStack>
               {
