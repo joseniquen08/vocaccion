@@ -1,19 +1,64 @@
-import { Button, ChakraProvider, DarkMode, FormControl, FormLabel, HStack, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Select, VStack } from "@chakra-ui/react";
-import { useRef, useState } from "react";
+import { gql, useMutation } from "@apollo/client";
+import { Button, ChakraProvider, DarkMode, FormControl, FormLabel, HStack, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Select, Textarea, VStack } from "@chakra-ui/react";
+import { useEffect, useRef, useState } from "react";
 import { modalAddTheme } from "../../../../styles/theme.chakra";
+
+const ADD_CAREER_MUTATION = gql`
+  mutation CreateCareer($input: CreateCareerInput) {
+    createCareer(input: $input) {
+      name
+      type
+      description
+      faculty
+      idUniversity
+      imageUniversity
+      duration
+      lastUpdate
+    }
+  }
+`;
 
 export const ModalCareers = ({ isOpen, onClose, data, refetch }) => {
 
   const [idUniversity, setIdUniversity] = useState(null);
   const [typeDurationCareer, setTypeDurationCareer] = useState(null);
 
+  const [addCareerMutation, { data: dataCareer, loading: loadingCareer }] = useMutation(ADD_CAREER_MUTATION);
+
   const nameCareerRef = useRef();
+  const categoryCareerRef = useRef();
+  const descriptionCareerRef = useRef();
   const facultyCareerRef = useRef();
   const durationCareerRef = useRef();
 
   const handleSelectUniversity = (e) => {
     setIdUniversity(e.target.value);
   }
+
+  const addCareer = async (e) => {
+    e.preventDefault();
+    addCareerMutation({
+      variables: {
+        input: {
+          name: nameCareerRef.current.value,
+          type: categoryCareerRef.current.value,
+          description: descriptionCareerRef.current.value,
+          faculty: facultyCareerRef.current.value,
+          idUniversity: idUniversity,
+          imageUniversity: '',
+          duration: parseInt(durationCareerRef.current.value),
+          lastUpdate: '22-1',
+        }
+      }
+    });
+  }
+
+  useEffect(() => {
+    if (!loadingCareer && dataCareer) {
+      onClose();
+      refetch();
+    }
+  }, [dataCareer, loadingCareer]);
 
   return (
     <Modal
@@ -24,7 +69,7 @@ export const ModalCareers = ({ isOpen, onClose, data, refetch }) => {
       isCentered
     >
       <ModalOverlay backdropFilter='blur(3px)' />
-      <ModalContent bg='gray.800' color='white' px={3} py={1}>
+      <ModalContent as='form' onSubmit={addCareer} bg='gray.800' color='white' px={3} py={1}>
         <ModalHeader>Agregar Carrera</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
@@ -75,6 +120,20 @@ export const ModalCareers = ({ isOpen, onClose, data, refetch }) => {
               </DarkMode>
               <FormControl isRequired variant="floating">
                 <Input
+                  ref={categoryCareerRef}
+                  id='category_career'
+                  type='text'
+                  _focus={{
+                    boxShadow: 'none',
+                  }}
+                  placeholder=' '
+                  fontSize='0.95rem'
+                  fontWeight='500'
+                />
+                <FormLabel color='gray.400' htmlFor='category_career'>Categoría</FormLabel>
+              </FormControl>
+              <FormControl isRequired variant="floating">
+                <Input
                   ref={facultyCareerRef}
                   id='faculty_career'
                   type='text'
@@ -86,6 +145,20 @@ export const ModalCareers = ({ isOpen, onClose, data, refetch }) => {
                   fontWeight='500'
                 />
                 <FormLabel color='gray.400' htmlFor='faculty_career'>Facultad</FormLabel>
+              </FormControl>
+              <FormControl isRequired variant="floating">
+                <Textarea
+                  ref={descriptionCareerRef}
+                  id='description_career'
+                  resize='none'
+                  placeholder=' '
+                  _focus={{
+                    boxShadow: 'none',
+                  }}
+                  fontSize='0.95rem'
+                  fontWeight='500'
+                />
+                <FormLabel color='gray.400' htmlFor='description_career'>Descripción</FormLabel>
               </FormControl>
               <HStack width='full' spacing={3}>
                 <FormControl isRequired variant="floating" width='50%'>
@@ -135,7 +208,7 @@ export const ModalCareers = ({ isOpen, onClose, data, refetch }) => {
           </ChakraProvider>
         </ModalBody>
         <ModalFooter>
-          <Button colorScheme='blackAlpha'>Agregar</Button>
+          <Button type="submit" colorScheme='blackAlpha'>Agregar</Button>
         </ModalFooter>
       </ModalContent>
     </Modal>

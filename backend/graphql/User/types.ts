@@ -1,4 +1,14 @@
 export const types = `
+  union UserOutput = ProviderBoolean | ProviderString
+
+  type ProviderBoolean {
+    provider: Boolean
+  }
+
+  type ProviderString {
+    provider: String
+  }
+
   type User {
     id: ID
     name: String
@@ -8,7 +18,28 @@ export const types = `
     password: String
     image: String
     role: String
-    provider: Boolean
+    provider: String
     emailVerified: Boolean
+  }
+
+  input UpdateUserInput {
+    email: String
+    age: Int
+  }
+
+  input UpdateUserWhitoutProviderInput {
+    email: String
+    username: String
+    name: String
+    age: Int
+  }
+
+  type UserOutput {
+    user: User
+  }
+
+  type UserWithoutProviderOutput {
+    token: String
+    user: User
   }
 `;

@@ -1,6 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
 import { Badge, Box, Button, Flex, Heading, HStack, Image, Table, TableCaption, Tbody, Td, Text, Th, Thead, Tr, useDisclosure, VStack } from "@chakra-ui/react";
-import { useMemo, useState } from "react";
 import { FaPlusCircle, FaSlidersH } from 'react-icons/fa';
 import { ModalUniversities } from "./ModalUniversities";
 
@@ -27,24 +26,24 @@ const GET_UNIVERSITIES = gql`
 
 export const Universities = () => {
 
-  const [universities, setUniversities] = useState([]);
-  const [search, setSearch] = useState('');
+  // const [universities, setUniversities] = useState([]);
+  // const [search, setSearch] = useState('');
 
   const { loading: loadingUniversities, data: dataUniversities, refetch: refetchUniversities } = useQuery(GET_UNIVERSITIES);
 
   const { isOpen: isOpenAddUniversity, onOpen: onOpenAddUniversity, onClose: onCloseAddUniversity } = useDisclosure();
 
-  const handleSearch = (e) => {
-    setSearch(e.target.value);
-  }
+  // const handleSearch = (e) => {
+  //   setSearch(e.target.value);
+  // }
 
-  const removeAccents = (str) => {
-    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-  }
+  // const removeAccents = (str) => {
+  //   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  // }
 
-  const filteredUniversities = useMemo(() => {
-    return universities.filter(({ nombre }) => removeAccents(nombre.toLowerCase()).includes(removeAccents(search.toLowerCase())));
-  }, [universities, search]);
+  // const filteredUniversities = useMemo(() => {
+  //   return universities.filter(({ nombre }) => removeAccents(nombre.toLowerCase()).includes(removeAccents(search.toLowerCase())));
+  // }, [universities, search]);
 
   return (
     <Box>

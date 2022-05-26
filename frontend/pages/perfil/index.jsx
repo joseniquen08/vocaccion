@@ -8,7 +8,7 @@ const Perfil = ({ isLogged, user }) => {
   return (
     <Box minH='100vh'>
       <Navbar isLogged={isLogged} user={user}/>
-      <Profile user={user}/>
+      <Profile id={user.id}/>
     </Box>
   )
 }
@@ -18,7 +18,6 @@ export const getServerSideProps = async (context) => {
   let user = null;
   let isLogged = null;
   const session = await getSession(context);
-  console.log(session);
 
   if (!(session || context.req.cookies.token)) {
     return {
@@ -38,7 +37,7 @@ export const getServerSideProps = async (context) => {
     isLogged = true;
     const decryptedToken = decodeToken(context.req.cookies.token);
     user = {
-      id: decryptedToken._id,
+      id: `${decryptedToken.id}`,
       name: `${decryptedToken.name}`,
       email: `${decryptedToken.email}`,
       age: `${decryptedToken.age}`,

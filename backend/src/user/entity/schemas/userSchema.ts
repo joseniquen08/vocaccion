@@ -1,5 +1,5 @@
 import { Schema } from 'mongoose';
-import { IUser } from '../types/userTypes';
+import { IAccount, IUser } from '../types/userTypes';
 
 export const UserSchema = new Schema<IUser>({
   name: {
@@ -8,6 +8,7 @@ export const UserSchema = new Schema<IUser>({
   },
   username: {
     type: String,
+    unique: true,
     default: function () {
       return this.email.split('@')[0];
     }
@@ -35,8 +36,8 @@ export const UserSchema = new Schema<IUser>({
     default: '',
   },
   provider: {
-    type: Boolean,
-    default: false,
+    type: String,
+    default: 'no',
   },
   emailVerified: {
     type: Boolean,
@@ -44,4 +45,10 @@ export const UserSchema = new Schema<IUser>({
   },
 }, {
   timestamps: true,
+});
+
+export const AccountSchema = new Schema<IAccount>({
+  userId: Schema.Types.ObjectId,
+  provider: String,
+  type: String,
 });

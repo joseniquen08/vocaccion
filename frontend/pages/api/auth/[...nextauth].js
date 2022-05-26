@@ -6,9 +6,6 @@ import clientPromise from '../../../lib/mongodb';
 
 export default NextAuth({
   adapter: MongoDBAdapter(clientPromise),
-  session: {
-    jwt: true,
-  },
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
@@ -23,7 +20,7 @@ export default NextAuth({
           password: null,
           role: 'user',
           image: profile.picture,
-          provider: true,
+          provider: 'google',
           emailVerified: null,
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -43,7 +40,7 @@ export default NextAuth({
           password: null,
           role: 'user',
           image: profile.picture.data.url,
-          provider: true,
+          provider: 'facebook',
           emailVerified: null,
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -59,9 +56,10 @@ export default NextAuth({
         role:  user.role,
         provider: user.provider,
         age: user.age,
+        id: user.id,
       };
       return session;
-    }
+    },
   },
   theme: {
     colorScheme: 'light',

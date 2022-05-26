@@ -1,6 +1,34 @@
-import { Box, Heading, SimpleGrid } from "@chakra-ui/react"
+import { gql, useQuery } from "@apollo/client";
+import { Box, Heading, SimpleGrid, useDisclosure } from "@chakra-ui/react";
+import { useState } from "react";
+import { CardUser } from "./CardUser";
+import { ModalUser } from "./ModalUser";
+
+const GET_USERS = gql`
+  query GetAllUsers {
+    getAllUsers {
+      id
+      name
+      email
+      image
+      role
+      provider
+    }
+  }
+`;
 
 export const Users = () => {
+
+  const { loading: loadingUsers, data: dataUsers } = useQuery(GET_USERS);
+  const [selectedUser, setSelectedUser] = useState(null);
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const handleUser = (user) => {
+    setSelectedUser(user);
+    onOpen();
+  }
+
   return (
     <Box>
       <Heading
@@ -11,13 +39,26 @@ export const Users = () => {
       >
         Usuarios
       </Heading>
-      <Box overflowX='auto' display='block' color='gray.200' paddingX={2} paddingY={5}>
+      <Box overflowX='auto' display='block' color='gray.200' paddingX={2} paddingY={7}>
         <SimpleGrid columns={2} spacing={3.5}>
-          <Box bg='blackAlpha.600' paddingX={5} paddingY={3} rounded='md'>Grid</Box>
-          <Box bg='blackAlpha.600' paddingX={5} paddingY={3} rounded='md'>Grid</Box>
-          <Box bg='blackAlpha.600' paddingX={5} paddingY={3} rounded='md'>Grid</Box>
-          <Box bg='blackAlpha.600' paddingX={5} paddingY={3} rounded='md'>Grid</Box>
+          {
+            dataUsers && (
+              dataUsers.getAllUsers.map((user) => (
+                <CardUser
+                  key={user.id}
+                  user={user}
+                  handleUser={handleUser}
+                  {...user}
+                />
+              ))
+            )
+          }
         </SimpleGrid>
+        {
+          selectedUser && (
+            <ModalUser isOpen={isOpen} onClose={onClose} user={selectedUser}/>
+          )
+        }
       </Box>
     </Box>
   )
