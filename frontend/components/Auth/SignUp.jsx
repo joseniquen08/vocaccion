@@ -4,7 +4,7 @@ import { Box, Button, Divider, Flex, FormControl, FormErrorMessage, FormLabel, H
 import { motion } from "framer-motion";
 import { signIn } from "next-auth/react";
 import NextLink from "next/link";
-import Router from "next/router";
+import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { FaFacebook, FaGoogle } from 'react-icons/fa';
 import { HiOutlineIdentification, HiOutlineLockClosed, HiOutlineMail } from "react-icons/hi";
@@ -18,6 +18,9 @@ const SIGN_UP_MUTATION = gql`
   mutation SignUp($userRequest: CreateUserInput) {
     createUser(userRequest: $userRequest) {
       token
+      errors {
+        message
+      }
     }
   }
 `;
@@ -26,15 +29,22 @@ export const SignUp = () => {
 
   const cookies = new Cookies();
 
-  const [createUser, { data, loading, error }] = useMutation(SIGN_UP_MUTATION);
+  const [createUser, { data, loading }] = useMutation(SIGN_UP_MUTATION);
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
+  const [password, setPassword] = useState('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
+  const [emailError, setEmailError] = useState(false);
+  const [lengthPasswordError, setLengthPasswordError] = useState(false);
+  const [equalPasswordError, setEqualPasswordError] = useState(false);
 
   const nameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
-  const [showPassword, setShowPassword] = useState(false);
-  const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
-  const [lengthPasswordError, setLengthPasswordError] = useState(false);
+
+  const router = useRouter();
 
   const handleShowPassword = () => {
     setShowPassword(showPassword => !showPassword);
@@ -61,19 +71,39 @@ export const SignUp = () => {
     }
   }
 
-  // TODO: arreglar errores customizados en el formulario
+  const handlePassword = (e) => {
+    setPassword(e.target.value);
+    setLengthPasswordError(false);
+  }
+
+  const handlePasswordConfirmation = (e) => {
+    setPasswordConfirmation(e.target.value);
+    setEqualPasswordError(true);
+  }
+
+  useEffect(() => {
+    if (password !== passwordConfirmation) {
+      setEqualPasswordError(true);
+    }
+    if (password === passwordConfirmation && password !== '') {
+      setEqualPasswordError(false);
+    }
+  }, [password, passwordConfirmation]);
 
   useEffect(() => {
     if (!loading && data) {
-      cookies.set("token", data.createUser.token, { path: '/' });
-      Router.push("/");
-    }
-    if (error) {
-      if (error.message === 'length') {
-        setLengthPasswordError(true);
+      if (data.createUser.errors) {
+        if (data.createUser.errors.message === 'length') {
+          setLengthPasswordError(true);
+        } else if (data.createUser.errors.message === 'duplicate key') {
+          setEmailError(true);
+        }
+      } else {
+        cookies.set("token", data.createUser.token, { path: '/' });
+        router.push("/");
       }
     }
-  }, [data, loading, error]);
+  }, [data, loading]);
 
   return (
     <Flex
@@ -177,7 +207,7 @@ export const SignUp = () => {
                     />
                   </InputGroup>
                 </FormControl>
-                <FormControl isRequired>
+                <FormControl isRequired isInvalid={emailError}>
                   <FormLabel color='gray.600' fontSize='0.875rem' htmlFor='email'>Correo Electrónico</FormLabel>
                   <InputGroup>
                     <InputLeftElement
@@ -197,8 +227,14 @@ export const SignUp = () => {
                       _focus={{
                         boxShadow: 'none',
                       }}
+                      onChange={() => setEmailError(false)}
                     />
                   </InputGroup>
+                  {
+                    emailError && (
+                      <FormErrorMessage>El correo ya se encuentra registrado.</FormErrorMessage>
+                    )
+                  }
                 </FormControl>
                 <FormControl isRequired isInvalid={lengthPasswordError}>
                   <FormLabel color='gray.600' fontSize='0.875rem' htmlFor='password'>Contraseña</FormLabel>
@@ -220,6 +256,8 @@ export const SignUp = () => {
                       _focus={{
                         boxShadow: 'none',
                       }}
+                      value={password}
+                      onChange={handlePassword}
                     />
                     <InputRightAddon
                     backgroundColor='white'
@@ -240,7 +278,7 @@ export const SignUp = () => {
                     )
                   }
                 </FormControl>
-                <FormControl isRequired>
+                <FormControl isRequired isInvalid={equalPasswordError}>
                   <FormLabel color='gray.600' fontSize='0.875rem' htmlFor='password_confirmation'>Confirmar contraseña</FormLabel>
                   <InputGroup>
                     <InputLeftElement
@@ -260,6 +298,8 @@ export const SignUp = () => {
                       _focus={{
                         boxShadow: 'none',
                       }}
+                      value={passwordConfirmation}
+                      onChange={handlePasswordConfirmation}
                     />
                     <InputRightAddon
                     backgroundColor='white'
@@ -274,6 +314,11 @@ export const SignUp = () => {
                       </Button>
                     </InputRightAddon>
                   </InputGroup>
+                  {
+                    equalPasswordError && (
+                      <FormErrorMessage>La contraseñas no coinciden.</FormErrorMessage>
+                    )
+                  }
                 </FormControl>
               </VStack>
               <VStack width='full' paddingY='0.5rem' spacing='0.6rem'>
@@ -289,16 +334,15 @@ export const SignUp = () => {
                 </Text>
               </VStack>
               <Flex width='full' paddingY='1.5rem'>
-                <NextLink href="/" passHref>
-                  <Button
-                    leftIcon={<ArrowBackIcon />}
-                    colorScheme='cyan'
-                    variant='ghost'
-                    fontSize='0.95rem'
-                  >
-                    Regresar
-                  </Button>
-                </NextLink>
+                <Button
+                  leftIcon={<ArrowBackIcon />}
+                  colorScheme='cyan'
+                  variant='ghost'
+                  fontSize='0.95rem'
+                  onClick={() => router.back()}
+                >
+                  Regresar
+                </Button>
               </Flex>
             </VStack>
           </VStack>

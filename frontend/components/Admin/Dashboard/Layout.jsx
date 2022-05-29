@@ -1,11 +1,26 @@
-import { Avatar, Box, Drawer, DrawerContent, DrawerOverlay, Flex, HStack, Icon, IconButton, Input, InputGroup, InputLeftElement, useDisclosure } from '@chakra-ui/react';
+import { Box, Button, Drawer, DrawerContent, DrawerOverlay, Flex, HStack, Icon, IconButton, Link, Menu, MenuButton, MenuItem, MenuList, Text, useDisclosure } from '@chakra-ui/react';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+import NextLink from 'next/link';
+import { useRouter } from 'next/router';
 import { FaBell } from "react-icons/fa";
-import { FiMenu, FiSearch } from "react-icons/fi";
+import { FiMenu } from "react-icons/fi";
+import Cookies from 'universal-cookie';
 import { Sidebar } from './Sidebar';
 
-export const Layout = ({ children }) => {
+const MotionMenuButton = motion(MenuButton);
+
+export const Layout = ({ user, children }) => {
+
+  const cookies = new Cookies();
+  const router = useRouter();
 
   const sidebar = useDisclosure();
+
+  const logout = () => {
+    cookies.remove('token', { path: '/' });
+    router.reload();
+  }
 
   return (
     <Box minH='100vh' bg='gray.800'>
@@ -40,16 +55,14 @@ export const Layout = ({ children }) => {
           maxHeight='100vh'
           overflowY='auto'
           w='full'
-          // py={{ base: '0.25rem', md: '0.75rem' }}
         >
           <Flex
             as="header"
             align="center"
             justify="space-between"
             w="full"
-            px="6"
-            py="1"
-            height="3.5rem"
+            px="1.5rem"
+            height="3.75rem"
             borderBottom='1px solid'
             borderColor='gray.600'
           >
@@ -61,32 +74,63 @@ export const Layout = ({ children }) => {
               icon={<FiMenu />}
               size="sm"
             />
-            <InputGroup w="96" display={{ base: "none", md: "flex" }}>
-              <InputLeftElement color="gray.500" children={<FiSearch/>} />
-              <Input
-                color="gray.300"
-                _focus={{
-                  boxShadow: 'none',
-                }}
-                rounded='md'
-                placeholder="Search for articles..."
-              />
-            </InputGroup>
-            <Flex align="center">
+            <Box>
+              <Text color='gray.300' fontWeight={500}>Bienvenid@, {user.name}</Text>
+            </Box>
+            <HStack alignItems="center" spacing={5}>
               <Icon color="gray.500" as={FaBell} cursor="pointer" />
-              <Avatar
-                ml="4"
-                size="sm"
-                name="anubra266"
-                src="https://avatars.githubusercontent.com/u/30869823?v=4"
-                cursor="pointer"
-              />
-            </Flex>
+              <Menu>
+                <MotionMenuButton
+                  as={IconButton}
+                  colorScheme='whiteAlpha'
+                  icon={
+                    <HStack alignItems='center' justifyContent='center' borderRadius='full' overflow='hidden'>
+                      <Image src={user.image === '' ? '/images/user-default.png' : user.image} alt={user.name} width={28} height={28} priority="true"/>
+                    </HStack>
+                  }
+                  size='md'
+                  variant='ghost'
+                  whileTap={{ scale: 0.92 }}
+                />
+                <MenuList bg='gray.800' borderColor='gray.600'>
+                  <MenuItem
+                    _hover={{ backgroundColor: 'transparent' }}
+                    _focus={{ backgroundColor: 'transparent' }}
+                    color='white'
+                  >
+                    <NextLink href="/admin/dashboard/perfil" passHref>
+                      <Link
+                        w="full"
+                        textAlign='center'
+                        paddingY='0.4rem'
+                        borderRadius={6}
+                        _hover={{ backgroundColor: 'whiteAlpha.50' }}
+                      >
+                        Perfil
+                      </Link>
+                    </NextLink>
+                  </MenuItem>
+                  <MenuItem
+                    _hover={{ backgroundColor: 'transparent' }}
+                    _focus={{ backgroundColor: 'transparent' }}
+                  >
+                    <Button
+                      onClick={() => logout()}
+                      w='full'
+                      textColor='white'
+                      colorScheme='cyan'
+                    >
+                      Cerrar sesión
+                    </Button>
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+            </HStack>
           </Flex>
           <Box
             p="4"
-            minHeight='calc(100vh - 3.5rem)'
-            maxHeight='calc(100vh - 3.5rem)'
+            minHeight='calc(100vh - 3.75rem)'
+            maxHeight='calc(100vh - 3.75rem)'
             overflowY='scroll'
             sx={{
               '&::-webkit-scrollbar': {

@@ -1,4 +1,4 @@
-import { Box, Button, chakra, Flex, HStack } from "@chakra-ui/react";
+import { Button, chakra, Flex, HStack, VStack } from "@chakra-ui/react";
 import { CarrerButton } from "./CarrerButton";
 import Logo from "./Logo";
 import { MenuMdButton } from "./MenuMdButton";
@@ -16,13 +16,15 @@ export const Navbar = ({ isLogged, user }) => {
         w="full"
         bg='white'
       >
-        <Box
+        <VStack
           paddingX={{ base: '1rem', md: '2.5rem' }}
-          paddingY="1rem"
+          w='full'
+          justifyContent='center'
+          height='4.5rem'
           borderBottom="1px solid"
           borderBottomColor={'#d6d3d1'}
         >
-          <Flex alignItems="center" justifyContent="space-between" mx="auto">
+          <Flex w='full' alignItems="center" justifyContent="space-between" mx="auto">
             <Flex>
               <Logo/>
             </Flex>
@@ -49,7 +51,7 @@ export const Navbar = ({ isLogged, user }) => {
               <MenuMdButton/>
             </HStack>
           </Flex>
-        </Box>
+        </VStack>
       </chakra.nav>
     </>
   )

@@ -1,5 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import { getSession } from "next-auth/react";
+import { Footer } from "../components/Footer";
 import { Features } from "../components/Home/Features";
 import { Header } from "../components/Home/Header";
 import { Navbar } from "../components/Navbar";
@@ -11,11 +12,13 @@ const HomePage = ({ isLogged, user }) => {
       <Navbar isLogged={isLogged} user={user}/>
       <Header/>
       <Features/>
+      <Footer/>
     </Box>
   )
 }
 
 export const getServerSideProps = async (context) => {
+
   let user = null;
   let isLogged = null;
   const session = await getSession(context);

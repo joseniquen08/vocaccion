@@ -13,9 +13,11 @@ export const types = `
 
   type LoginOutput {
     token: String
+    errors: Error
   }
 
   type CreateUserOutput {
     token: String
+    errors: Error
   }
 `;

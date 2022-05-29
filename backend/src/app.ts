@@ -2,6 +2,7 @@ import { ApolloServer } from 'apollo-server-express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express, { Application, NextFunction, Request, Response } from 'express';
+import { resolvers as scalarResolvers, typeDefs as scalarTypeDefs } from 'graphql-scalars';
 import { resolvers, typeDefs } from '../graphql';
 import uploadRoutes from './university/routes/uploadRoutes';
 
@@ -11,8 +12,14 @@ const app: Application = express();
 
 export async function start () {
   const apolloServer = new ApolloServer({
-    typeDefs,
-    resolvers,
+    typeDefs: [
+      ...scalarTypeDefs,
+      typeDefs
+    ],
+    resolvers: [
+      scalarResolvers,
+      resolvers
+    ],
     csrfPrevention: true,
     introspection: true,
   });

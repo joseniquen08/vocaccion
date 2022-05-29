@@ -1,6 +1,6 @@
 import { gql, useMutation } from "@apollo/client";
 import { ArrowBackIcon } from "@chakra-ui/icons";
-import { Badge, Box, Button, Divider, Flex, FormControl, FormLabel, Heading, HStack, Input, InputGroup, InputLeftElement, InputRightAddon, Link, Text, VStack } from "@chakra-ui/react";
+import { Badge, Box, Button, Divider, Flex, FormControl, FormErrorMessage, FormLabel, Heading, HStack, Input, InputGroup, InputLeftElement, InputRightAddon, Link, Text, VStack } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { signIn } from 'next-auth/react';
 import NextLink from "next/link";
@@ -18,6 +18,9 @@ const SIGN_IN_MUTATION = gql`
   mutation SignIn($loginRequest: LoginInput) {
     login(loginRequest: $loginRequest) {
       token
+      errors {
+        message
+      }
     }
   }
 `;
@@ -28,9 +31,12 @@ export const SignIn = () => {
 
   const [loginUser, { data, loading }] = useMutation(SIGN_IN_MUTATION);
 
+  const [showPassword, setShowPassword] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+
   const emailRef = useRef();
   const passwordRef = useRef();
-  const [showPassword, setShowPassword] = useState(false);
 
   const router = useRouter();
 
@@ -40,7 +46,7 @@ export const SignIn = () => {
 
   const login = (e) => {
     e.preventDefault();
-    if (emailRef.current.value && passwordRef.current.value) {
+    if (emailRef.current.value !== '' && passwordRef.current.value !== '') {
       loginUser({
         variables: {
           loginRequest: {
@@ -52,12 +58,18 @@ export const SignIn = () => {
     }
   }
 
-  // TODO: arreglar errores customizados en el formulario
-
   useEffect(() => {
     if (!loading && data) {
-      cookies.set("token", data.login.token, { path: '/' });
-      router.push("/");
+      if (data.login.errors) {
+        if (data.login.errors.message === 'email not found') {
+          setEmailError(true);
+        } else if (data.login.errors.message === 'invalid password') {
+          setPasswordError(true);
+        }
+      } else {
+        cookies.set("token", data.login.token, { path: '/' });
+        router.push("/");
+      }
     }
   }, [data, loading]);
 
@@ -140,7 +152,7 @@ export const SignIn = () => {
                 width='full'
                 spacing='0.6rem'
               >
-                <FormControl isRequired>
+                <FormControl isRequired isInvalid={emailError}>
                   <FormLabel color='gray.600' fontSize='0.875rem' htmlFor='email'>Correo Electrónico</FormLabel>
                   <InputGroup>
                     <InputLeftElement
@@ -160,11 +172,17 @@ export const SignIn = () => {
                       fontSize='0.95rem'
                       fontWeight='500'
                       color='gray.600'
+                      onChange={() => setEmailError(false)}
                       autoFocus
                     />
                   </InputGroup>
+                  {
+                    emailError && (
+                      <FormErrorMessage>El correo no se encuentra registrado.</FormErrorMessage>
+                    )
+                  }
                 </FormControl>
-                <FormControl isRequired>
+                <FormControl isRequired isInvalid={passwordError}>
                   <FormLabel color='gray.600' fontSize='0.875rem' htmlFor='password'>Contraseña</FormLabel>
                   <InputGroup>
                     <InputLeftElement
@@ -183,6 +201,7 @@ export const SignIn = () => {
                       fontSize='0.95rem'
                       fontWeight='500'
                       color='gray.600'
+                      onChange={() => setPasswordError(false)}
                     />
                     <InputRightAddon
                       backgroundColor='white'
@@ -197,6 +216,11 @@ export const SignIn = () => {
                       </Button>
                     </InputRightAddon>
                   </InputGroup>
+                  {
+                    passwordError && (
+                      <FormErrorMessage>La constraseña es incorrecta.</FormErrorMessage>
+                    )
+                  }
                 </FormControl>
               </VStack>
               <VStack width='full' paddingY='0.5rem' spacing='0.6rem'>
@@ -213,16 +237,15 @@ export const SignIn = () => {
                 </Text>
               </VStack>
               <Flex width='full' paddingY='1.5rem'>
-                <NextLink href="/" passHref>
-                  <Button
-                    leftIcon={<ArrowBackIcon />}
-                    colorScheme='cyan'
-                    variant='ghost'
-                    fontSize='0.95rem'
-                  >
-                    Regresar
-                  </Button>
-                </NextLink>
+                <Button
+                  leftIcon={<ArrowBackIcon />}
+                  colorScheme='cyan'
+                  variant='ghost'
+                  fontSize='0.95rem'
+                  onClick={() => router.back()}
+                >
+                  Regresar
+                </Button>
               </Flex>
             </VStack>
           </VStack>
@@ -265,7 +288,7 @@ export const SignIn = () => {
             fontWeight={700}
             color='white'
             cursor='default'
-          >Ready to build your next app?</Heading>
+          >¿Listo para inicio tu camino?</Heading>
         </Box>
         <Box position='absolute' bottom={5} right={6}>
           <Button onClick={() => router.push('/admin/login')} variant='solid' colorScheme='blackAlpha'>

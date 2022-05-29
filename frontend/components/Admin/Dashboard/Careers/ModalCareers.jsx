@@ -21,12 +21,12 @@ const ADD_CAREER_MUTATION = gql`
 export const ModalCareers = ({ isOpen, onClose, data, refetch }) => {
 
   const [idUniversity, setIdUniversity] = useState(null);
+  const [category, setCategory] = useState(null);
   const [typeDurationCareer, setTypeDurationCareer] = useState(null);
 
   const [addCareerMutation, { data: dataCareer, loading: loadingCareer }] = useMutation(ADD_CAREER_MUTATION);
 
   const nameCareerRef = useRef();
-  const categoryCareerRef = useRef();
   const descriptionCareerRef = useRef();
   const facultyCareerRef = useRef();
   const durationCareerRef = useRef();
@@ -35,13 +35,17 @@ export const ModalCareers = ({ isOpen, onClose, data, refetch }) => {
     setIdUniversity(e.target.value);
   }
 
+  const handleSelectCategory = (e) => {
+    setCategory(e.target.value);
+  }
+
   const addCareer = async (e) => {
     e.preventDefault();
     addCareerMutation({
       variables: {
         input: {
           name: nameCareerRef.current.value,
-          type: categoryCareerRef.current.value,
+          type: category,
           description: descriptionCareerRef.current.value,
           faculty: facultyCareerRef.current.value,
           idUniversity: idUniversity,
@@ -74,7 +78,7 @@ export const ModalCareers = ({ isOpen, onClose, data, refetch }) => {
         <ModalCloseButton />
         <ModalBody>
           <ChakraProvider theme={modalAddTheme}>
-            <VStack as='form' spacing={5}>
+            <VStack spacing={5}>
               <FormControl isRequired variant="floating">
                 <Input
                   ref={nameCareerRef}
@@ -117,21 +121,32 @@ export const ModalCareers = ({ isOpen, onClose, data, refetch }) => {
                     }
                   </Select>
                 </FormControl>
+                <FormControl isRequired>
+                  <Select
+                    variant='outline'
+                    placeholder='Categoría'
+                    color='gray.400'
+                    fontWeight='500'
+                    borderRadius='lg'
+                    width='full'
+                    flex='none'
+                    _focus={{
+                      boxShadow: 'none',
+                    }}
+                    _hover={{
+                      borderColor: 'inherit',
+                    }}
+                    onChange={handleSelectCategory}
+                  >
+                    <option value='Arquitectura'>Arquitectura</option>
+                    <option value='Arte'>Arte</option>
+                    <option value='Ciencias'>Ciencias</option>
+                    <option value='Ciencias Sociales'>Ciencias Sociales</option>
+                    <option value='Derecho'>Derecho</option>
+                    <option value='Ingeniería'>Ingeniería</option>
+                  </Select>
+                </FormControl>
               </DarkMode>
-              <FormControl isRequired variant="floating">
-                <Input
-                  ref={categoryCareerRef}
-                  id='category_career'
-                  type='text'
-                  _focus={{
-                    boxShadow: 'none',
-                  }}
-                  placeholder=' '
-                  fontSize='0.95rem'
-                  fontWeight='500'
-                />
-                <FormLabel color='gray.400' htmlFor='category_career'>Categoría</FormLabel>
-              </FormControl>
               <FormControl isRequired variant="floating">
                 <Input
                   ref={facultyCareerRef}

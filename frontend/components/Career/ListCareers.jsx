@@ -1,32 +1,50 @@
+import { gql, useQuery } from "@apollo/client";
 import { SearchIcon } from "@chakra-ui/icons";
 import { Box, Button, Checkbox, Collapse, HStack, Input, InputGroup, InputLeftElement, Modal, ModalBody, ModalCloseButton, ModalContent, ModalOverlay, Select, SimpleGrid, Stack, Text, useDisclosure } from "@chakra-ui/react";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { FaSlidersH } from 'react-icons/fa';
-import useSWR from 'swr';
-import fetcher from "../../lib/fetcher";
 import { regiones } from "../../utils/data";
 import { CardCareer } from "./CardCareer";
 import { CareerSkeleton } from "./CareerSkeleton";
 
+const GET_CAREERS_BY_TYPE = gql`
+  query GetCareersByType($input: GetCareersByTypeInput) {
+    getCareersByType(input: $input) {
+      id
+      name
+      type
+      description
+      faculty
+      idUniversity
+      nameUniversity
+      imageUniversity
+      duration
+      lastUpdate
+    }
+  }
+`;
+
 export const ListCareers = ({ name }) => {
 
-  const { data } = useSWR(`/api/careers/${name}`, fetcher);
-
-  const [search, setSearch] = useState('');
+  // const [search, setSearch] = useState('');
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isActiveFilter, setIsActiveFilter] = useState(false);
 
-  const handleSearch = (event) => {
-    setSearch(event.target.value);
-  }
+  const { loading: loadingCareers, data: dataCareers, refetch: refetchCareers } = useQuery(GET_CAREERS_BY_TYPE, {
+    variables: { input: { type: name } }
+  });
 
-  const removeAccents = (str) => {
-    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-  }
+  // const handleSearch = (event) => {
+  //   setSearch(event.target.value);
+  // }
 
-  const filteredCareers = useMemo(() => {
-    return data && data.data.filter(({ nombre }) => removeAccents(nombre.toLowerCase()).includes(removeAccents(search.toLowerCase())));
-  }, [data, search]);
+  // const removeAccents = (str) => {
+  //   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  // }
+
+  // const filteredCareers = useMemo(() => {
+  //   return data && data.data.filter(({ nombre }) => removeAccents(nombre.toLowerCase()).includes(removeAccents(search.toLowerCase())));
+  // }, [data, search]);
 
   return (
     <>
@@ -88,8 +106,8 @@ export const ListCareers = ({ name }) => {
                 borderRadius='lg'
                 fontSize='sm'
                 placeholder='Buscar...'
-                value={search}
-                onChange={handleSearch}
+                // value={search}
+                // onChange={handleSearch}
                 autoComplete='off'
               />
             </InputGroup>
@@ -97,29 +115,35 @@ export const ListCareers = ({ name }) => {
           </ModalBody>
         </ModalContent>
       </Modal>
-      <SimpleGrid
-        columns={{ base: 1, md: 2, lg: 3 }}
-        spacingX='1.2rem'
-        spacingY='1.3rem'
-        paddingY='1.5rem'
-        paddingX='1rem'
-      >
-        {
-          data ? (
-            data.data.length > 0 ? (
-              filteredCareers.map(career => (
-                <CardCareer key={career.id} career={career}/>
-              ))
-            ) : (
-              <Text textAlign='center'>No se han encontrado resultados</Text>
-            )
-          ) : (
-            [0,1,2,3,4,5].map(index => (
-              <CareerSkeleton key={index}/>
-            ))
-          )
-        }
-      </SimpleGrid>
+      {
+        dataCareers ? (
+          <SimpleGrid
+            columns={{
+              base: 1,
+              md: dataCareers.getCareersByType.length > 0 ? 2 : 1,
+              lg: dataCareers.getCareersByType.length > 0 ? 3 : 1
+            }}
+            spacingX='1.2rem'
+            spacingY='1.3rem'
+            paddingY='1.5rem'
+            paddingX='1rem'
+          >
+            {
+              dataCareers.getCareersByType.length > 0 ? (
+                dataCareers.getCareersByType.map(career => (
+                  <CardCareer key={career.id} {...career} />
+                ))
+              ) : (
+                <Text textAlign='center'>No se han encontrado resultados</Text>
+              )
+            }
+          </SimpleGrid>
+        ) : (
+          [0,1,2,3,4,5].map(index => (
+            <CareerSkeleton key={index}/>
+          ))
+        )
+      }
     </>
   )
 }

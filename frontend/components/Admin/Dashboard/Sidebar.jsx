@@ -1,7 +1,8 @@
-import { Avatar, Box, Collapse, Divider, Flex, HStack, Icon, Link, Menu, MenuButton, MenuItem, MenuList, Text, useDisclosure, VStack } from "@chakra-ui/react";
+import { Box, Collapse, Divider, Flex, Icon, Link, Text, useDisclosure, VStack } from "@chakra-ui/react";
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from "react";
+import { FaRegCommentDots, FaRegMap } from 'react-icons/fa';
 import { HiCode } from 'react-icons/hi';
 import { MdKeyboardArrowRight } from 'react-icons/md';
 import { RiBook2Line, RiBuildingLine, RiGroupLine, RiHomeSmile2Line, RiSettings5Line } from 'react-icons/ri';
@@ -110,22 +111,15 @@ export const Sidebar = (props) => {
               <VStack spacing={1.5} paddingY={1.5}>
                 <NextLink href="/admin/dashboard/extras/ubicaciones" passHref>
                   <Link width='full'>
-                    <NavItem pl="12" py="2" activeItem={pathname.split('/')[4] === 'ubicaciones'}>
+                    <NavItem pl="12" icon={FaRegMap} activeItem={pathname.split('/')[4] === 'ubicaciones'}>
                       Ubicaciones
                     </NavItem>
                   </Link>
                 </NextLink>
-                <NextLink href="/admin/dashboard/extras/slack" passHref>
+                <NextLink href="/admin/dashboard/extras/comentarios" passHref>
                   <Link width='full'>
-                    <NavItem pl="12" py="2">
-                      Slack
-                    </NavItem>
-                  </Link>
-                </NextLink>
-                <NextLink href="/admin/dashboard/extras/zapier" passHref>
-                  <Link width='full'>
-                    <NavItem pl="12" py="2">
-                      Zapier
+                    <NavItem icon={FaRegCommentDots} pl="12" activeItem={pathname.split('/')[4] === 'comentarios'}>
+                      Comentarios
                     </NavItem>
                   </Link>
                 </NextLink>
@@ -147,44 +141,9 @@ export const Sidebar = (props) => {
         w='full'
         borderTopWidth='1px'
         borderTopColor='gray.300'
-        py='1.5rem'
+        py='0.75rem'
       >
-        <Menu>
-          <MenuButton
-            w='full'
-            bg='blackAlpha.500'
-            color='white'
-            rounded='lg'
-          >
-            <HStack
-              w='full'
-              px='0.6rem'
-              py='1rem'
-              alignItems='center'
-              justifyContent='start'
-              spacing='0.75rem'
-              overflow='hidden'
-            >
-              <Avatar
-                flex='none'
-                borderRadius='md'
-                w='2.5rem'
-                h='2.5rem'
-                name='anubra266'
-                src='https://avatars.githubusercontent.com/u/30869823?v=4'
-              />
-              <VStack flexShrink='1' minW='0' alignItems='left' spacing='0' pr='0.25rem'>
-                <Text fontSize='0.875rem' textAlign='left' fontWeight='500' isTruncated>Juan Ramirez Villanueva</Text>
-                <Text fontSize='0.75rem' textAlign='left' fontWeight='300' isTruncated>juan.ramirez05@gmail.com</Text>
-              </VStack>
-            </HStack>
-          </MenuButton>
-          <MenuList>
-            <MenuItem>Ya</MenuItem>
-            <MenuItem>Ya</MenuItem>
-            <MenuItem>Ya</MenuItem>
-          </MenuList>
-        </Menu>
+        <Text color='gray.500' fontSize='sm'>© 2022 Vocacción. Todos los derechos reservados.</Text>
       </Box>
     </Box>
   )

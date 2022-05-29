@@ -1,9 +1,12 @@
 import { Badge, Box, HStack, Text, VStack } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 import Image from "next/image";
+
+const MotionBox = motion(Box);
 
 export const CardUser = ({ user, handleUser, id, name, email, image, role, provider }) => {
   return (
-    <Box whileHover={{ scale: 1.01 }} onClick={() => handleUser(user)} cursor='pointer' bg='blackAlpha.600' paddingX={5} paddingY={3} rounded='md' border='1px solid' borderColor='gray.700'>
+    <MotionBox whileHover={{ scale: 1.01 }} onClick={() => handleUser(user)} cursor='pointer' bg='blackAlpha.600' paddingX={5} paddingY={4} rounded='md' border='1px solid' borderColor='gray.700'>
       <HStack alignItems='start'>
         <HStack marginRight={1} alignItems='center' justifyContent='center' rounded='lg' overflow='hidden'>
           <Image src={image === '' ? '/images/user-default.png' : image} alt={name} width={60} height={60} priority="true"/>
@@ -25,6 +28,6 @@ export const CardUser = ({ user, handleUser, id, name, email, image, role, provi
           </HStack>
         </VStack>
       </HStack>
-    </Box>
+    </MotionBox>
   )
 }

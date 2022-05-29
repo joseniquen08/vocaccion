@@ -2,8 +2,9 @@ import { getSession } from "next-auth/react";
 import Head from "next/head";
 import { Navbar } from '../../components/Navbar';
 import { ListUniversityContainer } from "../../components/University/ListUniversityContainer";
+import decodeToken from "../../utils/decodeToken";
 
-const University = ({ name, isLogged, user }) => {
+const University = ({ name, university, isLogged, user }) => {
   return (
     <>
       <Head>
@@ -12,7 +13,7 @@ const University = ({ name, isLogged, user }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar isLogged={isLogged} user={user}/>
-      <ListUniversityContainer name={name}/>
+      <ListUniversityContainer name={name} university={university}/>
     </>
   )
 }
@@ -20,11 +21,23 @@ const University = ({ name, isLogged, user }) => {
 export const getServerSideProps = async (context) => {
 
   let user = null;
+  let isLogged = null;
   const session = await getSession(context);
-  console.log(session);
+
   if (session) {
+    isLogged = true;
     user = session.user;
   }
+
+  if (context.req.cookies.token) {
+    isLogged = true;
+    const decryptedToken = decodeToken(context.req.cookies.token);
+    user = {
+      name: `${decryptedToken.name}`,
+      image: `${decryptedToken.image}`,
+    };
+  }
+
   const { university } = context.params;
 
   let name = university.split('-').map(word => word.split('').map((letter, i) => i === 0 ? letter.toUpperCase() : letter).join('')).join(' ');
@@ -34,7 +47,8 @@ export const getServerSideProps = async (context) => {
   return {
     props: {
       name,
-      isLogged: session ? true : false,
+      university,
+      isLogged,
       user
     }
   }

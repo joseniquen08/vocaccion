@@ -52,3 +52,11 @@ export const AccountSchema = new Schema<IAccount>({
   provider: String,
   type: String,
 });
+
+UserSchema.post('save', function (error: any, doc: any, next: any) {
+  if (error.name === 'MongoServerError' && error.code === 11000) {
+    next(new Error('duplicate key'));
+  } else {
+    next();
+  }
+});

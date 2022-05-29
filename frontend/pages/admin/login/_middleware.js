@@ -10,5 +10,4 @@ export function middleware(req) {
       return NextResponse.redirect(new URL('/', req.url));
     }
   }
-  return NextResponse.redirect(new URL('/admin/login', req.url));
 }

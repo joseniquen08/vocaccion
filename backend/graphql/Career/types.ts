@@ -22,16 +22,36 @@ export const types = `
     lastUpdate: String!
   }
 
-  type CreateCareerOutput {
-    id: ID!
-    name: String!
+  input GetCareersByTypeInput {
     type: String!
+  }
+
+  type CreateCareerOutput {
+    id: ID
+    name: String
+    type: String
     description: String
-    faculty: String!
-    idUniversity: String!
-    nameUniversity: String!
-    imageUniversity: String!
-    duration: Int!
-    lastUpdate: String!
+    faculty: String
+    idUniversity: String
+    nameUniversity: String
+    imageUniversity: String
+    duration: Int
+    lastUpdate: String
+    errors: Error
+  }
+
+  type GetCareerByIdOutput {
+    id: ID
+    name: String
+    type: String
+    description: String
+    faculty: String
+    idUniversity: String
+    nameUniversity: String
+    imageUniversity: String
+    duration: Int
+    lastUpdate: String
+    comments: [CommentCareerOutput]
+    errors: Error
   }
 `;

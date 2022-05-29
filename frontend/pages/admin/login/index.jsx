@@ -6,7 +6,7 @@ const Login = () => {
   return (
     <>
       <Head>
-        <title>Iniciar sesión [Admin] - Vocacción</title>
+        <title>Iniciar sesión - Vocacción</title>
         <meta name="description" content="Iniciar sesión Admin" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -16,9 +16,8 @@ const Login = () => {
 }
 
 export const getServerSideProps = async (context) => {
-  const session = await getSession(context);
 
-  console.log(session);
+  const session = await getSession(context);
 
   if (session) {
     return {

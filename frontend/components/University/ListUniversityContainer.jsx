@@ -1,7 +1,7 @@
 import { Box, Flex, Heading } from "@chakra-ui/react";
 import { ListUniversities } from "./ListUniversities";
 
-export const ListUniversityContainer = ({ name }) => {
+export const ListUniversityContainer = ({ name, university }) => {
   return (
     <Flex
       flexDirection='column'
@@ -28,7 +28,7 @@ export const ListUniversityContainer = ({ name }) => {
           >
             {name}
           </Heading>
-          <ListUniversities name={name}/>
+          <ListUniversities name={name} university={university}/>
         </Box>
       </Box>
     </Flex>
