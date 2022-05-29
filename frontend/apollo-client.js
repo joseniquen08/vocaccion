@@ -4,7 +4,7 @@ const cache = new InMemoryCache();
 
 const client = new ApolloClient({
   cache: cache,
-  uri: `${process.env.SERVER_URI}/graphql`,
+  uri: `https://vocaccion-backend-production.up.railway.app/graphql`,
 });
 
 export default client;
