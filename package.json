@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "front:dev": "cd frontend && yarn dev",
-    "back:dev": "cd backend && ts-node-dev src/index.ts"
+    "back:dev": "cd backend && ts-node-dev src/index.ts",
+    "start:front": "cd frontend && yarn start",
+    "start:back": "cd backend && tsc && node build/src/index.js"
   },
   "license": "MIT",
   "workspaces": [
