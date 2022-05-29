@@ -7,3 +7,4 @@ yarn.lock
 
 backend/public
 */.next
+build/
