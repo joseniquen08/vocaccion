@@ -3,7 +3,7 @@ export const uploadImage = async (image) => {
     const formData = new FormData();
     formData.append('image', image);
 
-    const response = await fetch(`https://vocaccion-backend-production.up.railway.app/university/upload/image`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/university/upload/image`, {
       method: 'post',
       body: formData,
     });
