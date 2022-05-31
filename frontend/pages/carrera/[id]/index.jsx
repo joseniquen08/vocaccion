@@ -3,6 +3,7 @@ import { getSession } from "next-auth/react";
 import Head from "next/head";
 import client from "../../../apollo-client";
 import { InfoCareer } from "../../../components/Career/InfoCareer";
+import { Footer } from "../../../components/Footer";
 import { Navbar } from "../../../components/Navbar";
 import decodeToken from "../../../utils/decodeToken";
 
@@ -46,6 +47,7 @@ const Carrera = ({ id, data, isLogged, user }) => {
       </Head>
       <Navbar isLogged={isLogged} user={user}/>
       <InfoCareer id={id} user={user}/>
+      <Footer/>
     </>
   )
 }
@@ -65,6 +67,7 @@ export const getServerSideProps = async (context) => {
     isLogged = true;
     const decryptedToken = decodeToken(context.req.cookies.token);
     user = {
+      id: `${decryptedToken.id}`,
       name: `${decryptedToken.name}`,
       image: `${decryptedToken.image}`,
     };

@@ -29,7 +29,7 @@ export const UserButton = ({ name, image }) => {
         colorScheme='gray'
         icon={
           <HStack alignItems='center' justifyContent='center' borderRadius='full' overflow='hidden'>
-            <Image src={image === '' ? '/images/user-default.png' : image} alt={name} width={28} height={28} priority="true"/>
+            <Image src={image === '' ? '/images/user-default.png' : image} alt={name} width={28} height={28} priority="true" objectFit="cover" objectPosition='center'/>
           </HStack>
         }
         size='md'

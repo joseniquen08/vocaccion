@@ -21,10 +21,10 @@ export const ListUniversityContainer = ({ name, university }) => {
         >
           <Heading
             marginBottom='1.5rem'
-            fontSize='3xl'
+            fontSize='4xl'
             textAlign='center'
-            color='cyan.600'
-            fontWeight={600}
+            color='cyan.500'
+            fontWeight={700}
           >
             {name}
           </Heading>

@@ -1,4 +1,5 @@
 import { HStack, Image, Text, VStack } from "@chakra-ui/react";
+import dayjs from 'dayjs';
 import { FaCircle } from 'react-icons/fa';
 
 export const CommentCareer = ({ comment }) => {
@@ -9,8 +10,12 @@ export const CommentCareer = ({ comment }) => {
           <Image src={comment.imageUser === '' ? '/images/user-default.png' : comment.imageUser} alt={comment.nameUser} flex='none' objectFit='contain' w='2.2rem' h='2.2rem'/>
         </HStack>
         <Text fontWeight={700} fontSize='1rem' isTruncated color='gray.700'>{comment.nameUser}</Text>
-        <FaCircle size='0.4rem'/>
-        <Text fontSize='0.85rem' color='gray.500'>{comment.createdAt}</Text>
+        <FaCircle size='0.375rem'/>
+        <Text fontWeight={500} fontSize='0.8rem' color='gray.400'>
+          {
+            dayjs().to(dayjs(comment.createdAt))
+          }
+        </Text>
       </HStack>
       <HStack>
         <Text fontSize='0.95rem' fontWeight={500} color='gray.600'>{comment.content}</Text>

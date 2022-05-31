@@ -65,4 +65,22 @@ export const types = `
     user: User
     page: Page
   }
+
+  type GetAllCommentsCareerOutput {
+    id: ID
+    content: String
+    createdAt: DateTime
+    updatedAt: DateTime
+    user: User
+    career: Career
+  }
+
+  type GetAllCommentsUniversityOutput {
+    id: ID
+    content: String
+    createdAt: DateTime
+    updatedAt: DateTime
+    user: User
+    university: University
+  }
 `;

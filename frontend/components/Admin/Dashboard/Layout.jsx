@@ -85,7 +85,7 @@ export const Layout = ({ user, children }) => {
                   colorScheme='whiteAlpha'
                   icon={
                     <HStack alignItems='center' justifyContent='center' borderRadius='full' overflow='hidden'>
-                      <Image src={user.image === '' ? '/images/user-default.png' : user.image} alt={user.name} width={28} height={28} priority="true"/>
+                      <Image src={user.image === '' ? '/images/user-default.png' : user.image} alt={user.name} width={28} height={28} priority="true" objectFit='cover' objectPosition='center'/>
                     </HStack>
                   }
                   size='md'

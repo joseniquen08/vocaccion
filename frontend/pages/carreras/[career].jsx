@@ -1,6 +1,7 @@
 import { getSession } from "next-auth/react";
 import Head from "next/head";
 import { ListCareersContainer } from "../../components/Career/ListCareersContainer";
+import { Footer } from "../../components/Footer";
 import { Navbar } from '../../components/Navbar';
 import decodeToken from "../../utils/decodeToken";
 
@@ -14,6 +15,7 @@ const Career = ({ name, isLogged, user }) => {
       </Head>
       <Navbar isLogged={isLogged} user={user}/>
       <ListCareersContainer name={name}/>
+      <Footer/>
     </>
   )
 }

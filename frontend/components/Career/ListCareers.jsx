@@ -139,9 +139,19 @@ export const ListCareers = ({ name }) => {
             }
           </SimpleGrid>
         ) : (
-          [0,1,2,3,4,5].map(index => (
-            <CareerSkeleton key={index}/>
-          ))
+          <SimpleGrid
+            columns={{ base: 1, md: 2, lg: 3 }}
+            spacingX='1.2rem'
+            spacingY='1.3rem'
+            paddingY='1.5rem'
+            paddingX='1rem'
+          >
+            {
+              [0,1,2,3,4,5].map(index => (
+                <CareerSkeleton key={index}/>
+              ))
+            }
+          </SimpleGrid>
         )
       }
     </>

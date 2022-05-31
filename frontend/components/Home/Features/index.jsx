@@ -1,4 +1,6 @@
 import { Box, Flex, SimpleGrid, Text, VStack } from "@chakra-ui/react"
+import { FaRegCommentDots } from "react-icons/fa"
+import { RiBook2Line, RiBuildingLine } from "react-icons/ri"
 import { CardFeature } from "./CardFeature"
 
 export const Features = () => {
@@ -9,13 +11,13 @@ export const Features = () => {
       bg='white'
       alignItems='center'
     >
-      <Box h='full' marginX='0.75rem' paddingX='2rem' paddingY='2rem' bg='cyan.500' w='full' borderRadius='3xl'>
+      <Box h='full' marginX='0.75rem' paddingX='2.5rem' paddingY='3rem' bg='cyan.500' w='full' borderRadius='3xl'>
         <VStack w='full'>
           <Text
             as='p'
             color='white'
-            fontSize='2xl'
-            fontWeight='500'
+            fontSize='3xl'
+            fontWeight={600}
           >
             Todo lo que puedes encontrar
           </Text>
@@ -26,15 +28,24 @@ export const Features = () => {
             paddingY='1.5rem'
             paddingX='1rem'
             marginX='auto'
-            maxWidth='7xl'
+            maxWidth='6xl'
             w='full'
           >
-            <CardFeature/>
-            <CardFeature/>
-            <CardFeature/>
-            <CardFeature/>
-            <CardFeature/>
-            <CardFeature/>
+            <CardFeature
+              title='Carreras'
+              description='Conoce las carreras que ofrecen las universidades de todo el Perú.'
+              icon={RiBook2Line}
+            />
+            <CardFeature
+              title='Universidades'
+              description='Encuentra la información básica y detallada de las universidades peruanas.'
+              icon={RiBuildingLine}
+            />
+            <CardFeature
+              title='Opiniones'
+              description='Interactúa con la comunidad y encuentra las opiniones y experiencias de otros usuarios.'
+              icon={FaRegCommentDots}
+            />
           </SimpleGrid>
         </VStack>
       </Box>

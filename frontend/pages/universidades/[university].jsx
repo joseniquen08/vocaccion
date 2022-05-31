@@ -1,5 +1,6 @@
 import { getSession } from "next-auth/react";
 import Head from "next/head";
+import { Footer } from "../../components/Footer";
 import { Navbar } from '../../components/Navbar';
 import { ListUniversityContainer } from "../../components/University/ListUniversityContainer";
 import decodeToken from "../../utils/decodeToken";
@@ -14,6 +15,7 @@ const University = ({ name, university, isLogged, user }) => {
       </Head>
       <Navbar isLogged={isLogged} user={user}/>
       <ListUniversityContainer name={name} university={university}/>
+      <Footer/>
     </>
   )
 }

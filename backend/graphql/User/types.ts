@@ -34,6 +34,11 @@ export const types = `
     age: Int
   }
 
+  input UpdateImageUserInput {
+    email: String
+    image: String
+  }
+
   type UserOutput {
     user: User
   }

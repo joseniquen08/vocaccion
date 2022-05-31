@@ -2,6 +2,7 @@ import { gql } from "@apollo/client";
 import { getSession } from "next-auth/react";
 import Head from "next/head";
 import client from "../../../apollo-client";
+import { Footer } from "../../../components/Footer";
 import { Navbar } from "../../../components/Navbar";
 import { InfoUniversity } from "../../../components/University/InfoUniversity";
 import decodeToken from "../../../utils/decodeToken";
@@ -53,6 +54,7 @@ const Universidad = ({ id, data, isLogged, user }) => {
       </Head>
       <Navbar isLogged={isLogged} user={user}/>
       <InfoUniversity id={id} user={user}/>
+      <Footer/>
     </>
   )
 }
@@ -72,6 +74,7 @@ export const getServerSideProps = async (context) => {
     isLogged = true;
     const decryptedToken = decodeToken(context.req.cookies.token);
     user = {
+      id: `${decryptedToken.id}`,
       name: `${decryptedToken.name}`,
       image: `${decryptedToken.image}`,
     };

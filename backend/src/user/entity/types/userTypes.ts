@@ -29,3 +29,7 @@ export type UpdateUser = {
 export type UpdateUserWhitoutProvider = {
   input: Omit<IUser, '_id' | 'password' | 'image' | 'role' | 'provider' | 'emailVerified' | 'createdAt' | 'updatedAt'>
 }
+
+export type UpdateImageUser = {
+  input: Omit<IUser, '_id' | 'name' | 'username' | 'age' | 'password' | 'role' | 'provider' | 'emailVerified' | 'createdAt' | 'updatedAt'>
+}

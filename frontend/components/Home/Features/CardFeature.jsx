@@ -1,17 +1,25 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Icon, Text, VStack } from "@chakra-ui/react";
 
-export const CardFeature = () => {
+export const CardFeature = ({ title, description, icon }) => {
   return (
-    <Box
+    <VStack
       border='1px solid'
       borderColor='gray.100'
       borderRadius='lg'
       overflow='hidden'
-      paddingX='1.5rem'
-      paddingY='1.2rem'
-      h='12rem'
+      paddingX='1.8rem'
+      paddingY='1.5rem'
+      alignItems='start'
     >
-      Prueba
-    </Box>
+      <Icon
+        boxSize='10'
+        color='gray.100'
+        as={icon}
+      />
+      <Text fontSize='1.6rem' color='white' fontWeight={600}>{title}</Text>
+      <Box>
+        <Text fontSize='1.1rem' color='gray.100' fontWeight={400}>{description}</Text>
+      </Box>
+    </VStack>
   )
 }

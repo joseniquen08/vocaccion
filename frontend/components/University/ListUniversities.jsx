@@ -59,10 +59,10 @@ export const ListUniversities = ({ name, university }) => {
     <>
       <Box paddingX='1rem'>
         <HStack justifyContent="space-between" paddingY='3'>
-          <Button onClick={() => setIsActiveFilter(state => !state)} leftIcon={<FaSlidersH />} colorScheme='cyan' color={isActiveFilter ? 'white' : 'cyan.500'} variant={isActiveFilter ? 'solid' : 'outline'} size='sm' flex='none'>
+          <Button isDisabled onClick={() => setIsActiveFilter(state => !state)} leftIcon={<FaSlidersH />} colorScheme='cyan' color={isActiveFilter ? 'white' : 'cyan.500'} variant={isActiveFilter ? 'solid' : 'outline'} size='sm' flex='none'>
             Filtros
           </Button>
-          <Button onClick={onOpen} leftIcon={<SearchIcon />} variant="outline" colorScheme='gray' color='gray.400' fontWeight="400" w='sm' justifyContent='left' size='sm' borderRadius='lg'>Buscar...</Button>
+          <Button isDisabled onClick={onOpen} leftIcon={<SearchIcon />} variant="outline" colorScheme='gray' color='gray.400' fontWeight="400" w='sm' justifyContent='left' size='sm' borderRadius='lg'>Buscar...</Button>
         </HStack>
         <Collapse in={isActiveFilter} animateOpacity>
           <Stack
@@ -144,9 +144,19 @@ export const ListUniversities = ({ name, university }) => {
             }
           </SimpleGrid>
         ) : (
-          [0,1,2,3].map(index => (
-            <UniversitySkeleton key={index}/>
-          ))
+          <SimpleGrid
+            columns={{ base: 1, lg: 2 }}
+            spacingX='1.8rem'
+            spacingY='1.6rem'
+            paddingY='1.5rem'
+            paddingX='1.75rem'
+          >
+            {
+              [0,1,2,3].map(index => (
+                <UniversitySkeleton key={index}/>
+              ))
+            }
+          </SimpleGrid>
         )
       }
     </>

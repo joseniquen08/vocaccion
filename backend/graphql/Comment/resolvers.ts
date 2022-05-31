@@ -56,6 +56,56 @@ const queries = {
         errors: { message: error.message }
       }
     }
+  },
+  getAllCommentsCareer: async () => {
+    try {
+      const commentsCareer = await CommentCareerModel.find({});
+      const commentsCareerResponse = await Promise.all(commentsCareer.map(async (comment: ICommentCareer) => {
+        const { _id, content, idUser, idCareer, createdAt, updatedAt } = comment;
+        const user: IUser | null = await UserModel.findById(idUser);
+        if (!user) throw new Error('user not found');
+        const career: ICareer | null = await CareerModel.findById(idCareer);
+        if (!career) throw new Error('career not found');
+        return {
+          id: _id,
+          content,
+          createdAt,
+          updatedAt,
+          user,
+          career,
+        };
+      }));
+      return commentsCareerResponse;
+    } catch (error: any) {
+      return {
+        errors: { message: error.message }
+      }
+    }
+  },
+  getAllCommentsUniversity: async () => {
+    try {
+      const commentsUniversity = await CommentUniversityModel.find({});
+      const commentsUniversityResponse = await Promise.all(commentsUniversity.map(async (comment: ICommentUniversity) => {
+        const { _id, content, idUser, idUniversity, createdAt, updatedAt } = comment;
+        const user: IUser | null = await UserModel.findById(idUser);
+        if (!user) throw new Error('user not found');
+        const university: IUniversity | null = await UniversityModel.findById(idUniversity);
+        if (!university) throw new Error('university not found');
+        return {
+          id: _id,
+          content,
+          createdAt,
+          updatedAt,
+          user,
+          university,
+        };
+      }));
+      return commentsUniversityResponse;
+    } catch (error: any) {
+      return {
+        errors: { message: error.message }
+      }
+    }
   }
 };
 
@@ -69,6 +119,16 @@ const mutations = {
     const commentUniversity = new CommentUniversityModel(input);
     const newCommentUniversity: ICommentUniversity = await commentUniversity.save();
     return newCommentUniversity;
+  },
+  deleteCommentCareer: async (_: any, { id }: { id: string }) => {
+    const commentCareer: ICommentCareer | null = await CommentCareerModel.findByIdAndRemove(id);
+    if (!commentCareer) throw new Error('comment not found');
+    return commentCareer;
+  },
+  deleteCommentUniversity: async (_: any, { id }: { id: string }) => {
+    const commentUniversity: ICommentUniversity | null = await CommentUniversityModel.findByIdAndRemove(id);
+    if (!commentUniversity) throw new Error('comment not found');
+    return commentUniversity;
   }
 };
 

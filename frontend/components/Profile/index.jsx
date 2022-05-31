@@ -1,8 +1,10 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
-import { Box, Button, Divider, Grid, GridItem, HStack, Input, NumberInput, NumberInputField, Tag, Text } from "@chakra-ui/react";
+import { Box, Button, Divider, Grid, GridItem, HStack, IconButton, Input, NumberInput, NumberInputField, Tag, Text, useDisclosure } from "@chakra-ui/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { FaCamera } from "react-icons/fa";
 import Cookies from "universal-cookie";
+import { ModalPhoto } from "./ModalPhoto";
 
 const GET_USER_BY_ID = gql`
   query getUserById($id: String) {
@@ -50,11 +52,13 @@ export const Profile = ({ id }) => {
   const [age, setAge] = useState(null);
   const [editionAvailable, setEditionAvailable] = useState(false);
 
-  const { loading: loadingGetUser, data: dataGetUser } = useQuery(GET_USER_BY_ID, {
+  const { loading: loadingGetUser, data: dataGetUser, refetch: refetchGetUser } = useQuery(GET_USER_BY_ID, {
     variables: { id },
   });
   const [updateUserMutation, { loading: loadingUpdateUser, data: dataUpdateUser }] = useMutation(UPDATE_USER);
   const [updateUserWhitoutProviderMutation, { loading: loadingUpdateUserWhitoutProvider, data: dataUpdateUserWhitoutProvider }] = useMutation(UPDATE_USER_WHITOUT_PROVIDER);
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleUsername = (e) => {
     setUsername(e.target.value);
@@ -140,7 +144,16 @@ export const Profile = ({ id }) => {
     <Box width='full'>
       {
         loadingGetUser ? (
-          <Text>Cargando...</Text>
+          <HStack justifyContent='center' w='full' py={6}>
+            <Button
+              isLoading
+              loadingText='Cargando...'
+              colorScheme='gray'
+              variant='ghost'
+              spinnerPlacement='start'
+              size='lg'
+            ></Button>
+          </HStack>
         ) : (
           user && (
             <Box
@@ -155,10 +168,23 @@ export const Profile = ({ id }) => {
               <Box position='relative'>
                 <Box height='10rem' bg='cyan.100'></Box>
                 <HStack position='absolute' alignItems='end' paddingX='5rem' bottom='-4.2rem' width='full'>
-                  <HStack flex='none' alignItems='center' justifyContent='center' borderRadius='full' width='6.5rem' height='6.5rem' bg='white'>
+                  <HStack flex='none' position='relative' alignItems='center' justifyContent='center' borderRadius='full' width='6.5rem' height='6.5rem' bg='white'>
                     <Box flex='none' alignItems='center' justifyContent='center' borderRadius='full' overflow='hidden' width='6rem' height='6rem'>
-                      <Image src={user.image === '' ? '/images/user-default.png' : user.image} alt={user.name} width={96} height={96} priority="true"/>
+                      <Image src={user.image === '' ? '/images/user-default.png' : user.image} alt={user.name} width={96} height={96} priority="true" objectFit="cover" objectPosition='center'/>
                     </Box>
+                    {
+                      user.provider === 'no' && (
+                        <Box position='absolute' bottom={0} right={0}>
+                          <IconButton
+                            colorScheme='blackAlpha'
+                            size='sm'
+                            icon={<FaCamera />}
+                            rounded='full'
+                            onClick={onOpen}
+                          />
+                        </Box>
+                      )
+                    }
                   </HStack>
                   <HStack paddingBottom='0.5rem' width='full' justifyContent='space-between'>
                     <Box paddingLeft='0.75rem'>
@@ -260,6 +286,11 @@ export const Profile = ({ id }) => {
               </Box>
             </Box>
           )
+        )
+      }
+      {
+        user && (
+          <ModalPhoto isOpen={isOpen} onClose={onClose} user={user} refetch={refetchGetUser}/>
         )
       }
     </Box>

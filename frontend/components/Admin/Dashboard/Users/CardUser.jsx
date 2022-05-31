@@ -9,7 +9,7 @@ export const CardUser = ({ user, handleUser, id, name, email, image, role, provi
     <MotionBox whileHover={{ scale: 1.01 }} onClick={() => handleUser(user)} cursor='pointer' bg='blackAlpha.600' paddingX={5} paddingY={4} rounded='md' border='1px solid' borderColor='gray.700'>
       <HStack alignItems='start'>
         <HStack marginRight={1} alignItems='center' justifyContent='center' rounded='lg' overflow='hidden'>
-          <Image src={image === '' ? '/images/user-default.png' : image} alt={name} width={60} height={60} priority="true"/>
+          <Image src={image === '' ? '/images/user-default.png' : image} alt={name} width={60} height={60} priority="true" objectFit='cover' objectPosition='center'/>
         </HStack>
         <VStack alignItems='left' spacing={0}>
           <Text noOfLines={1} fontSize='md' fontWeight={500} color='white'>{name}</Text>

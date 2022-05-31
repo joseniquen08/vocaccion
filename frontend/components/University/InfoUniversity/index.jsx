@@ -3,6 +3,7 @@ import { ArrowBackIcon } from "@chakra-ui/icons";
 import { Badge, Box, Button, Divider, Flex, FormControl, Heading, HStack, Image, SimpleGrid, StackDivider, Text, Textarea, VStack } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
+import { FaLock } from 'react-icons/fa';
 import { CommentUniversity } from "./CommentUniversity";
 
 const CREATE_COMMENT_UNIVERSITY = gql`
@@ -56,6 +57,8 @@ const GET_UNIVERSITY_BY_ID = gql`
 `;
 
 export const InfoUniversity = ({ id, user }) => {
+
+  console.log(user);
 
   const router = useRouter();
 
@@ -153,7 +156,7 @@ export const InfoUniversity = ({ id, user }) => {
                     <Box>
                       {
                         dataUniversity.getUniversityById.provinces.map((province) => (
-                          <Badge colorScheme='blackAlpha' fontSize='0.9rem'>{province.name}</Badge>
+                          <Badge key={province.id} colorScheme='blackAlpha' fontSize='0.9rem'>{province.name}</Badge>
                         ))
                       }
                     </Box>
@@ -171,52 +174,72 @@ export const InfoUniversity = ({ id, user }) => {
                 <Box>
                   <VStack w='full' paddingY='1.5rem' alignItems='start' spacing={4}>
                     <Text fontWeight={700} color='blackAlpha.800' fontSize='2xl'>Experiencias</Text>
-                    <VStack
-                      divider={<StackDivider borderColor='gray.200'/>}
-                      spacing={4}
-                      w='full'
-                      paddingY='1rem'
-                      borderWidth='1px'
-                      borderRadius='lg'
-                      overflow='hidden'
-                      px={6}
-                      py={4}
-                    >
-                      {
-                        dataUniversity.getUniversityById.comments.length > 0 ? (
-                          dataUniversity.getUniversityById.comments.map((comment) => (
-                            <CommentUniversity key={comment.id} comment={comment}/>
-                          ))
-                        ): (
-                          <Text fontSize='0.95rem' align='center' fontWeight={500} color='gray.600'>Aún no hay experiencias publicadas.</Text>
-                        )
-                      }
-                    </VStack>
-                    <Box w='full' paddingY='0.5rem'>
-                      <HStack alignItems='start' w='full'>
-                        <HStack flex='none' border='1px solid' borderColor='gray.200' w='2.2rem' h='2.2rem' alignItems='center' justifyContent='center' borderRadius='full' overflow='hidden' marginRight='0.1rem'>
-                          <Image src={user.image === '' ? '/images/user-default.png' : user.image} alt={user.name} flex='none' objectFit='contain' w='2.2rem' h='2.2rem'/>
-                        </HStack>
-                        <VStack as='form' onSubmit={createCommentUniversity} alignItems='start' w='full'>
-                          <FormControl isRequired>
-                            <Textarea
-                              w='full'
-                              ref={commentRef}
-                              value={comment}
-                              onChange={(e) => setComment(e.target.value)}
-                              placeholder="Escribe tu experiencia en esta carrera"
-                              resize='none'
-                              _focus={{
-                                boxShadow: 'none',
-                              }}
-                              fontSize='0.95rem'
-                              fontWeight='500'
-                            />
-                          </FormControl>
-                          <Button type='submit' variant='solid' size='sm' colorScheme='gray'>Comentar</Button>
+                    {
+                      user ? (
+                        <>
+                          <VStack
+                            divider={<StackDivider borderColor='gray.200'/>}
+                            spacing={4}
+                            w='full'
+                            borderWidth='1px'
+                            borderRadius='lg'
+                            overflow='hidden'
+                            px={6}
+                            py={4}
+                          >
+                            {
+                              dataUniversity.getUniversityById.comments.length > 0 ? (
+                                dataUniversity.getUniversityById.comments.map((comment) => (
+                                  <CommentUniversity key={comment.id} comment={comment}/>
+                                ))
+                              ): (
+                                <Text fontSize='0.95rem' align='center' fontWeight={500} color='gray.600'>Aún no hay experiencias publicadas.</Text>
+                              )
+                            }
+                          </VStack>
+                          <Box w='full' paddingY='0.5rem'>
+                            <HStack alignItems='start' w='full'>
+                              <HStack flex='none' border='1px solid' borderColor='gray.200' w='2.2rem' h='2.2rem' alignItems='center' justifyContent='center' borderRadius='full' overflow='hidden' marginRight='0.1rem'>
+                                <Image src={user.image === '' ? '/images/user-default.png' : user.image} alt={user.name} flex='none' objectFit='contain' w='2.2rem' h='2.2rem'/>
+                              </HStack>
+                              <VStack as='form' onSubmit={createCommentUniversity} alignItems='start' w='full'>
+                                <FormControl isRequired>
+                                  <Textarea
+                                    w='full'
+                                    ref={commentRef}
+                                    value={comment}
+                                    onChange={(e) => setComment(e.target.value)}
+                                    placeholder="Escribe tu experiencia en esta carrera"
+                                    resize='none'
+                                    _focus={{
+                                      boxShadow: 'none',
+                                    }}
+                                    fontSize='0.95rem'
+                                    fontWeight='500'
+                                  />
+                                </FormControl>
+                                <Button type='submit' variant='solid' size='sm' colorScheme='gray'>Comentar</Button>
+                              </VStack>
+                            </HStack>
+                          </Box>
+                        </>
+                      ) : (
+                        <VStack
+                          w='full'
+                          borderWidth='1px'
+                          borderRadius='lg'
+                          overflow='hidden'
+                          alignItems='center'
+                          cursor='pointer'
+                          onClick={() => router.push('/login')}
+                          spacing={4}
+                          py={8}
+                        >
+                          <FaLock size={30}/>
+                          <Text fontWeight={500}>Inicia sesión o regístrate para ver las experiencias y puedas comentar.</Text>
                         </VStack>
-                      </HStack>
-                    </Box>
+                      )
+                    }
                   </VStack>
                 </Box>
               </Box>
