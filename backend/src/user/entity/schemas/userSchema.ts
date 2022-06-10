@@ -1,5 +1,5 @@
 import { Schema } from 'mongoose';
-import { IAccount, IUser } from '../types/userTypes';
+import { IUser } from '../types/userTypes';
 
 export const UserSchema = new Schema<IUser>({
   name: {
@@ -39,18 +39,12 @@ export const UserSchema = new Schema<IUser>({
     type: String,
     default: 'no',
   },
-  emailVerified: {
+  emailVerifiedV: {
     type: Boolean,
     default: false,
   },
 }, {
   timestamps: true,
-});
-
-export const AccountSchema = new Schema<IAccount>({
-  userId: Schema.Types.ObjectId,
-  provider: String,
-  type: String,
 });
 
 UserSchema.post('save', function (error: any, doc: any, next: any) {

@@ -41,15 +41,15 @@ export const Universities = () => {
     <>
       <Box>
         <Heading
-          marginTop='0.5rem'
+          mt='0.5rem'
           fontSize='3xl'
           textAlign='center'
           color='white'
         >
           Universidades
         </Heading>
-        <Box paddingX='1rem'>
-          <HStack justifyContent="space-between" paddingY='3'>
+        <Box px='1rem'>
+          <HStack justifyContent="space-between" py='3'>
             <Box>
               <Button leftIcon={<FaSlidersH />} color='white' colorScheme='whiteAlpha' variant='ghost' size='sm'>
                 Filtros
@@ -67,7 +67,7 @@ export const Universities = () => {
           {
             dataUniversities ? (
               dataUniversities.getAllUniversities.length > 0 ? (
-                <Table variant='simple' colorScheme='gray' minW='full' display='block' whiteSpace='nowrap' overflowX='auto' paddingX='1rem'>
+                <Table variant='simple' colorScheme='gray' minW='full' display='block' whiteSpace='nowrap' overflowX='auto' px='1rem'>
                   <Tbody display='table' w='full'>
                     <Tr
                       bg='whiteAlpha.200'
@@ -96,7 +96,7 @@ export const Universities = () => {
                   </Tbody>
                 </Table>
               ) : (
-                <Box w='full' paddingX='1rem'>
+                <Box w='full' px='1rem'>
                   <Table variant='simple' colorScheme='gray' minW='full' whiteSpace='nowrap' overflowX='auto'>
                     <Thead display='table' w='full'>
                       <Tr
@@ -112,7 +112,7 @@ export const Universities = () => {
                 </Box>
               )
             ) : (
-              <Box w='full' paddingX='1rem'>
+              <Box w='full' px='1rem'>
                 <Table variant='simple' colorScheme='gray' minW='full' whiteSpace='nowrap' overflowX='auto'>
                   <Thead display='table' w='full'>
                     <Tr

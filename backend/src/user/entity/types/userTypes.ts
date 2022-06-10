@@ -10,26 +10,19 @@ export interface IUser {
   image: string;
   role: string;
   provider: string;
-  emailVerified: boolean;
+  emailVerifiedV: boolean;
   createdAt: Date;
   updatedAt: Date;
 };
 
-export interface IAccount {
-  _id: Types.ObjectId;
-  userId: Types.ObjectId;
-  provider: string;
-  type: string;
-}
-
 export type UpdateUser = {
-  input: Omit<IUser, '_id' | 'name' | 'username' | 'password' | 'image' | 'role' | 'provider' | 'emailVerified' | 'createdAt' | 'updatedAt'>
+  input: Omit<IUser, '_id' | 'name' | 'username' | 'password' | 'image' | 'role' | 'provider' | 'emailVerifiedV' | 'createdAt' | 'updatedAt'>
 }
 
 export type UpdateUserWhitoutProvider = {
-  input: Omit<IUser, '_id' | 'password' | 'image' | 'role' | 'provider' | 'emailVerified' | 'createdAt' | 'updatedAt'>
+  input: Omit<IUser, '_id' | 'password' | 'image' | 'role' | 'provider' | 'emailVerifiedV' | 'createdAt' | 'updatedAt'>
 }
 
 export type UpdateImageUser = {
-  input: Omit<IUser, '_id' | 'name' | 'username' | 'age' | 'password' | 'role' | 'provider' | 'emailVerified' | 'createdAt' | 'updatedAt'>
+  input: Omit<IUser, '_id' | 'name' | 'username' | 'age' | 'password' | 'role' | 'provider' | 'emailVerifiedV' | 'createdAt' | 'updatedAt'>
 }

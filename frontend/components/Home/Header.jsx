@@ -4,7 +4,7 @@ import NextLink from 'next/link';
 
 const MotionLink = motion(Link);
 
-export const Header = () => {
+export const Header = ({ user }) => {
   return (
     <Flex
       h='full'
@@ -12,7 +12,7 @@ export const Header = () => {
       bg='white'
       alignItems='center'
     >
-      <Box h='full' marginX='auto' maxWidth='5xl' paddingY='10rem' paddingX='2rem'>
+      <Box h='full' mx='auto' maxW='5xl' py='12rem' px='2rem'>
         <VStack w='full' spacing='2rem'>
           <Heading
             as='p'
@@ -26,7 +26,7 @@ export const Header = () => {
           </Heading>
           <Text
             textAlign='center'
-            marginY={{ base: '1rem', sm: '1.25rem'}}
+            my={{ base: '1rem', sm: '1.25rem'}}
             color='gray.500'
             fontSize='xl'
             fontWeight='400'
@@ -34,12 +34,12 @@ export const Header = () => {
             Te damos ese empujoncito que necesitas para decidir tu futuro.
           </Text>
           <Flex w='full' alignItems='center' justifyContent='center'>
-            <NextLink href="/login" passHref>
+            <NextLink href={user ? '/carreras/ciencias' : '/login'} passHref>
               <MotionLink
                 textAlign='center'
                 fontSize='1.1rem'
-                paddingY='0.8rem'
-                paddingX='1.5rem'
+                py='0.8rem'
+                px='1.5rem'
                 borderRadius={12}
                 bg='cyan.500'
                 color='white'

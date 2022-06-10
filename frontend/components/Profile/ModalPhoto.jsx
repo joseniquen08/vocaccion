@@ -69,13 +69,13 @@ export const ModalPhoto = ({ isOpen, onClose, user, refetch }) => {
       isCentered
       autoFocus={false}
     >
-      <ModalOverlay backdropFilter='blur(3px)' />
+      <ModalOverlay backdropFilter='blur(3px)'/>
       <ModalContent py={4}>
         <ModalCloseButton />
         <ModalBody>
           <VStack w='full' px={10} spacing={6}>
             <HStack w='full'>
-              <Box flex='none' alignItems='center' justifyContent='center' borderRadius='full' overflow='hidden' width='6rem' height='6rem'>
+              <Box flex='none' alignItems='center' justifyContent='center' borderRadius='full' overflow='hidden' w='6rem' h='6rem'>
                 <Image src={user.image === '' ? '/images/user-default.png' : user.image} alt={user.name} width={96} height={96} priority="true" objectFit='cover' objectPosition='center'/>
               </Box>
               <input type='file' ref={fileRef} onChange={processImage} accept='image/*' style={{ display: 'none' }}></input>
@@ -85,6 +85,7 @@ export const ModalPhoto = ({ isOpen, onClose, user, refetch }) => {
                   variant='outline'
                   size='sm'
                   colorScheme='gray'
+                  color='gray.700'
                   onClick={() => fileRef.current.click()}
                   _focus={{
                     boxShadow: 'none',
@@ -97,10 +98,10 @@ export const ModalPhoto = ({ isOpen, onClose, user, refetch }) => {
             {
               image && (
                 <HStack
-                  width='full'
+                  w='full'
                   bg='blackAlpha.200'
                   rounded='lg'
-                  paddingY={4}
+                  py={4}
                   alignItems='center'
                   justifyContent='center'
                 >

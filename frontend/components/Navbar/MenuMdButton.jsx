@@ -31,7 +31,7 @@ export const MenuMdButton = () => {
           <DrawerOverlay />
           <DrawerContent>
             <DrawerCloseButton _focus={{ boxShadow: 'none' }}/>
-            <DrawerBody marginTop={12} padding={0} color='gray.600'>
+            <DrawerBody mt={12} p={0} color='gray.600'>
               <Accordion allowToggle>
                 <AccordionItem>
                   <h2>
@@ -48,7 +48,7 @@ export const MenuMdButton = () => {
                     alignItems="center"
                     flexDirection='column'
                     spacing={4}
-                    paddingY={4}
+                    py={4}
                   >
                     <NextLink href="/carreras/ciencias" passHref>
                       <Link fontWeight={400} w='full'>Ciencias</Link>
@@ -85,7 +85,7 @@ export const MenuMdButton = () => {
                     alignItems="center"
                     flexDirection='column'
                     spacing={4}
-                    paddingY={4}
+                    py={4}
                   >
                     <NextLink href="/universidades/publicas" passHref>
                       <Link fontWeight={400} w='full'>Públicas</Link>

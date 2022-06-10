@@ -53,13 +53,13 @@ export const Careers = () => {
     <>
       <Box>
         <Heading
-          marginTop='0.5rem'
+          mt='0.5rem'
           fontSize='3xl'
           textAlign='center'
           color='white'
         >Carreras</Heading>
-        <Box paddingX='1rem'>
-          <HStack justifyContent="end" paddingY='3'>
+        <Box px='1rem'>
+          <HStack justifyContent="end" py='3'>
             <Box>
               <Button leftIcon={<FaPlusCircle />} onClick={onOpenAddCareer} color='white' colorScheme='whiteAlpha' variant='ghost' size='sm'>
                 Agregar
@@ -77,7 +77,7 @@ export const Careers = () => {
           {
             dataCareers ? (
               dataCareers.getAllCareers.length > 0 ? (
-                <Table variant='simple' colorScheme='gray' minW='full' display='block' whiteSpace='nowrap' overflowX='auto' paddingX='1rem'>
+                <Table variant='simple' colorScheme='gray' minW='full' display='block' whiteSpace='nowrap' overflowX='auto' px='1rem'>
                   <Tbody display='table' w='full'>
                     <Tr
                       bg='whiteAlpha.200'
@@ -119,7 +119,7 @@ export const Careers = () => {
                   </Tbody>
                 </Table>
               ) : (
-                <Box w='full' paddingX='1rem'>
+                <Box w='full' px='1rem'>
                   <Table variant='simple' colorScheme='gray' minW='full' whiteSpace='nowrap' overflowX='auto'>
                     <Thead display='table' w='full'>
                       <Tr
@@ -135,7 +135,7 @@ export const Careers = () => {
                 </Box>
               )
             ) : (
-              <Box w='full' paddingX='1rem'>
+              <Box w='full' px='1rem'>
                 <Table variant='simple' colorScheme='gray' minW='full' whiteSpace='nowrap' overflowX='auto'>
                   <Thead display='table' w='full'>
                     <Tr

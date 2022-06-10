@@ -6,9 +6,9 @@ export const ListCareersContainer = ({ name }) => {
     <Flex
       flexDirection='column'
       maxW='6xl'
-      marginX='auto'
-      marginTop='1rem'
-      paddingX={2}
+      mx='auto'
+      mt='1rem'
+      px={2}
       overflowX='hidden'
     >
       <Box
@@ -16,11 +16,11 @@ export const ListCareersContainer = ({ name }) => {
       >
         <Box
           minW='full'
-          paddingY='0.5rem'
+          py='0.5rem'
           justifyContent='center'
         >
           <Heading
-            marginBottom='1.5rem'
+            mb='1.5rem'
             fontSize='4xl'
             textAlign='center'
             color='cyan.500'

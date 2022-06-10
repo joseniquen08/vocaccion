@@ -82,20 +82,20 @@ export const SignInAdmin = () => {
 
   return (
     <Flex
-      height='full'
-      minHeight='100vh'
+      h='full'
+      minH='100vh'
       bg='gray.800'
     >
       <Flex
-        width='full'
-        paddingX={{ base: '1rem', sm: '1.5rem', lg: '2rem' }}
-        paddingY='3rem'
+        w='full'
+        px={{ base: '1rem', sm: '1.5rem', lg: '2rem' }}
+        py='3rem'
         alignItems='center'
         justifyContent='center'
         position='relative'
       >
         <Box
-          width='full'
+          w='full'
           maxW='sm'
           border='1px solid'
           borderColor='gray.200'
@@ -107,21 +107,21 @@ export const SignInAdmin = () => {
             flexDirection='column'
             bg='blackAlpha.300'
             spacing='2.2rem'
-            paddingX='2.2rem'
-            paddingY='3rem'
+            px='2.2rem'
+            py='3rem'
           >
-            <Stack width='full' justifyContent='center' alignItems='center'>
+            <Stack w='full' justifyContent='center' alignItems='center'>
               <Logo size='3rem'/>
             </Stack>
             <VStack
               as='form'
-              width='full'
+              w='full'
               marginTop='2rem'
               spacing='1.2rem'
               onSubmit={login}
             >
               <VStack
-                width='full'
+                w='full'
                 spacing='1rem'
               >
                 <FormControl isRequired isInvalid={emailNotFoundError || emailNotAdmin}>
@@ -129,7 +129,7 @@ export const SignInAdmin = () => {
                   <InputGroup>
                     <InputLeftElement
                       pointerEvents='none'
-                      paddingLeft='0.3rem'
+                      pl='0.3rem'
                       color='gray.400'
                       children={<HiOutlineMail size={18}/>}
                     />
@@ -164,7 +164,7 @@ export const SignInAdmin = () => {
                   <InputGroup>
                     <InputLeftElement
                       pointerEvents='none'
-                      paddingLeft='0.3rem'
+                      pl='0.3rem'
                       color='gray.400'
                       children={<HiOutlineLockClosed size={18}/>}
                     />
@@ -182,8 +182,8 @@ export const SignInAdmin = () => {
                     />
                     <InputRightAddon
                       bg='blackAlpha.300'
-                      paddingX={0}
-                      paddingY={0}
+                      px={0}
+                      py={0}
                     >
                       <Button
                         color='gray.400'
@@ -200,12 +200,12 @@ export const SignInAdmin = () => {
                   }
                 </FormControl>
               </VStack>
-              <VStack width='full' paddingY='0.5rem' spacing='0.6rem'>
+              <VStack w='full' py='0.5rem' spacing='0.6rem'>
                 <MotionButton
                   type='submit'
                   variant='solid'
                   bg='cyan.500'
-                  width='full'
+                  w='full'
                   whileTap={{ scale: 0.95 }}
                 >Ingresar</MotionButton>
               </VStack>

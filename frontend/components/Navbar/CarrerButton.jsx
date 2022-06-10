@@ -16,32 +16,32 @@ export const CarrerButton = () => {
       <MenuList color='gray.600'>
         <MenuItem>
           <NextLink href="/carreras/ciencias" passHref>
-            <Link width='full'>Ciencias</Link>
+            <Link w='full'>Ciencias</Link>
           </NextLink>
         </MenuItem>
         <MenuItem>
           <NextLink href="/carreras/arte" passHref>
-            <Link width='full'>Arte</Link>
+            <Link w='full'>Arte</Link>
           </NextLink>
         </MenuItem>
         <MenuItem>
           <NextLink href="/carreras/arquitectura" passHref>
-            <Link width='full'>Arquitectura</Link>
+            <Link w='full'>Arquitectura</Link>
           </NextLink>
         </MenuItem>
         <MenuItem>
           <NextLink href="/carreras/derecho" passHref>
-            <Link width='full'>Derecho</Link>
+            <Link w='full'>Derecho</Link>
           </NextLink>
         </MenuItem>
         <MenuItem>
           <NextLink href="/carreras/ingenieria" passHref>
-            <Link width='full'>Ingeniería</Link>
+            <Link w='full'>Ingeniería</Link>
           </NextLink>
         </MenuItem>
         <MenuItem>
           <NextLink href="/carreras/ciencias-sociales" passHref>
-            <Link width='full'>Ciencias Sociales</Link>
+            <Link w='full'>Ciencias Sociales</Link>
           </NextLink>
         </MenuItem>
       </MenuList>

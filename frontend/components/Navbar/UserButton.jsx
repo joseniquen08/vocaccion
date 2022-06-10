@@ -45,7 +45,7 @@ export const UserButton = ({ name, image }) => {
             <Link
               w="full"
               textAlign='center'
-              paddingY='0.4rem'
+              py='0.4rem'
               borderRadius={6}
               _hover={{ backgroundColor: 'cyan.50' }}
               color='cyan.900'

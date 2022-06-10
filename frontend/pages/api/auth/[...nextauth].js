@@ -21,7 +21,7 @@ export default NextAuth({
           role: 'user',
           image: profile.picture,
           provider: 'google',
-          emailVerified: null,
+          emailVerifiedV: true,
           createdAt: new Date(),
           updatedAt: new Date(),
         };
@@ -41,7 +41,7 @@ export default NextAuth({
           role: 'user',
           image: profile.picture.data.url,
           provider: 'facebook',
-          emailVerified: null,
+          emailVerifiedV: true,
           createdAt: new Date(),
           updatedAt: new Date(),
         };
@@ -57,6 +57,7 @@ export default NextAuth({
         provider: user.provider,
         age: user.age,
         id: user.id,
+        emailVerifiedV: user.emailVerifiedV,
       };
       return session;
     },

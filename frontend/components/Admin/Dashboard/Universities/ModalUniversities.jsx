@@ -144,7 +144,7 @@ export const ModalUniversities = ({ isOpen, onClose, refetch }) => {
                     color='gray.400'
                     fontWeight='500'
                     borderRadius='lg'
-                    width='full'
+                    w='full'
                     flex='none'
                     _focus={{
                       boxShadow: 'none',
@@ -190,7 +190,7 @@ export const ModalUniversities = ({ isOpen, onClose, refetch }) => {
                     </NumberInputStepper>
                   </NumberInput>
                 </FormControl>
-                <HStack width='full' spacing={3}>
+                <HStack w='full' spacing={3}>
                   <FormControl isRequired>
                     <FormLabel color='gray.400' htmlFor='type_university'>Tipo</FormLabel>
                     <RadioGroup id="type_university" onChange={setTypeUniversity} value={typeUniversity}>
@@ -231,10 +231,10 @@ export const ModalUniversities = ({ isOpen, onClose, refetch }) => {
                 {
                   image && (
                     <HStack
-                      width='full'
+                      w='full'
                       bg='blackAlpha.400'
                       rounded='lg'
-                      paddingY={4}
+                      py={4}
                       alignItems='center'
                       justifyContent='center'
                     >

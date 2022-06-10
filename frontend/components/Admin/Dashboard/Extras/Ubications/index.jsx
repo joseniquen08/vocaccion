@@ -51,20 +51,20 @@ export const Ubications = () => {
   }, [dataProvinces, loadingProvinces]);
 
   return (
-    <Box color='white' height='full'>
+    <Box color='white' h='full'>
       <Heading
-        marginTop='0.5rem'
+        mt='0.5rem'
         fontSize='3xl'
         textAlign='center'
       >
         Ubicaciones
       </Heading>
-      <Box paddingX='0.5rem' paddingY='1.5rem' height='full'>
-        <HStack spacing={3} height='full' width='full' alignItems='start'>
-          <VStack position='relative' spacing={2} width='50%' bg='blackAlpha.400' height='full' rounded='xl' paddingX={4} paddingY={4}>
+      <Box px='0.5rem' py='1.5rem' h='full'>
+        <HStack spacing={3} h='full' w='full' alignItems='start'>
+          <VStack position='relative' spacing={2} w='50%' bg='blackAlpha.400' h='full' rounded='xl' px={4} py={4}>
             <IconButton onClick={onOpenAddRegion} position='absolute' size='md' top={5} right={4} colorScheme='blackAlpha' icon={<FaPlus/>}/>
             <ModalRegions isOpenAddRegion={isOpenAddRegion} onCloseAddRegion={onCloseAddRegion} refetch={refetchRegions}/>
-            <Text fontSize='2xl' paddingBottom={3}>Regiones</Text>
+            <Text fontSize='2xl' pb={3}>Regiones</Text>
             {
               loadingRegions ? (
                 <Text>Cargando...</Text>
@@ -74,13 +74,13 @@ export const Ubications = () => {
                     key={idReference}
                     bg={idReferenceRegion === idReference ? 'blackAlpha.800' : 'blackAlpha.400'}
                     color={idReferenceRegion === idReference ? 'white' : 'gray.400'}
-                    width='full'
+                    w='full'
                     onClick={() => {
                       getProvinces(idReference, name);
                       setIdReferenceRegion(idReference);
                     }}
                   >
-                    <HStack alignItems='center' justifyContent='space-between' width='full'>
+                    <HStack alignItems='center' justifyContent='space-between' w='full'>
                       <Text>{name}</Text>
                       <Icon
                         as={MdKeyboardArrowRight}
@@ -91,7 +91,7 @@ export const Ubications = () => {
               )
             }
           </VStack>
-          <VStack position='relative' spacing={2} width='50%' bg='blackAlpha.400' height='full' rounded='xl' paddingX={4} paddingY={4}>
+          <VStack position='relative' spacing={2} w='50%' bg='blackAlpha.400' h='full' rounded='xl' px={4} py={4}>
             {
               idReferenceRegion && (
                 <IconButton onClick={onOpenAddProvince} position='absolute' size='md' top={5} right={4} colorScheme='blackAlpha' icon={<FaPlus/>}/>
@@ -104,7 +104,7 @@ export const Ubications = () => {
               idReferenceRegion={idReferenceRegion}
               nameRegion={nameRegion}
             />
-            <Text fontSize='2xl' paddingBottom={3} marginTop={2}>Provincias</Text>
+            <Text fontSize='2xl' pb={3} mt={2}>Provincias</Text>
             {
               idReferenceRegion ? (
                 <ListProvinces

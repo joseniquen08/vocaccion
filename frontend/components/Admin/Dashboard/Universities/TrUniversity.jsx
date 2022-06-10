@@ -13,9 +13,9 @@ export const TrUniversity = ({ id, name, regions, provinces, type, license, camp
       <Td>
         <Flex
           alignItems='start'
-          marginBottom='0.5rem'
+          mb='0.5rem'
         >
-          <Box flex='none' bgColor='white' marginRight='0.75rem' padding='0.5' rounded='lg'>
+          <Box flex='none' bg='white' mr='0.75rem' p='0.5' rounded='lg'>
             <Image src={image} objectFit='contain' w='4.5rem' h='4.5rem'/>
           </Box>
           <VStack alignItems='left' spacing='0.5rem'>
@@ -23,14 +23,14 @@ export const TrUniversity = ({ id, name, regions, provinces, type, license, camp
             <HStack alignItems='left' spacing='0.4rem'>
               {
                 provinces.map(({ idReference, name }) => (
-                  <Badge key={`${idReference}_${name}`} variant='subtle' colorScheme='whiteAlpha' paddingX={1.5} fontWeight={600} fontSize='xs'>{name}</Badge>
+                  <Badge key={`${idReference}_${name}`} variant='subtle' colorScheme='whiteAlpha' px={1.5} fontWeight={600} fontSize='xs'>{name}</Badge>
                 ))
               }
             </HStack>
             <HStack justifyContent='start' spacing='0.4rem'>
-              <Badge variant='subtle' cursor='default' fontSize='xs' fontWeight={600} paddingX={1.5} colorScheme='cyan'>{type === 'publica' ? 'Pública' : 'Privada'}</Badge>
-              <Badge variant='subtle' cursor='default' fontSize='xs' paddingX={1.5} colorScheme={license === 'si' ? 'green' : 'red'}>{license === 'si' ? 'Licenciada' : 'No licenciada'}</Badge>
-              <Badge variant='subtle' cursor='default' fontSize='xs' paddingX={1.5} colorScheme='orange'>{`${campuses} ${campuses === 1 ? 'sede' : 'sedes'}`}</Badge>
+              <Badge variant='subtle' cursor='default' fontSize='xs' fontWeight={600} px={1.5} colorScheme='cyan'>{type === 'publica' ? 'Pública' : 'Privada'}</Badge>
+              <Badge variant='subtle' cursor='default' fontSize='xs' px={1.5} colorScheme={license === 'si' ? 'green' : 'red'}>{license === 'si' ? 'Licenciada' : 'No licenciada'}</Badge>
+              <Badge variant='subtle' cursor='default' fontSize='xs' px={1.5} colorScheme='orange'>{`${campuses} ${campuses === 1 ? 'sede' : 'sedes'}`}</Badge>
             </HStack>
           </VStack>
         </Flex>

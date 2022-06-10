@@ -37,7 +37,7 @@ export const CardUniversity = ({
         >
           <Image src={image} objectFit='contain' w='9rem' h='9rem' padding='0.5rem' marginRight='0.1rem'/>
         </MotionBoxImage>
-        <VStack w='full' flexShrink='1' minW='0px' justifyContent='space-between' h='full' paddingX='0.8rem' paddingY='0.7rem'>
+        <VStack w='full' flexShrink='1' minW='0px' justifyContent='space-between' h='full' px='0.8rem' py='0.7rem'>
           <VStack w='full' alignItems='start'>
             <Text w='full' noOfLines={2} fontWeight={600} fontSize='lg' textAlign='left' color='gray.700'>
               <NextLink href={`/universidad/${_id}`} passHref>

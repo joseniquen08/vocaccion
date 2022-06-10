@@ -36,7 +36,7 @@ export const Layout = ({ user, children }) => {
           w='20rem'
           borderRight='1px solid'
           borderColor='gray.600'
-          minHeight='100vh'
+          minH='100vh'
           display={{ base: 'none', md: 'flex' }}
         />
         <Drawer
@@ -46,13 +46,13 @@ export const Layout = ({ user, children }) => {
         >
           <DrawerOverlay/>
           <DrawerContent>
-            <Sidebar w="full" bg='white' minHeight='full' borderRight='none' display='flex' onClose={sidebar.onClose}/>
+            <Sidebar w="full" bg='white' minH='full' borderRight='none' display='flex' onClose={sidebar.onClose}/>
           </DrawerContent>
         </Drawer>
         <Box
           transition=".3s ease"
-          minHeight='100vh'
-          maxHeight='100vh'
+          minH='100vh'
+          maxH='100vh'
           overflowY='auto'
           w='full'
         >
@@ -62,7 +62,7 @@ export const Layout = ({ user, children }) => {
             justify="space-between"
             w="full"
             px="1.5rem"
-            height="3.75rem"
+            h="3.75rem"
             borderBottom='1px solid'
             borderColor='gray.600'
           >
@@ -102,7 +102,7 @@ export const Layout = ({ user, children }) => {
                       <Link
                         w="full"
                         textAlign='center'
-                        paddingY='0.4rem'
+                        py='0.4rem'
                         borderRadius={6}
                         _hover={{ backgroundColor: 'whiteAlpha.50' }}
                       >
@@ -129,8 +129,8 @@ export const Layout = ({ user, children }) => {
           </Flex>
           <Box
             p="4"
-            minHeight='calc(100vh - 3.75rem)'
-            maxHeight='calc(100vh - 3.75rem)'
+            minH='calc(100vh - 3.75rem)'
+            maxH='calc(100vh - 3.75rem)'
             overflowY='scroll'
             sx={{
               '&::-webkit-scrollbar': {

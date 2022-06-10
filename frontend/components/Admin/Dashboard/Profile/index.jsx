@@ -112,11 +112,11 @@ export const Profile = ({ id }) => {
   return (
     <Box w='full'>
       <Heading
-        marginTop='0.5rem'
+        mt='0.5rem'
         fontSize='3xl'
         textAlign='center'
         color='white'
-        marginBottom={5}
+        mb={5}
       >
         Perfil
       </Heading>
@@ -135,19 +135,19 @@ export const Profile = ({ id }) => {
         ) : (
           user && (
             <Box
-              maxWidth='4xl'
-              marginX='auto'
-              marginY='0.5rem'
+              maxW='4xl'
+              mx='auto'
+              my='0.5rem'
               border='1px solid'
               borderColor='#d6d3d1'
               rounded='2xl'
               overflow='hidden'
             >
               <Box position='relative'>
-                <Box height='10rem' bg='gray.700'></Box>
-                <HStack position='absolute' alignItems='end' paddingX='5rem' bottom='-4.2rem' width='full'>
-                  <HStack flex='none' position='relative' alignItems='center' justifyContent='center' borderRadius='full' width='6.5rem' height='6.5rem' bg='gray.800'>
-                    <Box flex='none' alignItems='center' justifyContent='center' borderRadius='full' overflow='hidden' width='6rem' height='6rem'>
+                <Box h='10rem' bg='gray.700'></Box>
+                <HStack position='absolute' alignItems='end' px='5rem' bottom='-4.2rem' w='full'>
+                  <HStack flex='none' position='relative' alignItems='center' justifyContent='center' borderRadius='full' w='6.5rem' h='6.5rem' bg='gray.800'>
+                    <Box flex='none' alignItems='center' justifyContent='center' borderRadius='full' overflow='hidden' w='6rem' h='6rem'>
                       <Image src={user.image === '' ? '/images/user-default.png' : user.image} alt={user.name} width={96} height={96} priority="true" objectFit="cover" objectPosition='center'/>
                     </Box>
                     {
@@ -164,11 +164,11 @@ export const Profile = ({ id }) => {
                       )
                     }
                   </HStack>
-                  <HStack paddingBottom='0.5rem' width='full' justifyContent='space-between'>
-                    <Box paddingLeft='0.75rem'>
+                  <HStack pb='0.5rem' w='full' justifyContent='space-between'>
+                    <Box pl='0.75rem'>
                       <Text fontWeight={600} fontSize='xl' color='gray.100'>{user.name}</Text>
                       <Text fontWeight={500} fontSize='sm' color='gray.500'>
-                        {user.email} <Tag size='sm' variant='outline' marginLeft='0.2rem' colorScheme='whiteAlpha'>{user.provider !== 'no' ? user.provider.charAt(0).toUpperCase() + user.provider.slice(1) : 'Correo'}</Tag>
+                        {user.email} <Tag size='sm' variant='outline' ml='0.2rem' colorScheme='whiteAlpha'>{user.provider !== 'no' ? user.provider.charAt(0).toUpperCase() + user.provider.slice(1) : 'Correo'}</Tag>
                       </Text>
                     </Box>
                     <Box>
@@ -186,8 +186,8 @@ export const Profile = ({ id }) => {
                   </HStack>
                 </HStack>
               </Box>
-              <Box marginTop='4.5rem' paddingY='3rem' paddingX='5rem'>
-                <Box paddingY='1rem'>
+              <Box mt='4.5rem' py='3rem' px='5rem'>
+                <Box py='1rem'>
                   <Grid templateColumns='repeat(12, 1fr)'>
                     <GridItem colSpan={4}>
                       <Text fontWeight={700} color='gray.500'>Username</Text>
@@ -211,7 +211,7 @@ export const Profile = ({ id }) => {
                   </Grid>
                 </Box>
                 <Divider/>
-                <Box paddingY='1rem'>
+                <Box py='1rem'>
                   <Grid templateColumns='repeat(12, 1fr)'>
                     <GridItem colSpan={4}>
                       <Text fontWeight={700} color='gray.500'>Nombres</Text>
@@ -235,7 +235,7 @@ export const Profile = ({ id }) => {
                   </Grid>
                 </Box>
                 <Divider/>
-                <Box paddingY='1rem'>
+                <Box py='1rem'>
                   <Grid templateColumns='repeat(12, 1fr)'>
                     <GridItem colSpan={4}>
                       <Text fontWeight={700} color='gray.500'>Edad</Text>

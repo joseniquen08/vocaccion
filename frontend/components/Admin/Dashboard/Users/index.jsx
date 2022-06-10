@@ -13,6 +13,7 @@ const GET_USERS = gql`
       image
       role
       provider
+      emailVerifiedV
     }
   }
 `;
@@ -32,14 +33,14 @@ export const Users = () => {
   return (
     <Box>
       <Heading
-        marginTop='0.5rem'
+        mt='0.5rem'
         fontSize='3xl'
         textAlign='center'
         color='white'
       >
         Usuarios
       </Heading>
-      <Box overflowX='auto' display='block' color='gray.200' paddingX={2} paddingY={7}>
+      <Box overflowX='auto' display='block' color='gray.200' px={2} py={7}>
         <SimpleGrid columns={2} spacing={3.5}>
           {
             dataUsers && (

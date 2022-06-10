@@ -28,8 +28,8 @@ export const Sidebar = (props) => {
       overflowY='auto'
       flexDirection='column'
       justifyContent='space-between'
-      paddingX='1.5rem'
-      paddingY='1.5rem'
+      px='1.5rem'
+      py='1.5rem'
       {...props}
     >
       <Box w='full'>
@@ -40,14 +40,14 @@ export const Sidebar = (props) => {
         <VStack
           as="nav"
           fontSize="sm"
-          paddingY='1.5rem'
+          py='1.5rem'
           color="gray.900"
           w='full'
           spacing='0.5rem'
         >
-          <Box width='full'>
+          <Box w='full'>
             <NextLink href="/admin/dashboard/inicio" passHref>
-              <Link width='full'>
+              <Link w='full'>
                 <NavItem
                   onClick={props.onClose}
                   icon={RiHomeSmile2Line}
@@ -59,7 +59,7 @@ export const Sidebar = (props) => {
             </NextLink>
           </Box>
           <NextLink href="/admin/dashboard/carreras" passHref>
-            <Link width='full'>
+            <Link w='full'>
               <NavItem
                 onClick={props.onClose}
                 icon={RiBook2Line}
@@ -70,7 +70,7 @@ export const Sidebar = (props) => {
             </Link>
           </NextLink>
           <NextLink href="/admin/dashboard/universidades" passHref>
-            <Link width='full'>
+            <Link w='full'>
               <NavItem
                 onClick={props.onClose}
                 icon={RiBuildingLine}
@@ -81,7 +81,7 @@ export const Sidebar = (props) => {
             </Link>
           </NextLink>
           <NextLink href="/admin/dashboard/usuarios" passHref>
-            <Link width='full'>
+            <Link w='full'>
               <NavItem
                 onClick={props.onClose}
                 icon={RiGroupLine}
@@ -94,7 +94,7 @@ export const Sidebar = (props) => {
           <Box w='full'>
             <NavItem
               icon={HiCode}
-              marginX={0}
+              mx={0}
               onClick={() => {
                 onToggle();
                 setIsActiveExtras(!isActiveExtras);
@@ -108,16 +108,16 @@ export const Sidebar = (props) => {
               />
             </NavItem>
             <Collapse in={pathname.split('/')[3] === 'extras' ? isActiveExtras : isOpen}>
-              <VStack spacing={1.5} paddingY={1.5}>
+              <VStack spacing={1.5} py={1.5}>
                 <NextLink href="/admin/dashboard/extras/ubicaciones" passHref>
-                  <Link width='full'>
+                  <Link w='full'>
                     <NavItem pl="12" icon={FaRegMap} activeItem={pathname.split('/')[4] === 'ubicaciones'}>
                       Ubicaciones
                     </NavItem>
                   </Link>
                 </NextLink>
                 <NextLink href="/admin/dashboard/extras/comentarios" passHref>
-                  <Link width='full'>
+                  <Link w='full'>
                     <NavItem icon={FaRegCommentDots} pl="12" activeItem={pathname.split('/')[4] === 'comentarios'}>
                       Comentarios
                     </NavItem>
@@ -132,7 +132,7 @@ export const Sidebar = (props) => {
             activeItem={pathname.split('/')[3] === 'configuracion'}
           >
             <NextLink href="/admin/dashboard/configuracion" passHref>
-              <Link width='full'>Configuración</Link>
+              <Link w='full'>Configuración</Link>
             </NextLink>
           </NavItem>
         </VStack>

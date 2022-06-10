@@ -75,7 +75,7 @@ export const ModalPhoto = ({ isOpen, onClose, user, refetch }) => {
         <ModalBody>
           <VStack w='full' px={10} spacing={6}>
             <HStack w='full'>
-              <Box flex='none' alignItems='center' justifyContent='center' borderRadius='full' overflow='hidden' width='6rem' height='6rem'>
+              <Box flex='none' alignItems='center' justifyContent='center' borderRadius='full' overflow='hidden' w='6rem' h='6rem'>
                 <Image src={user.image === '' ? '/images/user-default.png' : user.image} alt={user.name} width={96} height={96} priority="true" objectFit='cover' objectPosition='center'/>
               </Box>
               <input type='file' ref={fileRef} onChange={processImage} accept='image/*' style={{ display: 'none' }}></input>
@@ -98,10 +98,10 @@ export const ModalPhoto = ({ isOpen, onClose, user, refetch }) => {
             {
               image && (
                 <HStack
-                  width='full'
+                  w='full'
                   bg='blackAlpha.500'
                   rounded='lg'
-                  paddingY={4}
+                  py={4}
                   alignItems='center'
                   justifyContent='center'
                 >

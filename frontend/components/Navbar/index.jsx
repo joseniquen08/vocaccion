@@ -17,10 +17,10 @@ export const Navbar = ({ isLogged, user }) => {
         bg='white'
       >
         <VStack
-          paddingX={{ base: '1rem', md: '2.5rem' }}
+          px={{ base: '1rem', md: '2.5rem' }}
           w='full'
           justifyContent='center'
-          height='4.5rem'
+          h='4.5rem'
           borderBottom="1px solid"
           borderBottomColor={'#d6d3d1'}
         >

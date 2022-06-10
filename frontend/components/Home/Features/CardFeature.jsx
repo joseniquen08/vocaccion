@@ -7,8 +7,8 @@ export const CardFeature = ({ title, description, icon }) => {
       borderColor='gray.100'
       borderRadius='lg'
       overflow='hidden'
-      paddingX='1.8rem'
-      paddingY='1.5rem'
+      px='1.8rem'
+      py='1.5rem'
       alignItems='start'
     >
       <Icon

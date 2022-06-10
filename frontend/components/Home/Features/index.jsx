@@ -11,7 +11,7 @@ export const Features = () => {
       bg='white'
       alignItems='center'
     >
-      <Box h='full' marginX='0.75rem' paddingX='2.5rem' paddingY='3rem' bg='cyan.500' w='full' borderRadius='3xl'>
+      <Box h='full' mx='0.75rem' px='2.5rem' py='3rem' bg='cyan.500' w='full' borderRadius='3xl'>
         <VStack w='full'>
           <Text
             as='p'
@@ -25,10 +25,10 @@ export const Features = () => {
             columns={{ base: 1, md: 2, lg: 3 }}
             spacingX='1.5rem'
             spacingY='1.3rem'
-            paddingY='1.5rem'
-            paddingX='1rem'
-            marginX='auto'
-            maxWidth='6xl'
+            py='1.5rem'
+            px='1rem'
+            mx='auto'
+            maxW='6xl'
             w='full'
           >
             <CardFeature

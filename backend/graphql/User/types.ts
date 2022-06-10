@@ -19,7 +19,7 @@ export const types = `
     image: String
     role: String
     provider: String
-    emailVerified: Boolean
+    emailVerifiedV: Boolean
   }
 
   input UpdateUserInput {

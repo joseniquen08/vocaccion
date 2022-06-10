@@ -25,12 +25,12 @@ export const ModalComment = ({ isOpen, onClose, onOpenDelete, setSelectedId, com
           <VStack>
             <HStack alignItems='start' w='full' py={2}>
               <HStack w='50%' spacing={2}>
-                <HStack flex='none' marginRight={1} alignItems='center' justifyContent='center' rounded='lg' overflow='hidden'>
+                <HStack flex='none' mr={1} alignItems='center' justifyContent='center' rounded='lg' overflow='hidden'>
                   <Image src={comment.user.image === '' ? '/images/user-default.png' : comment.user.image} flex='none' objectFit='contain' w='2.8rem' h='2.8rem'/>
                 </HStack>
                 <VStack alignItems='left' spacing={0}>
                   <Text noOfLines={1} fontSize='1rem' fontWeight={500} color='gray.400'>{comment.user.name}</Text>
-                  <HStack spacing={1.5} paddingTop={1}>
+                  <HStack spacing={1.5} pt={1}>
                     <Badge fontSize='0.7rem' variant='outline' colorScheme='cyan'>
                       {
                         comment.user.role === 'user' ? 'usuario' : comment.user.role === 'admin' ? 'administrador' : 'superadmin'
@@ -40,7 +40,7 @@ export const ModalComment = ({ isOpen, onClose, onOpenDelete, setSelectedId, com
                 </VStack>
               </HStack>
               <HStack w='50%'>
-                <HStack flex='none' bgColor='white' marginRight={1} alignItems='center' justifyContent='center' rounded='lg' overflow='hidden'>
+                <HStack flex='none' bg='white' mr={1} alignItems='center' justifyContent='center' rounded='lg' overflow='hidden'>
                   <Image src={comment.career ? comment.career.imageUniversity : comment.university.image} flex='none' objectFit='contain' w='2.8rem' h='2.8rem'/>
                 </HStack>
                 <VStack alignItems='left' spacing={0}>

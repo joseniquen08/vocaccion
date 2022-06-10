@@ -3,9 +3,17 @@ import { SearchIcon } from "@chakra-ui/icons";
 import { Box, Button, Checkbox, Collapse, HStack, Input, InputGroup, InputLeftElement, Modal, ModalBody, ModalCloseButton, ModalContent, ModalOverlay, Select, SimpleGrid, Stack, Text, useDisclosure } from "@chakra-ui/react";
 import { useState } from "react";
 import { FaSlidersH } from 'react-icons/fa';
-import { regiones } from "../../utils/data";
 import { CardCareer } from "./CardCareer";
 import { CareerSkeleton } from "./CareerSkeleton";
+
+const GET_REGIONS = gql`
+  query GetAllRegions {
+    getAllRegions {
+      idReference
+      name
+    }
+  }
+`;
 
 const GET_CAREERS_BY_TYPE = gql`
   query GetCareersByType($input: GetCareersByTypeInput) {
@@ -30,6 +38,7 @@ export const ListCareers = ({ name }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isActiveFilter, setIsActiveFilter] = useState(false);
 
+  const { loading: loadingRegions, data: dataRegions } = useQuery(GET_REGIONS);
   const { loading: loadingCareers, data: dataCareers, refetch: refetchCareers } = useQuery(GET_CAREERS_BY_TYPE, {
     variables: { input: { type: name } }
   });
@@ -48,12 +57,12 @@ export const ListCareers = ({ name }) => {
 
   return (
     <>
-      <Box paddingX='1rem'>
-        <HStack justifyContent="space-between" paddingY='3'>
-          <Button onClick={() => setIsActiveFilter(state => !state)} leftIcon={<FaSlidersH />} colorScheme='cyan' color={isActiveFilter ? 'white' : 'cyan.500'} variant={isActiveFilter ? 'solid' : 'outline'} size='sm' flex='none'>
+      <Box px='1rem'>
+        <HStack justifyContent="space-between" py='3'>
+          <Button isDisabled onClick={() => setIsActiveFilter(state => !state)} leftIcon={<FaSlidersH />} colorScheme='cyan' color={isActiveFilter ? 'white' : 'cyan.500'} variant={isActiveFilter ? 'solid' : 'outline'} size='sm' flex='none'>
             Filtros
           </Button>
-          <Button onClick={onOpen} leftIcon={<SearchIcon />} variant="outline" colorScheme='gray' color='gray.400' fontWeight="400" w='sm' justifyContent='left' size='sm' borderRadius='lg'>Buscar...</Button>
+          <Button isDisabled onClick={onOpen} leftIcon={<SearchIcon />} variant="outline" colorScheme='gray' color='gray.400' fontWeight="400" w='sm' justifyContent='left' size='sm' borderRadius='lg'>Buscar...</Button>
         </HStack>
         <Collapse in={isActiveFilter} animateOpacity>
           <Stack
@@ -63,25 +72,27 @@ export const ListCareers = ({ name }) => {
             borderRadius='lg'
             overflow='hidden'
             spacing='1.5rem'
-            marginY='1rem'
-            paddingX='1.5rem'
-            paddingY='1.2rem'
+            my='1rem'
+            px='1.5rem'
+            py='1.2rem'
           >
             <Select
               variant='outline'
               placeholder='Región'
               size='sm'
               borderRadius='lg'
-              width='12rem'
+              w='12rem'
               flex='none'
               _focus={{
                 boxShadow: 'none',
               }}
             >
               {
-                regiones.map(({ id, nombre }) => (
-                  <option key={id} value={id}>{nombre}</option>
-                ))
+                dataRegions && (
+                  dataRegions.getAllRegions.map(({ idReference, name }) => (
+                    <option key={idReference} value={idReference}>{name}</option>
+                  ))
+                )
               }
             </Select>
             <Checkbox colorScheme='cyan'>Acreditadas</Checkbox>
@@ -93,7 +104,7 @@ export const ListCareers = ({ name }) => {
         <ModalOverlay />
         <ModalContent>
           <ModalBody>
-            <InputGroup marginY='1rem' maxW='md' marginX='auto'>
+            <InputGroup my='1rem' maxW='md' mx='auto'>
               <InputLeftElement
                 pointerEvents='none'
                 children={<SearchIcon color='gray.300'/>}
@@ -125,8 +136,8 @@ export const ListCareers = ({ name }) => {
             }}
             spacingX='1.2rem'
             spacingY='1.3rem'
-            paddingY='1.5rem'
-            paddingX='1rem'
+            py='1.5rem'
+            px='1rem'
           >
             {
               dataCareers.getCareersByType.length > 0 ? (
@@ -143,8 +154,8 @@ export const ListCareers = ({ name }) => {
             columns={{ base: 1, md: 2, lg: 3 }}
             spacingX='1.2rem'
             spacingY='1.3rem'
-            paddingY='1.5rem'
-            paddingX='1rem'
+            py='1.5rem'
+            px='1rem'
           >
             {
               [0,1,2,3,4,5].map(index => (

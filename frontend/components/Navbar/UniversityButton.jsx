@@ -16,12 +16,12 @@ export const UniversityButton = () => {
       <MenuList color='gray.600'>
         <MenuItem>
           <NextLink href="/universidades/publicas" passHref>
-            <Link width='full'>Públicas</Link>
+            <Link w='full'>Públicas</Link>
           </NextLink>
         </MenuItem>
         <MenuItem>
           <NextLink href="/universidades/privadas" passHref>
-            <Link width='full'>Privadas</Link>
+            <Link w='full'>Privadas</Link>
           </NextLink>
         </MenuItem>
       </MenuList>

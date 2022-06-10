@@ -40,9 +40,9 @@ const mutations = {
         { new: true }
       );
       if (!updatedUser) throw new Error('user not found');
-      const { _id, name, email, age, image, username, role, provider } = updatedUser;
+      const { _id, name, email, age, image, username, role, provider, emailVerifiedV } = updatedUser;
       return {
-        token: tokenService.createToken({ id: _id, name, email, age, image, username, role, provider }),
+        token: tokenService.createToken({ id: _id, name, email, age, image, username, role, provider, emailVerifiedV }),
         user: updatedUser,
       }
     } catch (error) {
@@ -57,9 +57,9 @@ const mutations = {
         { new: true }
       );
       if (!updatedUser) throw new Error('user not found');
-      const { _id, name, email, age, image, username, role, provider } = updatedUser;
+      const { _id, name, email, age, image, username, role, provider, emailVerifiedV } = updatedUser;
       return {
-        token: tokenService.createToken({ id: _id, name, email, age, image, username, role, provider }),
+        token: tokenService.createToken({ id: _id, name, email, age, image, username, role, provider, emailVerifiedV }),
         user: updatedUser,
       }
     } catch (error) {

@@ -26,9 +26,9 @@ export const TrCareer = ({
       <Td>
         <Flex
           alignItems='start'
-          marginBottom='0.5rem'
+          mb='0.5rem'
         >
-          <Box flex='none' bgColor='white' marginRight='0.75rem' padding='0.5' rounded='lg'>
+          <Box flex='none' bg='white' mr='0.75rem' p='0.5' rounded='lg'>
             <Image src={imageUniversity} objectFit='contain' w='4.5rem' h='4.5rem'/>
           </Box>
           <VStack alignItems='left' spacing='0.3rem'>

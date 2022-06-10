@@ -7,36 +7,36 @@ export const CareerSkeleton = () => {
       borderColor='gray.100'
       borderRadius='lg'
       overflow='hidden'
-      paddingX='1.5rem'
-      paddingY='1.2rem'
+      px='1.5rem'
+      py='1.2rem'
       w='full'
       h='14rem'
     >
       <VStack spacing='1rem' alignItems='start'>
-        <Flex justifyContent='space-between' width='full'>
-          <Skeleton noOfLines={1} height='1.3rem' width='6rem'/>
-          <Skeleton noOfLines={1} height='1.3rem' width='3rem'/>
+        <Flex justifyContent='space-between' w='full'>
+          <Skeleton noOfLines={1} h='1.3rem' w='6rem'/>
+          <Skeleton noOfLines={1} h='1.3rem' w='3rem'/>
         </Flex>
-        <Box width='full'>
-          <Skeleton noOfLines={1} height='1.5rem' width='full'/>
-          <Skeleton noOfLines={1} height='1.5rem' marginTop='0.5rem' width='75%'/>
+        <Box w='full'>
+          <Skeleton noOfLines={1} h='1.5rem' w='full'/>
+          <Skeleton noOfLines={1} h='1.5rem' mt='0.5rem' w='75%'/>
         </Box>
         <HStack
           alignItems='start'
           justifyContent='start'
           w='full'
-          height='full'
+          h='full'
         >
           <Skeleton
             noOfLines={1}
-            height='2.2rem'
+            h='2.2rem'
             flex='none'
-            width='2.2rem'
-            marginRight='0.1rem'
+            w='2.2rem'
+            mr='0.1rem'
           />
-          <VStack justifyContent='start' height='full' spacing='0.4rem' width='full'>
-            <Skeleton noOfLines={1} height='0.8rem' width='full'/>
-            <Skeleton noOfLines={1} height='0.8rem' width='full'/>
+          <VStack justifyContent='start' h='full' spacing='0.4rem' w='full'>
+            <Skeleton noOfLines={1} h='0.8rem' w='full'/>
+            <Skeleton noOfLines={1} h='0.8rem' w='full'/>
           </VStack>
         </HStack>
       </VStack>

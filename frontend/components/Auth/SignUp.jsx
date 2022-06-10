@@ -100,37 +100,37 @@ export const SignUp = () => {
         }
       } else {
         cookies.set("token", data.createUser.token, { path: '/' });
-        router.push("/");
+        router.push("/verificar");
       }
     }
   }, [data, loading]);
 
   return (
     <Flex
-      height='full'
-      minHeight='100vh'
+      h='full'
+      minH='100vh'
     >
       <Flex
-        width={{ base: '100%', md: '50%'}}
-        paddingX={{ base: '1rem', sm: '1.5rem', lg: '2rem' }}
-        paddingY='3rem'
+        w={{ base: '100%', md: '50%'}}
+        px={{ base: '1rem', sm: '1.5rem', lg: '2rem' }}
+        py='3rem'
         alignItems='center'
         justifyContent='center'
         position='relative'
       >
         <Box
-          width='full'
+          w='full'
           maxW='sm'
         >
           <VStack
             as={Flex}
             flexDirection='column'
             spacing='2.2rem'
-            paddingX='1.8rem'
-            paddingY='2.8rem'
-            backgroundColor='white'
+            px='1.8rem'
+            py='2.8rem'
+            bg='white'
           >
-            <Box width='full' paddingY='0.3rem'>
+            <Box w='full' py='0.3rem'>
               <Heading
                 as='p'
                 size='xl'
@@ -143,12 +143,12 @@ export const SignUp = () => {
             </Box>
             <VStack
               as='form'
-              width='full'
-              marginTop='2rem'
+              w='full'
+              mt='2rem'
               spacing='0.4rem'
               onSubmit={register}
             >
-              <VStack width='full'>
+              <VStack w='full'>
                 <Button
                   type='button'
                   onClick={() => signIn('google')}
@@ -157,7 +157,7 @@ export const SignUp = () => {
                   fontWeight={400}
                   color='gray.500'
                   colorScheme='gray'
-                  width='full'
+                  w='full'
                 >
                   Continua con Google
                 </Button>
@@ -169,18 +169,18 @@ export const SignUp = () => {
                   fontWeight={400}
                   color='gray.500'
                   colorScheme='gray'
-                  width='full'
+                  w='full'
                 >
                   Continúa con Facebook
                 </Button>
               </VStack>
-              <HStack width='full' alignItems='center' justifyContent='center'>
+              <HStack w='full' alignItems='center' justifyContent='center'>
                 <Divider bg='gray.700' opacity={1}/>
                 <Text color='gray.500' fontWeight={300}>o</Text>
                 <Divider bg='gray.700' opacity={1}/>
               </HStack>
               <VStack
-                width='full'
+                w='full'
                 spacing='0.5rem'
               >
                 <FormControl isRequired>
@@ -188,7 +188,7 @@ export const SignUp = () => {
                   <InputGroup>
                     <InputLeftElement
                       pointerEvents='none'
-                      paddingLeft='0.3rem'
+                      pl='0.3rem'
                       color='gray.600'
                       children={<HiOutlineIdentification size={18}/>}
                     />
@@ -212,7 +212,7 @@ export const SignUp = () => {
                   <InputGroup>
                     <InputLeftElement
                       pointerEvents='none'
-                      paddingLeft='0.3rem'
+                      pl='0.3rem'
                       color='gray.600'
                       children={<HiOutlineMail size={18}/>}
                     />
@@ -241,7 +241,7 @@ export const SignUp = () => {
                   <InputGroup>
                     <InputLeftElement
                       pointerEvents='none'
-                      paddingLeft='0.3rem'
+                      pl='0.3rem'
                       color='gray.600'
                       children={<HiOutlineLockClosed size={18}/>}
                     />
@@ -260,9 +260,9 @@ export const SignUp = () => {
                       onChange={handlePassword}
                     />
                     <InputRightAddon
-                    backgroundColor='white'
-                      paddingX={0}
-                      paddingY={0}
+                      bg='white'
+                      px={0}
+                      py={0}
                     >
                       <Button
                         color='gray.600'
@@ -283,7 +283,7 @@ export const SignUp = () => {
                   <InputGroup>
                     <InputLeftElement
                       pointerEvents='none'
-                      paddingLeft='0.3rem'
+                      pl='0.3rem'
                       color='gray.600'
                       children={<HiOutlineLockClosed size={18}/>}
                     />
@@ -302,9 +302,9 @@ export const SignUp = () => {
                       onChange={handlePasswordConfirmation}
                     />
                     <InputRightAddon
-                    backgroundColor='white'
-                      paddingX={0}
-                      paddingY={0}
+                      bg='white'
+                      px={0}
+                      py={0}
                     >
                       <Button
                         color='gray.600'
@@ -321,19 +321,19 @@ export const SignUp = () => {
                   }
                 </FormControl>
               </VStack>
-              <VStack width='full' paddingY='0.5rem' spacing='0.6rem'>
+              <VStack w='full' py='0.5rem' spacing='0.6rem'>
                 <MotionButton
                   type='submit'
                   variant='solid'
                   bg='cyan.500'
-                  width='full'
+                  w='full'
                   whileTap={{ scale: 0.98 }}
                 >Registrarme</MotionButton>
                 <Text fontSize='0.85rem' textAlign='center' letterSpacing='wide'>
                   ¿Ya tienes una cuenta? Inicia sesión <NextLink href="/login" passHref><Link fontWeight={700} color='cyan.500'>aquí</Link></NextLink>
                 </Text>
               </VStack>
-              <Flex width='full' paddingY='1.5rem'>
+              <Flex w='full' py='1.5rem'>
                 <Button
                   leftIcon={<ArrowBackIcon />}
                   colorScheme='cyan'
@@ -355,9 +355,9 @@ export const SignUp = () => {
         >
           <Box
             maxW='lg'
-            paddingX='1rem'
-            paddingY='1.5rem'
-            marginX='auto'
+            px='1rem'
+            py='1.5rem'
+            mx='auto'
           >
             <Logo/>
           </Box>
@@ -365,15 +365,15 @@ export const SignUp = () => {
       </Flex>
       <Flex
         display={{ base: 'none', md: 'flex' }}
-        width='50%'
-        paddingX={{ base: '1rem', sm: '1.5rem', lg: '2rem' }}
-        paddingY='3rem'
+        w='50%'
+        px={{ base: '1rem', sm: '1.5rem', lg: '2rem' }}
+        py='3rem'
         alignItems='center'
         justifyContent='center'
-        backgroundColor='cyan.500'
+        bg='cyan.500'
       >
         <Box
-          width='full'
+          w='full'
           maxW='md'
         >
           <Heading

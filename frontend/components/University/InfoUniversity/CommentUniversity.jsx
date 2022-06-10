@@ -6,7 +6,7 @@ export const CommentUniversity = ({ comment }) => {
   return (
     <VStack alignItems='start' spacing={2} w='full'>
       <HStack color='gray.400'>
-        <HStack flex='none' border='1px solid' borderColor='gray.200' w='2.2rem' h='2.2rem' alignItems='center' justifyContent='center' borderRadius='full' overflow='hidden' marginRight='0.1rem'>
+        <HStack flex='none' border='1px solid' borderColor='gray.200' w='2.2rem' h='2.2rem' alignItems='center' justifyContent='center' borderRadius='full' overflow='hidden' mr='0.1rem'>
           <Image src={comment.imageUser === '' ? '/images/user-default.png' : comment.imageUser} alt={comment.nameUser} flex='none' objectFit='contain' w='2.2rem' h='2.2rem'/>
         </HStack>
         <Text fontWeight={700} fontSize='1rem' isTruncated color='gray.700'>{comment.nameUser}</Text>

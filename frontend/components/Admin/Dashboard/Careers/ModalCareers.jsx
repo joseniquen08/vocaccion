@@ -102,7 +102,7 @@ export const ModalCareers = ({ isOpen, onClose, data, refetch }) => {
                     color='gray.400'
                     fontWeight='500'
                     borderRadius='lg'
-                    width='full'
+                    w='full'
                     flex='none'
                     _focus={{
                       boxShadow: 'none',
@@ -128,7 +128,7 @@ export const ModalCareers = ({ isOpen, onClose, data, refetch }) => {
                     color='gray.400'
                     fontWeight='500'
                     borderRadius='lg'
-                    width='full'
+                    w='full'
                     flex='none'
                     _focus={{
                       boxShadow: 'none',
@@ -175,8 +175,8 @@ export const ModalCareers = ({ isOpen, onClose, data, refetch }) => {
                 />
                 <FormLabel color='gray.400' htmlFor='description_career'>Descripción</FormLabel>
               </FormControl>
-              <HStack width='full' spacing={3}>
-                <FormControl isRequired variant="floating" width='50%'>
+              <HStack w='full' spacing={3}>
+                <FormControl isRequired variant="floating" w='50%'>
                   <NumberInput min={6} max={12} defaultValue={6}>
                     <NumberInputField
                       ref={durationCareerRef}
@@ -197,13 +197,13 @@ export const ModalCareers = ({ isOpen, onClose, data, refetch }) => {
                   </NumberInput>
                 </FormControl>
                 <DarkMode>
-                  <FormControl isRequired width='50%'>
+                  <FormControl isRequired w='50%'>
                     <Select
                       variant='outline'
                       color='gray.400'
                       fontWeight='500'
                       borderRadius='lg'
-                      width='full'
+                      w='full'
                       flex='none'
                       _focus={{
                         boxShadow: 'none',

@@ -1,6 +1,7 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { Box, Button, Divider, Grid, GridItem, HStack, IconButton, Input, NumberInput, NumberInputField, Tag, Text, useDisclosure } from "@chakra-ui/react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { FaCamera } from "react-icons/fa";
 import Cookies from "universal-cookie";
@@ -14,6 +15,7 @@ const GET_USER_BY_ID = gql`
       email
       image
       age
+      emailVerifiedV
       provider
     }
   }
@@ -45,6 +47,7 @@ const UPDATE_USER_WHITOUT_PROVIDER = gql`
 export const Profile = ({ id }) => {
 
   const cookies = new Cookies();
+  const router = useRouter();
 
   const [user, setUser] = useState(null);
   const [username, setUsername] = useState(null);
@@ -141,7 +144,7 @@ export const Profile = ({ id }) => {
   }, [dataUpdateUserWhitoutProvider, loadingUpdateUserWhitoutProvider]);
 
   return (
-    <Box width='full'>
+    <Box w='full'>
       {
         loadingGetUser ? (
           <HStack justifyContent='center' w='full' py={6}>
@@ -157,19 +160,19 @@ export const Profile = ({ id }) => {
         ) : (
           user && (
             <Box
-              maxWidth='4xl'
-              marginX='auto'
-              marginY='3rem'
+              maxW='4xl'
+              mx='auto'
+              my='3rem'
               border='1px solid'
               borderColor='#d6d3d1'
               rounded='2xl'
               overflow='hidden'
             >
               <Box position='relative'>
-                <Box height='10rem' bg='cyan.100'></Box>
-                <HStack position='absolute' alignItems='end' paddingX='5rem' bottom='-4.2rem' width='full'>
-                  <HStack flex='none' position='relative' alignItems='center' justifyContent='center' borderRadius='full' width='6.5rem' height='6.5rem' bg='white'>
-                    <Box flex='none' alignItems='center' justifyContent='center' borderRadius='full' overflow='hidden' width='6rem' height='6rem'>
+                <Box h='10rem' bg='cyan.100'></Box>
+                <HStack position='absolute' alignItems='end' px='5rem' bottom='-4.2rem' w='full'>
+                  <HStack flex='none' position='relative' alignItems='center' justifyContent='center' borderRadius='full' w='6.5rem' h='6.5rem' bg='white'>
+                    <Box flex='none' alignItems='center' justifyContent='center' borderRadius='full' overflow='hidden' w='6rem' h='6rem'>
                       <Image src={user.image === '' ? '/images/user-default.png' : user.image} alt={user.name} width={96} height={96} priority="true" objectFit="cover" objectPosition='center'/>
                     </Box>
                     {
@@ -186,11 +189,11 @@ export const Profile = ({ id }) => {
                       )
                     }
                   </HStack>
-                  <HStack paddingBottom='0.5rem' width='full' justifyContent='space-between'>
-                    <Box paddingLeft='0.75rem'>
+                  <HStack pb='0.5rem' w='full' justifyContent='space-between'>
+                    <Box pl='0.75rem'>
                       <Text fontWeight={600} fontSize='xl' color='gray.700'>{user.name}</Text>
                       <Text fontWeight={500} fontSize='sm' color='gray.600'>
-                        {user.email} <Tag size='sm' variant='outline' marginLeft='0.2rem' colorScheme='blackAlpha'>{user.provider !== 'no' ? user.provider.charAt(0).toUpperCase() + user.provider.slice(1) : 'Correo'}</Tag>
+                        {user.email} <Tag size='sm' variant='outline' ml='0.2rem' colorScheme='blackAlpha'>{user.provider !== 'no' ? user.provider.charAt(0).toUpperCase() + user.provider.slice(1) : 'Correo'}</Tag> <Tag size='sm' variant='outline' ml='0.2rem' colorScheme={user.emailVerifiedV ? 'green': 'red'}>{user.emailVerifiedV ? 'Verificado' : 'No verificado'}</Tag>
                       </Text>
                     </Box>
                     <Box>
@@ -208,8 +211,8 @@ export const Profile = ({ id }) => {
                   </HStack>
                 </HStack>
               </Box>
-              <Box marginTop='4.5rem' paddingY='3rem' paddingX='5rem'>
-                <Box paddingY='1rem'>
+              <Box mt='4.5rem' py='3rem' px='5rem'>
+                <Box py='1rem'>
                   <Grid templateColumns='repeat(12, 1fr)'>
                     <GridItem colSpan={4}>
                       <Text fontWeight={700} color='gray.600'>Username</Text>
@@ -233,7 +236,7 @@ export const Profile = ({ id }) => {
                   </Grid>
                 </Box>
                 <Divider/>
-                <Box paddingY='1rem'>
+                <Box py='1rem'>
                   <Grid templateColumns='repeat(12, 1fr)'>
                     <GridItem colSpan={4}>
                       <Text fontWeight={700} color='gray.600'>Nombres</Text>
@@ -257,7 +260,7 @@ export const Profile = ({ id }) => {
                   </Grid>
                 </Box>
                 <Divider/>
-                <Box paddingY='1rem'>
+                <Box py='1rem'>
                   <Grid templateColumns='repeat(12, 1fr)'>
                     <GridItem colSpan={4}>
                       <Text fontWeight={700} color='gray.600'>Edad</Text>
@@ -283,6 +286,22 @@ export const Profile = ({ id }) => {
                     </GridItem>
                   </Grid>
                 </Box>
+                {
+                  editionAvailable && !user.emailVerifiedV && (
+                    <>
+                      <Divider/>
+                      <Box py='1rem'>
+                      <Button
+                        colorScheme='cyan'
+                        color='white'
+                        variant='solid'
+                        size='sm'
+                        onClick={() => router.push('/verificar')}
+                      >Verificar</Button>
+                      </Box>
+                    </>
+                  )
+                }
               </Box>
             </Box>
           )

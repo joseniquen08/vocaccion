@@ -10,7 +10,7 @@ const HomePage = ({ isLogged, user }) => {
   return (
     <Box minH='100vh'>
       <Navbar isLogged={isLogged} user={user}/>
-      <Header/>
+      <Header user={user}/>
       <Features/>
       <Footer/>
     </Box>
@@ -34,6 +34,7 @@ export const getServerSideProps = async (context) => {
     user = {
       name: `${decryptedToken.name}`,
       image: `${decryptedToken.image}`,
+      emailVerifiedV: `${decryptedToken.emailVerifiedV}`,
     };
   }
 

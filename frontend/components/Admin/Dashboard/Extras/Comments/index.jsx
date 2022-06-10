@@ -66,17 +66,17 @@ export const Comments = () => {
   }
 
   return (
-    <Box color='white' height='full'>
+    <Box color='white' h='full'>
       <Heading
-        marginTop='0.5rem'
+        mt='0.5rem'
         fontSize='3xl'
         textAlign='center'
       >
         Comentarios
       </Heading>
-      <Box paddingY={7} height='full'>
-        <HStack spacing={3} height='full' width='full' alignItems='start'>
-          <VStack position='relative' spacing={3} width='50%' bg='blackAlpha.500' height='full' rounded='xl' paddingX={4} paddingY={4}>
+      <Box py={7} h='full'>
+        <HStack spacing={3} h='full' w='full' alignItems='start'>
+          <VStack position='relative' spacing={3} w='50%' bg='blackAlpha.500' h='full' rounded='xl' px={4} py={4}>
             <Heading
               fontSize='2xl'
               textAlign='center'
@@ -107,7 +107,7 @@ export const Comments = () => {
               )
             }
           </VStack>
-          <VStack position='relative' spacing={3} width='50%' bg='blackAlpha.500' height='full' rounded='xl' paddingX={4} paddingY={4}>
+          <VStack position='relative' spacing={3} w='50%' bg='blackAlpha.500' h='full' rounded='xl' px={4} py={4}>
             <Heading
               fontSize='2xl'
               textAlign='center'

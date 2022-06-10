@@ -18,7 +18,7 @@ const Logo = () => {
               >
                 vocacción
               </Heading>
-              <Text paddingBottom='0.2rem'>
+              <Text pb='0.2rem'>
                 <Badge colorScheme='whiteAlpha' fontSize='0.75rem'>ADMIN</Badge>
               </Text>
             </HStack>

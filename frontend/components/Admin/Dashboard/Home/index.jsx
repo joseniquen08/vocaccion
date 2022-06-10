@@ -23,30 +23,30 @@ export const Home = () => {
 
   return (
     <Box>
-      <VStack spacing={5} overflowX='auto' display='block' color='gray.200' paddingX={2} paddingY={4}>
+      <VStack spacing={5} overflowX='auto' display='block' color='gray.200' px={2} py={4}>
         <Text fontWeight={500} fontSize='2xl'>Cifras totales</Text>
         {
           data && (
             <SimpleGrid columns={2} spacing={4}>
-              <Box cursor='pointer' bg='blackAlpha.600' paddingX={5} paddingY={3} rounded='md' border='1px solid' borderColor='gray.700'>
+              <Box cursor='pointer' bg='blackAlpha.600' px={5} py={3} rounded='md' border='1px solid' borderColor='gray.700'>
                 <VStack alignItems='start' spacing={0}>
                   <Text noOfLines={1} fontSize='3xl' fontWeight={700}>Carreras</Text>
                   <Text fontSize='6xl' fontWeight={700}>{data.getInfoDashboardHome.totalCareers}</Text>
                 </VStack>
               </Box>
-              <Box cursor='pointer' bg='blackAlpha.600' paddingX={5} paddingY={3} rounded='md' border='1px solid' borderColor='gray.700'>
+              <Box cursor='pointer' bg='blackAlpha.600' px={5} py={3} rounded='md' border='1px solid' borderColor='gray.700'>
                 <VStack alignItems='start' spacing={0}>
                   <Text noOfLines={1} fontSize='3xl' fontWeight={700}>Universidades</Text>
                   <Text fontSize='6xl' fontWeight={700}>{data.getInfoDashboardHome.totalUniversities}</Text>
                 </VStack>
               </Box>
-              <Box cursor='pointer' bg='blackAlpha.600' paddingX={5} paddingY={3} rounded='md' border='1px solid' borderColor='gray.700'>
+              <Box cursor='pointer' bg='blackAlpha.600' px={5} py={3} rounded='md' border='1px solid' borderColor='gray.700'>
                 <VStack alignItems='start' spacing={0}>
                   <Text noOfLines={1} fontSize='3xl' fontWeight={700}>Usuarios</Text>
                   <Text fontSize='6xl' fontWeight={700}>{data.getInfoDashboardHome.totalUsers}</Text>
                 </VStack>
               </Box>
-              <Box cursor='pointer' bg='blackAlpha.600' paddingX={5} paddingY={3} rounded='md' border='1px solid' borderColor='gray.700'>
+              <Box cursor='pointer' bg='blackAlpha.600' px={5} py={3} rounded='md' border='1px solid' borderColor='gray.700'>
                 <VStack alignItems='start' spacing={0}>
                   <Text noOfLines={1} fontSize='3xl' fontWeight={700}>Comentarios</Text>
                   <Text fontSize='6xl' fontWeight={700}>{data.getInfoDashboardHome.totalComments}</Text>

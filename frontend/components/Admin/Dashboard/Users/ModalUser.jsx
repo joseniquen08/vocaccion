@@ -15,7 +15,7 @@ export const ModalUser = ({ isOpen, onClose, user }) => {
         <ModalBody>
           <DarkMode>
             <HStack alignItems='start' py={4}>
-              <HStack marginRight={2} alignItems='center' justifyContent='center' rounded='lg' overflow='hidden'>
+              <HStack mr={2} alignItems='center' justifyContent='center' rounded='lg' overflow='hidden'>
                 <Image src={user.image === '' ? '/images/user-default.png' : user.image} alt={user.name} width={70} height={70} priority="true" objectFit='cover' objectPosition='center'/>
               </HStack>
               <VStack alignItems='left' spacing={0}>

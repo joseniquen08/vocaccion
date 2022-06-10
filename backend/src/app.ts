@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import express, { Application, NextFunction, Request, Response } from 'express';
 import { resolvers as scalarResolvers, typeDefs as scalarTypeDefs } from 'graphql-scalars';
 import { resolvers, typeDefs } from '../graphql';
-import uploadRoutes from './university/routes/uploadRoutes';
+import uploadRoutes from './shared/routes/uploadRoutes';
 
 dotenv.config();
 

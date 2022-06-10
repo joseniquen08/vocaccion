@@ -13,7 +13,7 @@ export const SelectProvinces = ({ loading, data, refetch, handleSelectProvince }
       color='gray.400'
       fontWeight='500'
       borderRadius='lg'
-      width='full'
+      w='full'
       flex='none'
       _focus={{
         boxShadow: 'none',
