@@ -31,7 +31,6 @@ export const Verify = ({ email }) => {
   }
 
   const handleComplete = (value) => {
-    console.log(value.toUpperCase());
     verifyEmailMutation({
       variables: {
         verifyRequest: {

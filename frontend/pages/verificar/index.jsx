@@ -46,8 +46,6 @@ export const getServerSideProps = async (context) => {
     };
   }
 
-  console.log(user);
-
   if (user.emailVerifiedV === 'true') {
     return {
       redirect: {
