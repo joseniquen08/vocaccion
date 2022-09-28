@@ -1,7 +1,7 @@
 import { Badge, Box, HStack, Text, VStack } from "@chakra-ui/react";
+import { UserType } from '@cust-types/auth/index';
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { UserType } from '../../../../types/auth/index';
 
 type Props = {
   user: UserType;

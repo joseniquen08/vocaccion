@@ -1,8 +1,9 @@
 import { gql, useQuery } from '@apollo/client';
 import { Box, Heading, HStack, useDisclosure, VStack } from '@chakra-ui/react';
+import { GetAllCommentsCareerType } from '@cust-types/admin/careerTypes';
+import { CommentCareerAdminType, CommentUniversityAdminType } from '@cust-types/admin/commentTypes';
+import { GetAllCommentsUniversityType } from '@cust-types/admin/universityTypes';
 import { useState } from 'react';
-import { CommentCareerType, GetAllCommentsCareerType } from '../../../../../types/admin/careerTypes';
-import { CommentUniversityType, GetAllCommentsUniversityType } from '../../../../../types/admin/universityTypes';
 import { CardComment } from './CardComment';
 import { ModalComment } from './ModalComment';
 import { ModalDeleteComment } from './ModalDeleteComment';
@@ -53,7 +54,7 @@ const GET_ALL_COMMENTS_UNIVERSITY = gql`
 
 export const Comments = () => {
 
-  const [selectedComment, setSelectedComment] = useState<CommentCareerType & CommentUniversityType | null>(null);
+  const [selectedComment, setSelectedComment] = useState<CommentCareerAdminType & CommentUniversityAdminType | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const { loading: loadingAllCommentsCareer, data: dataAllCommentsCareer, refetch: refetchAllCommentsCareer } = useQuery<GetAllCommentsCareerType>(GET_ALL_COMMENTS_CAREER);
@@ -62,7 +63,7 @@ export const Comments = () => {
   const { isOpen: isOpenModalComment, onOpen: onOpenModalComment, onClose: onCloseModalComment } = useDisclosure();
   const { isOpen: isOpenModalDeleteComment, onOpen: onOpenModalDeleteComment, onClose: onCloseModalDeleteComment } = useDisclosure();
 
-  const handleModalComment = (comment: CommentCareerType & CommentUniversityType) => {
+  const handleModalComment = (comment: CommentCareerAdminType & CommentUniversityAdminType) => {
     setSelectedComment(comment);
     onOpenModalComment();
   }

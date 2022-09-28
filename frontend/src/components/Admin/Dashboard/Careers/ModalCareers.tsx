@@ -31,6 +31,7 @@ export const ModalCareers = ({ isOpen, onClose, data, refetch }: Props) => {
   const [idUniversity, setIdUniversity] = useState<string>("");
   const [category, setCategory] = useState<string>("");
   const [typeDurationCareer, setTypeDurationCareer] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [addCareerMutation, { data: dataCareer, loading: loadingCareer }] = useMutation(ADD_CAREER_MUTATION);
 
@@ -49,7 +50,8 @@ export const ModalCareers = ({ isOpen, onClose, data, refetch }: Props) => {
 
   const addCareer = async (e: FormEvent<HTMLDivElement>) => {
     e.preventDefault();
-    addCareerMutation({
+    setIsLoading(true);
+    await addCareerMutation({
       variables: {
         input: {
           name: nameCareerRef.current?.value,
@@ -69,6 +71,7 @@ export const ModalCareers = ({ isOpen, onClose, data, refetch }: Props) => {
     if (!loadingCareer && dataCareer) {
       onClose();
       refetch();
+      setIsLoading(false);
     }
   }, [dataCareer, loadingCareer]);
 
@@ -231,7 +234,7 @@ export const ModalCareers = ({ isOpen, onClose, data, refetch }: Props) => {
           </ChakraProvider>
         </ModalBody>
         <ModalFooter>
-          <Button type="submit" colorScheme='blackAlpha'>Agregar</Button>
+          <Button type="submit" isLoading={isLoading} colorScheme='blackAlpha'>Agregar</Button>
         </ModalFooter>
       </ModalContent>
     </Modal>

@@ -1,17 +1,16 @@
 import { Badge, Button, DarkMode, HStack, Image, Modal, ModalBody, ModalContent, ModalFooter, ModalOverlay, Text, VStack } from "@chakra-ui/react";
+import { CommentCareerAdminType, CommentUniversityAdminType } from '@cust-types/admin/commentTypes';
 import dayjs from 'dayjs';
 import { Dispatch, SetStateAction } from "react";
 import { FaTrashAlt } from "react-icons/fa";
 import { MdReportProblem } from 'react-icons/md';
-import { CommentCareerType } from '../../../../../types/admin/careerTypes';
-import { CommentUniversityType } from '../../../../../types/admin/universityTypes';
 
 type Props = {
   isOpen: boolean;
   onClose: () => void;
   onOpenDelete: () => void;
   setSelectedId: Dispatch<SetStateAction<string | null>>;
-  comment: CommentCareerType & CommentUniversityType;
+  comment: CommentCareerAdminType & CommentUniversityAdminType;
 }
 
 export const ModalComment = ({ isOpen, onClose, onOpenDelete, setSelectedId, comment }: Props) => {

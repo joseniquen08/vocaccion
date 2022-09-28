@@ -1,6 +1,6 @@
 import { Select } from "@chakra-ui/react";
+import { GetAllRegionsType } from '@cust-types/admin/ubicationTypes';
 import { ChangeEvent } from 'react';
-import { GetAllRegionsType } from '../../../../types/admin/ubicationTypes';
 
 type Props = {
   loading: boolean;

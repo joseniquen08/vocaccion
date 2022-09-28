@@ -1,10 +1,10 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { Button, ChakraProvider, DarkMode, FormControl, FormLabel, HStack, Img, Input, InputGroup, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Radio, RadioGroup, Select, Stack, VStack } from "@chakra-ui/react";
+import { GetAllRegionsType } from '@cust-types/admin/ubicationTypes';
+import { uploadImage } from "@lib/uploadImage";
+import { modalAddTheme } from "@theme/theme.chakra";
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 import { FiImage } from "react-icons/fi";
-import { uploadImage } from "../../../../lib/uploadImage";
-import { modalAddTheme } from "../../../../theme/theme.chakra";
-import { GetAllRegionsType } from '../../../../types/admin/ubicationTypes';
 import { SelectProvinces } from "./SelectProvinces";
 
 type Props = {
@@ -53,6 +53,7 @@ export const ModalUniversities = ({ isOpen, onClose, refetch }: Props) => {
   const [image, setImage] = useState<string | null>(null);
   const [idReferenceRegion, setIdReferenceRegion] = useState<string | null>(null);
   const [idReferenceProvince, setIdReferenceProvince] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { data: dataRegions } = useQuery<GetAllRegionsType>(GET_REGIONS);
   const { loading: loadingProvinces, data: dataProvinces, refetch: refetchProvinces } = useQuery(GET_PROVINCES_BY_REGION_ID, {
@@ -81,9 +82,10 @@ export const ModalUniversities = ({ isOpen, onClose, refetch }: Props) => {
   const addUniversity = async (e: FormEvent<HTMLDivElement>) => {
     e.preventDefault();
     if (fileRef.current?.files?.length !== 0) {
+      setIsLoading(true);
       const imageUrl = await uploadImage(fileRef.current!.files![0]);
       if (imageUrl) {
-        addUniversityMutation({
+        await addUniversityMutation({
           variables: {
             input: {
               name: nameUniversityRef.current?.value,
@@ -110,6 +112,7 @@ export const ModalUniversities = ({ isOpen, onClose, refetch }: Props) => {
     if (!loadingUniversity && dataUniversity) {
       onClose();
       refetch();
+      setIsLoading(false);
     }
   }, [dataUniversity, loadingUniversity]);
 
@@ -176,7 +179,7 @@ export const ModalUniversities = ({ isOpen, onClose, refetch }: Props) => {
                 <FormControl isRequired variant="floating">
                   <NumberInput
                     min={1}
-                    max={10}
+                    max={30}
                     defaultValue={1}
                   >
                     <NumberInputField
@@ -254,7 +257,7 @@ export const ModalUniversities = ({ isOpen, onClose, refetch }: Props) => {
           </ChakraProvider>
         </ModalBody>
         <ModalFooter>
-          <Button type="submit" colorScheme='blackAlpha' px='8'>Agregar</Button>
+          <Button type="submit" isLoading={isLoading} colorScheme='blackAlpha' px='8'>Agregar</Button>
         </ModalFooter>
       </ModalContent>
     </Modal>

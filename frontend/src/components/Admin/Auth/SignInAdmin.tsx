@@ -1,12 +1,12 @@
 import { gql, useMutation } from "@apollo/client";
 import { Box, Button, Flex, FormControl, FormErrorMessage, FormLabel, Input, InputGroup, InputLeftElement, InputRightAddon, Stack, VStack } from "@chakra-ui/react";
+import Logo from "@comp-shared/Navbar/Logo";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import { HiOutlineLockClosed, HiOutlineMail } from 'react-icons/hi';
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md';
 import Cookies from "universal-cookie";
-import Logo from "../../Shared/Navbar/Logo";
 
 const MotionButton = motion(Button);
 
@@ -144,6 +144,7 @@ export const SignInAdmin = () => {
                       size='md'
                       _focus={{
                         boxShadow: 'none',
+                        borderColor: '#A0AEC0',
                       }}
                       fontSize='0.95rem'
                       fontWeight='500'
@@ -179,6 +180,7 @@ export const SignInAdmin = () => {
                       type={showPassword ? 'text' : 'password'}
                       _focus={{
                         boxShadow: 'none',
+                        borderColor: '#A0AEC0',
                       }}
                       fontSize={'0.95rem'}
                       fontWeight='500'

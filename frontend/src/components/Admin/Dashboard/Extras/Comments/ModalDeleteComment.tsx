@@ -1,14 +1,13 @@
 import { gql, useMutation } from "@apollo/client";
 import { Button, DarkMode, HStack, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text } from "@chakra-ui/react";
-import { useEffect } from "react";
-import { CommentCareerType } from '../../../../../types/admin/careerTypes';
-import { CommentUniversityType } from '../../../../../types/admin/universityTypes';
+import { CommentCareerAdminType, CommentUniversityAdminType } from '@cust-types/admin/commentTypes';
+import { useEffect, useState } from 'react';
 
 type Props = {
   isOpen: boolean;
   onClose: () => void;
   id: string;
-  comment: CommentCareerType & CommentUniversityType | null;
+  comment: CommentCareerAdminType & CommentUniversityAdminType | null;
   refetchCareer: any;
   refetchUniversity: any;
   onOpenComment: () => void;
@@ -32,6 +31,8 @@ const DELETE_COMMENT_UNIVERSITY = gql`
 
 export const ModalDeleteComment = ({ isOpen, onClose, id, comment, refetchCareer, refetchUniversity, onOpenComment }: Props) => {
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const [deleteCommentCareerMutation, { loading: loadingDeleteCommentCareer, data: dataDeleteCommentCareer }] = useMutation(DELETE_COMMENT_CAREER);
   const [deleteCommentUniversityMutation, { loading: loadingDeleteCommentUniversity, data: dataDeleteCommentUniversity }] = useMutation(DELETE_COMMENT_UNIVERSITY);
 
@@ -42,9 +43,11 @@ export const ModalDeleteComment = ({ isOpen, onClose, id, comment, refetchCareer
 
   const handleDeleteComment = async () => {
     if (comment?.career) {
-      deleteCommentCareerMutation({ variables: { id } });
+      setIsLoading(true);
+      await deleteCommentCareerMutation({ variables: { id } });
     } else {
-      deleteCommentUniversityMutation({ variables: { id } });
+      setIsLoading(true);
+      await deleteCommentUniversityMutation({ variables: { id } });
     }
   }
 
@@ -52,6 +55,7 @@ export const ModalDeleteComment = ({ isOpen, onClose, id, comment, refetchCareer
     if (!loadingDeleteCommentCareer && dataDeleteCommentCareer) {
       onClose();
       refetchCareer();
+      setIsLoading(false);
     }
   }, [dataDeleteCommentCareer, loadingDeleteCommentCareer]);
 
@@ -59,6 +63,7 @@ export const ModalDeleteComment = ({ isOpen, onClose, id, comment, refetchCareer
     if (!loadingDeleteCommentUniversity && dataDeleteCommentUniversity) {
       onClose();
       refetchUniversity();
+      setIsLoading(false);
     }
   }, [dataDeleteCommentUniversity, loadingDeleteCommentUniversity]);
 
@@ -82,7 +87,7 @@ export const ModalDeleteComment = ({ isOpen, onClose, id, comment, refetchCareer
           <DarkMode>
             <HStack>
               <Button onClick={() => handleCloseDelete()} colorScheme='gray'>Cancelar</Button>
-              <Button onClick={() => handleDeleteComment()} colorScheme='red'>Eliminar</Button>
+              <Button onClick={() => handleDeleteComment()} isLoading={isLoading} colorScheme='red'>Eliminar</Button>
             </HStack>
           </DarkMode>
         </ModalFooter>

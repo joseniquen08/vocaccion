@@ -1,7 +1,7 @@
 import { gql, useQuery } from '@apollo/client';
 import { Box, SimpleGrid, Text, VStack } from "@chakra-ui/react";
+import { GetInfoDashboardHomeType } from '@cust-types/admin/dashboardTypes';
 import { useEffect } from 'react';
-import { GetInfoDashboardHomeType } from '../../../../types/admin/dashboardTypes';
 
 const GET_INFO_DASHBOARD = gql`
   query GetInfoDashboardHome {

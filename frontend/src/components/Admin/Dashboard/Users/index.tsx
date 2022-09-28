@@ -1,8 +1,8 @@
 import { gql, useQuery } from "@apollo/client";
 import { Box, Heading, SimpleGrid, useDisclosure } from "@chakra-ui/react";
+import { GetAllUsersType } from '@cust-types/admin/userTypes';
+import { UserType } from '@cust-types/auth/index';
 import { useState } from "react";
-import { GetAllUsersType } from '../../../../types/admin/userTypes';
-import { UserType } from '../../../../types/auth/index';
 import { CardUser } from "./CardUser";
 import { ModalUser } from "./ModalUser";
 

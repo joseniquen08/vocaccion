@@ -1,5 +1,5 @@
 import { Button, HStack, Text } from "@chakra-ui/react";
-import { ProvinceType } from '../../../../../types/admin/ubicationTypes';
+import { ProvinceType } from '@cust-types/admin/ubicationTypes';
 
 type Props = {
   loading: boolean;

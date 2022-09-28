@@ -1,9 +1,8 @@
 import { Badge, HStack, Image, StackDivider, Text, VStack } from "@chakra-ui/react";
+import { CommentCareerAdminType, CommentUniversityAdminType } from '@cust-types/admin/commentTypes';
+import { UserType } from '@cust-types/auth/index';
 import dayjs from 'dayjs';
 import { motion } from "framer-motion";
-import { CommentCareerType } from '../../../../../types/admin/careerTypes';
-import { CommentUniversityType } from '../../../../../types/admin/universityTypes';
-import { UserType } from '../../../../../types/auth/index';
 
 type Props = {
   id: string;
@@ -13,7 +12,7 @@ type Props = {
   idPage: string;
   namePage: string;
   imagePage: string;
-  comment: CommentCareerType | CommentUniversityType;
+  comment: CommentCareerAdminType | CommentUniversityAdminType;
   handleModalComment: any;
 }
 

@@ -1,8 +1,8 @@
 import { gql, useQuery } from "@apollo/client";
 import { Box, Button, Heading, HStack, Table, TableCaption, Tbody, Th, Thead, Tr, useDisclosure } from "@chakra-ui/react";
+import { GetAllUniversitiesType } from '@cust-types/admin/universityTypes';
 import { useState } from "react";
 import { FaPlusCircle, FaSlidersH } from 'react-icons/fa';
-import { GetAllUniversitiesType } from '../../../../types/admin/universityTypes';
 import { ModalDelete } from "./ModalDelete";
 import { ModalUniversities } from "./ModalUniversities";
 import { TrUniversity } from "./TrUniversity";

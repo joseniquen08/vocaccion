@@ -1,4 +1,5 @@
 import { Box, Button, Drawer, DrawerContent, DrawerOverlay, Flex, HStack, Icon, IconButton, Link, Menu, MenuButton, MenuItem, MenuList, Text, useDisclosure } from '@chakra-ui/react';
+import { UserType } from '@cust-types/auth/index';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import NextLink from 'next/link';
@@ -6,7 +7,6 @@ import { useRouter } from 'next/router';
 import { FaBell } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 import Cookies from 'universal-cookie';
-import { UserType } from '../../../types/auth/index';
 import { Sidebar } from './Sidebar';
 
 type Props = {

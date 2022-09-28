@@ -1,6 +1,6 @@
 import { gql, useMutation } from "@apollo/client";
 import { Button, DarkMode, HStack, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text } from "@chakra-ui/react";
-import { useEffect } from "react";
+import { useEffect, useState } from 'react';
 
 type Props = {
   isOpen: boolean;
@@ -19,10 +19,13 @@ const DELETE_UNIVERSITY_MUTATION = gql`
 
 export const ModalDelete = ({ isOpen, onClose, refetch, id }: Props) => {
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const [deleteUniversityMutation, { loading, data }] = useMutation(DELETE_UNIVERSITY_MUTATION);
 
   const handleUniversityCareer = async () => {
-    deleteUniversityMutation({
+    setIsLoading(true);
+    await deleteUniversityMutation({
       variables: {
         id
       }
@@ -33,6 +36,7 @@ export const ModalDelete = ({ isOpen, onClose, refetch, id }: Props) => {
     if (!loading && data) {
       onClose();
       refetch();
+      setIsLoading(false);
     }
   }, [data, loading]);
 
@@ -56,7 +60,7 @@ export const ModalDelete = ({ isOpen, onClose, refetch, id }: Props) => {
           <DarkMode>
             <HStack>
               <Button onClick={() => onClose()} colorScheme='gray'>Cancelar</Button>
-              <Button onClick={() => handleUniversityCareer()} colorScheme='red'>Eliminar</Button>
+              <Button isLoading={isLoading} onClick={() => handleUniversityCareer()} colorScheme='red'>Eliminar</Button>
             </HStack>
           </DarkMode>
         </ModalFooter>

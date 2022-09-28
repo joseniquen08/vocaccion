@@ -1,12 +1,12 @@
 import { gql, useMutation } from "@apollo/client";
 import { Box, Button, HStack, Img, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalOverlay, VStack } from "@chakra-ui/react";
+import { UserType } from '@cust-types/auth/index';
+import { uploadImage } from "@lib/uploadImage";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { FiImage } from "react-icons/fi";
 import Cookies from "universal-cookie";
-import { uploadImage } from "../../../../lib/uploadImage";
-import { UserType } from '../../../../types/auth/index';
 
 type Props = {
   isOpen: boolean;

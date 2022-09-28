@@ -1,10 +1,10 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { Box, Button, Divider, Grid, GridItem, Heading, HStack, IconButton, Input, NumberInput, NumberInputField, Tag, Text, useDisclosure } from "@chakra-ui/react";
+import { UserType } from '@cust-types/auth/index';
 import Image from "next/image";
 import { ChangeEvent, useEffect, useState } from "react";
 import { FaCamera } from "react-icons/fa";
 import Cookies from "universal-cookie";
-import { UserType } from '../../../../types/auth/index';
 import { ModalPhoto } from "./ModalPhoto";
 
 type Props = {

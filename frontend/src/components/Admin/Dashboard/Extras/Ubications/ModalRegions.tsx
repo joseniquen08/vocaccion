@@ -1,7 +1,7 @@
 import { gql, useMutation } from "@apollo/client";
 import { Button, ChakraProvider, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, VStack } from "@chakra-ui/react";
+import { modalAddTheme } from "@theme/theme.chakra";
 import { FormEvent, useEffect, useRef } from "react";
-import { modalAddTheme } from "../../../../../theme/theme.chakra";
 
 type Props = {
   isOpenAddRegion: boolean;

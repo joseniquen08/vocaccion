@@ -1,9 +1,9 @@
 import { gql, useQuery } from "@apollo/client";
 import { Box, Button, Heading, HStack, Icon, IconButton, Text, useDisclosure, VStack } from "@chakra-ui/react";
+import { GetAllRegionsType, GetProvincesByRegionIdType, ProvinceType } from '@cust-types/admin/ubicationTypes';
 import { useEffect, useState } from "react";
 import { FaPlus } from 'react-icons/fa';
 import { MdKeyboardArrowRight } from 'react-icons/md';
-import { GetAllRegionsType, GetProvincesByRegionIdType, ProvinceType } from '../../../../../types/admin/ubicationTypes';
 import { ListProvinces } from "./ListProvinces";
 import { ModalProvinces } from "./ModalProvinces";
 import { ModalRegions } from "./ModalRegions";
