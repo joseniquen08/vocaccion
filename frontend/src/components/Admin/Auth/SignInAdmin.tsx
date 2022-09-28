@@ -33,6 +33,7 @@ export const SignInAdmin = () => {
   const [emailNotFoundError, setEmailNotFoundError] = useState<boolean>(false);
   const [emailNotAdmin, setEmailNotAdmin] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -40,10 +41,11 @@ export const SignInAdmin = () => {
     setShowPassword(showPassword => !showPassword);
   }
 
-  const login = (e: FormEvent<HTMLDivElement>) => {
+  const login = async (e: FormEvent<HTMLDivElement>) => {
     e.preventDefault();
     if (emailRef.current?.value !== '' && passwordRef.current?.value !== '') {
-      loginAdmin({
+      setIsLoading(true);
+      await loginAdmin({
         variables: {
           loginRequest: {
             email: emailRef.current?.value,
@@ -73,6 +75,7 @@ export const SignInAdmin = () => {
         } else if (data.loginAdmin.errors.message === 'not admin') {
           setEmailNotAdmin(true);
         }
+        setIsLoading(false);
       } else {
         cookies.set("token", data.loginAdmin.token, { path: '/' });
         router.push("/admin/dashboard/inicio");
@@ -204,9 +207,11 @@ export const SignInAdmin = () => {
               </VStack>
               <VStack w='full' py='0.5rem' spacing='0.6rem'>
                 <MotionButton
+                  isLoading={isLoading}
                   type='submit'
                   variant='solid'
-                  bg='cyan.500'
+                  colorScheme='cyan'
+                  color='white'
                   w='full'
                   whileTap={{ scale: 0.95 }}
                 >Ingresar</MotionButton>

@@ -1,3 +1,4 @@
+import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
 import { ApolloServer } from 'apollo-server-express';
 import cors from 'cors';
 import dotenv from 'dotenv';
@@ -20,6 +21,9 @@ export async function start () {
       scalarResolvers,
       resolvers
     ],
+    csrfPrevention: true,
+    introspection: true,
+    cache: new InMemoryLRUCache(),
   });
 
   await apolloServer.start();

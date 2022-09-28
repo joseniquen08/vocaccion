@@ -1,6 +1,6 @@
 import { gql, useMutation } from "@apollo/client";
 import { ArrowBackIcon } from "@chakra-ui/icons";
-import { Box, Button, Divider, Flex, FormControl, FormErrorMessage, FormLabel, Heading, HStack, Input, InputGroup, InputLeftElement, InputRightAddon, Link, Text, VStack } from "@chakra-ui/react";
+import { Box, Button, Divider, Flex, FormControl, FormErrorMessage, FormLabel, HStack, Input, InputGroup, InputLeftElement, InputRightAddon, Link, Text, VStack } from "@chakra-ui/react";
 import Logo from "@comp-shared/Navbar/Logo";
 import { motion } from "framer-motion";
 import { signIn } from "next-auth/react";
@@ -38,6 +38,7 @@ export const SignUp = () => {
   const [emailError, setEmailError] = useState<boolean>(false);
   const [lengthPasswordError, setLengthPasswordError] = useState<boolean>(false);
   const [equalPasswordError, setEqualPasswordError] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
@@ -54,11 +55,12 @@ export const SignUp = () => {
     setShowPasswordConfirmation(showPasswordConfirmation => !showPasswordConfirmation);
   }
 
-  const register = (e: FormEvent<HTMLDivElement>) => {
+  const register = async (e: FormEvent<HTMLDivElement>): Promise<void> => {
     e.preventDefault();
     if (nameRef.current?.value && emailRef.current?.value && passwordRef.current?.value) {
       if (passwordRef.current.value === passwordConfirmRef.current?.value) {
-        createUser({
+      setIsLoading(true);
+        await createUser({
           variables: {
             userRequest: {
               name: nameRef.current.value,
@@ -98,6 +100,7 @@ export const SignUp = () => {
         } else if (data.createUser.errors.message === 'duplicate key') {
           setEmailError(true);
         }
+        setIsLoading(false);
       } else {
         cookies.set("token", data.createUser.token, { path: '/' });
         router.push("/verificar");
@@ -111,9 +114,9 @@ export const SignUp = () => {
       minH='100vh'
     >
       <Flex
-        w={{ base: '100%', md: '50%'}}
+        w='full'
         px={{ base: '1rem', sm: '1.5rem', lg: '2rem' }}
-        py='3rem'
+        py='2rem'
         alignItems='center'
         justifyContent='center'
         position='relative'
@@ -125,22 +128,18 @@ export const SignUp = () => {
           <VStack
             as={Flex}
             flexDirection='column'
-            spacing='2.2rem'
+            spacing='1.5rem'
             px='1.8rem'
-            py='2.8rem'
+            py='2rem'
             bg='white'
           >
-            <Box w='full' py='0.3rem'>
-              <Heading
-                as='p'
-                size='xl'
-                textAlign='center'
-                fontWeight={700}
-                color='cyan.500'
+            <HStack w='full'>
+              <Box
+                mx='auto'
               >
-                Registrarse
-              </Heading>
-            </Box>
+                <Logo size='2.2rem'/>
+              </Box>
+            </HStack>
             <VStack
               as='form'
               w='full'
@@ -152,11 +151,13 @@ export const SignUp = () => {
                 <Button
                   type='button'
                   onClick={() => signIn('google')}
-                  leftIcon={<FaGoogle size={16}/>}
+                  leftIcon={<FaGoogle size={14}/>}
                   variant='outline'
                   fontWeight={400}
                   color='gray.500'
                   colorScheme='gray'
+                  size='sm'
+                  paddingY='1.1rem'
                   w='full'
                 >
                   Continua con Google
@@ -164,11 +165,13 @@ export const SignUp = () => {
                 <Button
                   type='button'
                   onClick={() => signIn('facebook')}
-                  leftIcon={<FaFacebook size={18}/>}
+                  leftIcon={<FaFacebook size={16}/>}
                   variant='outline'
                   fontWeight={400}
                   color='gray.500'
                   colorScheme='gray'
+                  size='sm'
+                  paddingY='1.1rem'
                   w='full'
                 >
                   Continúa con Facebook
@@ -184,50 +187,52 @@ export const SignUp = () => {
                 spacing='0.5rem'
               >
                 <FormControl isRequired>
-                  <FormLabel color='gray.600' fontSize='0.875rem' htmlFor='first_name'>Nombres Completos</FormLabel>
+                  <FormLabel color='gray.500' fontSize='0.8rem' htmlFor='first_name'>Nombres Completos</FormLabel>
                   <InputGroup>
                     <InputLeftElement
                       pointerEvents='none'
                       pl='0.3rem'
                       color='gray.600'
                     >
-                      <HiOutlineIdentification size={18}/>
+                      <HiOutlineIdentification size={17}/>
                     </InputLeftElement>
                     <Input
                       ref={nameRef}
                       name="first_name"
                       id="first_name"
                       type='text'
-                      fontSize='0.95rem'
+                      fontSize='0.9rem'
                       fontWeight='500'
                       color='gray.600'
                       _focus={{
                         boxShadow: 'none',
+                        borderColor: '#A0AEC0',
                       }}
                       autoFocus
                     />
                   </InputGroup>
                 </FormControl>
                 <FormControl isRequired isInvalid={emailError}>
-                  <FormLabel color='gray.600' fontSize='0.875rem' htmlFor='email'>Correo Electrónico</FormLabel>
+                  <FormLabel color='gray.500' fontSize='0.8rem' htmlFor='email'>Correo Electrónico</FormLabel>
                   <InputGroup>
                     <InputLeftElement
                       pointerEvents='none'
                       pl='0.3rem'
                       color='gray.600'
                     >
-                      <HiOutlineMail size={18}/>
+                      <HiOutlineMail size={17}/>
                     </InputLeftElement>
                     <Input
                       ref={emailRef}
                       name="email"
                       id="email"
                       type='email'
-                      fontSize='0.95rem'
+                      fontSize='0.9rem'
                       fontWeight='500'
                       color='gray.600'
                       _focus={{
                         boxShadow: 'none',
+                        borderColor: '#A0AEC0',
                       }}
                       onChange={() => setEmailError(false)}
                     />
@@ -239,25 +244,26 @@ export const SignUp = () => {
                   }
                 </FormControl>
                 <FormControl isRequired isInvalid={lengthPasswordError}>
-                  <FormLabel color='gray.600' fontSize='0.875rem' htmlFor='password'>Contraseña</FormLabel>
+                  <FormLabel color='gray.500' fontSize='0.8rem' htmlFor='password'>Contraseña</FormLabel>
                   <InputGroup>
                     <InputLeftElement
                       pointerEvents='none'
                       pl='0.3rem'
                       color='gray.600'
                     >
-                      <HiOutlineLockClosed size={18}/>
+                      <HiOutlineLockClosed size={17}/>
                     </InputLeftElement>
                     <Input
                       ref={passwordRef}
                       name="password"
                       id="password"
                       type={showPassword ? 'text' : 'password'}
-                      fontSize='0.95rem'
+                      fontSize='0.9rem'
                       fontWeight='500'
                       color='gray.600'
                       _focus={{
                         boxShadow: 'none',
+                        borderColor: '#A0AEC0',
                       }}
                       value={password}
                       onChange={handlePassword}
@@ -282,25 +288,26 @@ export const SignUp = () => {
                   }
                 </FormControl>
                 <FormControl isRequired isInvalid={equalPasswordError}>
-                  <FormLabel color='gray.600' fontSize='0.875rem' htmlFor='password_confirmation'>Confirmar contraseña</FormLabel>
+                  <FormLabel color='gray.500' fontSize='0.8rem' htmlFor='password_confirmation'>Confirmar contraseña</FormLabel>
                   <InputGroup>
                     <InputLeftElement
                       pointerEvents='none'
                       pl='0.3rem'
                       color='gray.600'
                     >
-                      <HiOutlineLockClosed size={18}/>
+                      <HiOutlineLockClosed size={17}/>
                     </InputLeftElement>
                     <Input
                       ref={passwordConfirmRef}
                       name="password_confirmation"
                       id="password_confirmation"
                       type={showPasswordConfirmation ? 'text' : 'password'}
-                      fontSize='0.95rem'
+                      fontSize='0.9rem'
                       fontWeight='500'
                       color='gray.600'
                       _focus={{
                         boxShadow: 'none',
+                        borderColor: '#A0AEC0',
                       }}
                       value={passwordConfirmation}
                       onChange={handlePasswordConfirmation}
@@ -327,17 +334,19 @@ export const SignUp = () => {
               </VStack>
               <VStack w='full' py='0.5rem' spacing='0.6rem'>
                 <MotionButton
+                  isLoading={isLoading}
                   type='submit'
                   variant='solid'
-                  bg='cyan.500'
+                  colorScheme='cyan'
+                  color='white'
                   w='full'
-                  whileTap={{ scale: 0.98 }}
+                  whileTap={{ scale: 0.95 }}
                 >Registrarme</MotionButton>
                 <Text fontSize='0.85rem' textAlign='center' letterSpacing='wide'>
                   ¿Ya tienes una cuenta? Inicia sesión <NextLink href="/login" passHref><Link fontWeight={700} color='cyan.500'>aquí</Link></NextLink>
                 </Text>
               </VStack>
-              <Flex w='full' py='1.5rem'>
+              <Flex w='full' py='0.4rem'>
                 <Button
                   leftIcon={<ArrowBackIcon />}
                   colorScheme='cyan'
@@ -350,45 +359,6 @@ export const SignUp = () => {
               </Flex>
             </VStack>
           </VStack>
-        </Box>
-        <Box
-          position='absolute'
-          top={0}
-          left={0}
-          right={0}
-        >
-          <Box
-            maxW='lg'
-            px='1rem'
-            py='1.5rem'
-            mx='auto'
-          >
-            <Logo/>
-          </Box>
-        </Box>
-      </Flex>
-      <Flex
-        display={{ base: 'none', md: 'flex' }}
-        w='50%'
-        px={{ base: '1rem', sm: '1.5rem', lg: '2rem' }}
-        py='3rem'
-        alignItems='center'
-        justifyContent='center'
-        bg='cyan.500'
-      >
-        <Box
-          w='full'
-          maxW='md'
-        >
-          <Heading
-            as='p'
-            size='3xl'
-            lineHeight='shorter'
-            textAlign='left'
-            fontWeight={700}
-            color='white'
-            cursor='default'
-          >¿Listo para iniciar tu camino?</Heading>
         </Box>
       </Flex>
     </Flex>
