@@ -1,12 +1,10 @@
 {
   "name": "vocaccion",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
-    "front:dev": "cd frontend && next dev",
-    "back:dev": "cd backend && ts-node-dev src/index.ts",
-    "start:front": "cd frontend && next build && next start",
-    "start:back": "cd backend && tsc && node build/src/index.js"
+    "front:dev": "cd frontend && yarn dev",
+    "back:dev": "cd backend && yarn run start:dev"
   },
   "license": "MIT",
   "workspaces": [
