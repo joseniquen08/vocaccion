@@ -12,6 +12,7 @@ This application is structured in a monorepo.
 ![Chakra](https://img.shields.io/badge/-Chakra%20UI-black?style=flat&logo=Chakra%20UI)
 ![GraphQL](https://img.shields.io/badge/-GraphQL-black?style=flat&logo=GraphQL)
 ![Framer Motion](https://img.shields.io/badge/-Framer%20Motion-black?style=flat&logo=Framer)
+![TypeScript](https://img.shields.io/badge/-TypeScript-black?style=flat&logo=TypeScript)
 
 ### Backend:
 
@@ -24,8 +25,8 @@ This application is structured in a monorepo.
 ### Deployment:
 
 ![Vercel](https://img.shields.io/badge/Vercel-client-black?style=flat&logo=Vercel)
-![Railway](https://img.shields.io/badge/Railway-server-black?style=flat&logo=Railway)
-![Railway](https://img.shields.io/badge/Railway-database-black?style=flat&logo=Railway)
+![Render](https://img.shields.io/badge/Render-server-black?style=flat&logo=Render)
+![Mongo Atlas](https://img.shields.io/badge/Mongo%20Atlas-database-black?style=flat&logo=MongoDB)
 
 ## Demo
 
